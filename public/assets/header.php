@@ -1,19 +1,39 @@
 <header class="cabecera">
-    <nav class="navegador_cabecera">
-        <ul>
-            <li class="menu_cabecera"><?php echo $_SESSION["nombre"];?></li>
-            <a href="validar.php"><li class="menu_cabecera">Desconectar</li></a>
-        </ul>
-    </nav>
-    <div id="fondo_cabecera">
-        URBAN SHOTS
+    <ul class="nav-superior nav justify-content-end navbar-light">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Cliente</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Logout</a>
+        </li>
+    </ul>
+    <div class="img-header containt-fluid d-flex justify-content-center p-5">
+        <h1 class="display-1">URBAN SHOTS</h1>
     </div>
 </header>
-<nav class="navegador_principal"> 
-   <ul>
-       <a href="principal.php"><li class="menu_principal">Novedades</li></a>
-       <li class="menu_principal">Categorias</li>
-       <li class="menu_principal">Marcas</li>
-       <a href="Vercarrito.php"><li class="menu_principal imagen_carro"><img src="./img/shopping-cart.png" alt="carrito"><?php echo $_SESSION["total"];?></li></a>
-   </ul> 
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Urban Shots</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Novedades</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Categoria</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
 </nav>
