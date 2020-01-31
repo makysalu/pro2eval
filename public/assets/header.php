@@ -7,13 +7,13 @@
             <a class="nav-link" href="#">Logout</a>
         </li>
     </ul>
-    <div class="img-header containt-fluid d-flex justify-content-center p-5">
+    <div class="img-header containt-fluid d-flex justify-content-center p-4">
         <h1 class="display-1">URBAN SHOTS</h1>
     </div>
 </header>
 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
   <a class="navbar-brand" href="#">Urban Shots</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

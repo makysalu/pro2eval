@@ -9,4 +9,6 @@
 .img-header{
     background-image: url("../img/rascacielos.jpg");
     font-family: Urban_Labels;
+    background-size: cover;
+    background-position-x: 50px;
 }
