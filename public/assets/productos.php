@@ -26,11 +26,12 @@
                 echo "<div class='col-6 col-md-3 col-lg-2 mb-4'>";
                     echo "<div class='card h-100'>";
                         echo "<img src="."'./img/productos/".$producto['foto']."' class='card-img-top' alt='...'>";
-                        echo "<div class='card-body'>";
+                        echo "<div class='card-body d-flex flex-column'>";
                             echo "<h5 class='card-title text-center'>".$producto["nombre"]."</h5>";
-                            echo "<p class='card-text text-center'>".$producto["marca"]."</p>";
-                            echo "<h3 class='card-text text-center'>".$producto["precio"]."€</h3>";
+                            echo "<span class='card-text text-center'>".$producto["marca"]."</span>";
+                            echo "<span class='card-text text-center h4'>".$producto["precio"]."€</span>";
                         echo "</div>";
+                        echo "<a href='detalle.php?idProducto=".$producto["idProducto"]."' class='btn btn-dark d-flex justify-content-center'>Comprar</a>";
                     echo "</div>";
                 echo "</div>";
                     
