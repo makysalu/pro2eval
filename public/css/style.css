@@ -1,3 +1,11 @@
+body{
+    background-color: hsl(0, 0%, 91%) !important;
+}
+
+section{
+    background-color: white !important;
+}
+
 .nav-superior .nav-item .nav-link {
     color: black
 }
@@ -12,3 +20,9 @@
     background-size: cover;
     background-position-x: 50px;
 }
+
+.img-detalle{
+    width: 25vw;
+    height: 25vw;
+}
+

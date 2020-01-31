@@ -9,6 +9,7 @@
         <script src="./js/registro.js"></script>
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script src="./js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 
         <link rel="stylesheet" href="./css/normalize.css">
         <link rel="stylesheet" href="./css/font.css">

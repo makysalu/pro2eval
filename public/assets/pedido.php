@@ -1,17 +1,16 @@
 <?php
-    $seccion="<section id='seccion_pedido'>";
-
-        $seccion.="<article>";
-            $seccion.="<header class='titulo_pedido'>Pedido</header>";
-            $seccion.="<table class='tabla_pedido' id='valores_pedido'>";
-                $seccion.="<thead><th>Id Pedido</th><th>Fecha</th><th>DNI Cliente</th></thead>";
+    $seccion="<section class='container mb-5'>";
+        $seccion.="<article class='mb-4'>";
+            $seccion.="<header class='h2 text-center'>Pedido</header>";
+            $seccion.="<table class='table'>";
+                $seccion.="<thead class='thead-dark'><th scope='col'>Id Pedido</th><th scope='col'>Fecha</th><th scope='col'>DNI Cliente</th></thead>";
                 $seccion.="<tbody><td>$pedido->idPedido</td><td>$pedido->fecha</td><td>$pedido->dniCliente</td></tbody>";
             $seccion.="</table>";
         $seccion.="</article>";
         $seccion.="<article>";
-            $seccion.="<header class='titulo_pedido'>Lineas Pedido</header>";
-            $seccion.="<table class='tabla_pedido' id='lienas_pedido'>";
-                $seccion.="<thead><th>Id Linea</th><th>Nombre Producto</th><th>Cantidad</th><th>Precio</th></thead>";
+            $seccion.="<header class='h2 text-center'>Lineas Pedido</header>";
+            $seccion.="<table class='table'>";
+                $seccion.="<thead class='thead-dark'><th>Id Linea</th><th>Nombre Producto</th><th>Cantidad</th><th>Precio</th></thead>";
                 $seccion.="<tbody>";
                     for ($cont=0; $cont < $_SESSION["total"]; $cont++) {
                         $seccion.="<tr><td>".$cont."</td><td>".$_SESSION["Carro"]["nombre"][$cont]."</td><td>".$_SESSION["Carro"]["cantidad"][$cont]."</td><td>".$_SESSION["Carro"]["precio"][$cont]."</td></tr>";
