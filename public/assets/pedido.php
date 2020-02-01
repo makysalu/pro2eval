@@ -1,15 +1,16 @@
 <?php
-    $seccion="<section class='container mb-5'>";
-        $seccion.="<article class='mb-4'>";
+    $seccion="<section class='container p-0 pb-52'>";
+        $seccion.="<header class='text-center display-4 text-white m-0 mb-4 p-5 bg-secondary'>Resumen del pedido</header>";
+        $seccion.="<article class='mb-4 p-4' >";
             $seccion.="<header class='h2 text-center'>Pedido</header>";
             $seccion.="<table class='table'>";
                 $seccion.="<thead class='thead-dark'><th scope='col'>Id Pedido</th><th scope='col'>Fecha</th><th scope='col'>DNI Cliente</th></thead>";
                 $seccion.="<tbody><td>$pedido->idPedido</td><td>$pedido->fecha</td><td>$pedido->dniCliente</td></tbody>";
             $seccion.="</table>";
         $seccion.="</article>";
-        $seccion.="<article>";
+        $seccion.="<article class='mt-5 mb-4'>";
             $seccion.="<header class='h2 text-center'>Lineas Pedido</header>";
-            $seccion.="<table class='table'>";
+            $seccion.="<table class='table pr-4 pl-4'>";
                 $seccion.="<thead class='thead-dark'><th>Id Linea</th><th>Nombre Producto</th><th>Cantidad</th><th>Precio</th></thead>";
                 $seccion.="<tbody>";
                     for ($cont=0; $cont < $_SESSION["total"]; $cont++) {

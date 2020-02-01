@@ -1,7 +1,7 @@
-<section class="container pb-5">
-    <h1 class="text-center p-4 bg-secondary">Cesta de la compra</h1>
+<section class="container p-0 pb-5">
+    <header class="text-center display-4 text-white m-0 mb-4 p-5 bg-secondary">Cesta de la compra</header>
     <form action="" method="post">
-        <article class="productos_carro">
+        <article class="pl-4 pr-4">
         <table class="table">
             <thead class="thead-dark">
                 <tr class="text-center">
@@ -40,9 +40,9 @@
                             echo "<div class='d-flex flex-row'>";
                                 echo "<span class='col align-self-start'>Precio total</span><span class='col align-self-end'>".$total."€</span>";
                             echo "</div>";
-                            echo "<div class='d-flex flex-row justify-content-center mt-4'>";
-                                echo "<input class='btn btn-secondary mr-4' id='boton_actualizarCarro' type='submit' value='Actualizar' name='actualizar'>";
-                                echo "<a href='confirmar.php'><input class='btn btn-secondary' id='boton_confirmarCarro' type='button' value='Confirmar'></a>";
+                            echo "<div class='d-flex flex-row mt-4'>";
+                                echo "<span class='col align-self-start'><input class='btn btn-secondary' id='boton_actualizarCarro' type='submit' value='Actualizar' name='actualizar'></span>";
+                                echo "<span class='col align-self-end'><a href='confirmar.php'><input class='btn btn-secondary' id='boton_confirmarCarro' type='button' value='Confirmar'></a></span>";
                             echo "</div>";
                         echo "</div>";
                     echo "</div>";
