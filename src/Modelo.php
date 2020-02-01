@@ -1,30 +1,29 @@
 <?php
-class BBDD{
-  private $conexion;
-  function __construct(){
-      if(!isset($this->conexion)){
-          $this->conexion=new mysqli('localhost','root','','virtualmarket');
-      }
-      if($this->conexion->connect_errno){
-          $dato="Fallo al conectar la base de datos".$conexion->connect_error;
-          require "vistas/mostrar.php";
-      }
-      else{
-          
-      }
-  }
-  public function cerrarconexion(){
-      $this->conexion->close();
-  }
-  //coje
-  public function __get($var){
-      return $this->$var;
-  }
-  //set
-  public function __set($var,$valor){
-    $this->$var=$valor;
-  }
-}
+    class BBDD{
+        private $conexion;
+
+        public function __construct(){
+            if(!isset($this->conexion)){
+                try{
+                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', '');
+                    $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                }
+                catch(PDOException $e){
+                    $error="Fallo al conectar con la BBDD "+$e->getMessage();
+                    require "vistas/mensaje.php";
+                    die();
+                } 
+            }
+        }
+
+        public function cerrarconexion(){
+            $this->conexion=null;
+        }
+
+        public function __get($var){
+            return $this->$var;
+        }
+    }
 
 class Usuario{
     private $dniCliente;
@@ -51,12 +50,19 @@ class Usuario{
       $this->$var=$valor;
     }
 
-    public function listarClientes($conexion){
-        $consulta="SELECT * FROM clientes";
-        return $result=$conexion->query($consulta);
+    static function getAllUsuarios($conexion){
+        try{
+            $sql = $conexion->prepare("SELECT * FROM clientes");
+            $sql->execute();
+           return $sql->fetchAll(PDO::FETCH_ASSOC);
+            
+        }
+        catch(PDOException $ex){
+            echo $ex;
+        }  
     }
 
-    public function ComprobarCliente($conexion){
+    public function ComprobarUsuario($conexion){
         $consulta="SELECT * FROM clientes WHERE dniCliente = "."'".$this->dniCliente."'";
         $resultado=$conexion->query($consulta);
         $row_cnt = $resultado->num_rows;
@@ -74,35 +80,58 @@ class Usuario{
         }
     }
 
-    public function SacarDatos($conexion){
-        $consulta="SELECT * FROM clientes WHERE dniCliente = "."'".$this->dniCliente."'";
-        $resultado=$conexion->query($consulta);
-        $cliente=$resultado->fetch_assoc();
-        return $cliente;
-    }
-
-    public function InsertCliente($conexion){
-        $consulta="SELECT * FROM clientes WHERE dniCliente = "."'".$this->dniCliente."'";
-        $resultado=$conexion->query($consulta);
-        $row_cnt = $resultado->num_rows;
-        if($row_cnt==0){
-            $consulta="insert into clientes (dniCliente,nombre,direccion,email,pwd) values ("."'".$this->dniCliente."'".","."'".$this->nombre."'".","."'".$this->direccion."'".","."'".$this->email."'".","."'".$this->pwd."'".")";
-            $conexion->query($consulta);
-            return true;
+    public function getUsuario($conexion){
+        try{
+            $sql = $conexion->prepare("SELECT * FROM clientes where dniCliente=:dniCliente");
+            $sql->bindValue(':dniCliente', $this->dniCliente);
+            $sql->execute();
+            return $sql->fetch(PDO::FETCH_ASSOC);
         }
-        else{
-            return false;
+        catch(PDOException $ex){
+            echo $ex;
+        }  
+    }
+
+    public function postUsuario($conexion){
+        try{
+            $sql = $conexion->prepare("INSERT INTO clientes (dniCliente,admin,nombre,direccion,email,pwd) VALUES (:dniCliente,:admin, :nombre, :direccion, :email, :pwd)");
+            $sql->bindParam(':dniCliente',$this->dniCliente);
+            $sql->bindParam(':admin',0);
+            $sql->bindParam(':nombre',$this->nombre);
+            $sql->bindParam(':direccion',$this->direccion);
+            $sql->bindParam(':email',$this->email);
+            $sql->bindParam(':pwd',$this->pwd);
+            $sql->execute();
+        }
+        catch(PDOException $ex){
+            $msg=$ex;
         }
     }
 
-    public function deleteClient($conexion){
-        $consulta="DELETE FROM clientes WHERE dniCliente = "."'".$this->dniCliente."'";
-        $conexion->query($consulta);
+    public function deleteUsuario($conexion){
+        try{
+            $sql = $conexion->prepare("DELETE FROM clientes WHERE dniCliente=:dniCliente");
+            $sql->bindParam(':dniCliente',$this->dniCliente);
+            $sql->execute();
+        }
+        catch(PDOException $ex){
+            $msg=$ex;
+        }
     }
 
-    public function updateClient($conexion){
-        $consulta="UPDATE clientes SET nombre = "."'".$this->nombre."'".", direccion="."'".$this->direccion."'".", email="."'".$this->email."'"." WHERE dniCliente="."'".$this->dniCliente."'";
-        $conexion->query($consulta);
+    public function putCliente($conexion){
+        try{
+            $sql = $conexion->prepare("UPDATE clientes  SET nombre=:nombre, direccion=:direccion, email=:email, pwd=:pwd WHERE dniCliente=:dniCliente");
+            $sql->bindParam(':dniCliente',$this->dniCliente);
+            $sql->bindParam(':nombre',$this->nombre);
+            $sql->bindParam(':direccion',$this->direccion);
+            $sql->bindParam(':email',$this->email);
+            $sql->bindParam(':pwd',$this->pwd);
+            $sql->execute();
+        }
+        catch(PDOException $ex){
+            $msg=$ex;
+        }
     }
 }
 
@@ -133,45 +162,81 @@ class Usuario{
       $this->$var=$valor;
     }
 
-    static function listarProductos($conexion){
-        $consulta="SELECT * FROM productos";
-        return $result=$conexion->query($consulta);
+    static function getAllProductos($conexion){
+        try{
+            $sql = $conexion->prepare("SELECT * FROM productos");
+            $sql->execute();
+           return $sql->fetchAll(PDO::FETCH_ASSOC);
+            
+        }
+        catch(PDOException $ex){
+            echo $ex;
+        }  
     }
 
-    public function InsertProducto($conexion){
-        $consulta="insert INTO productos (nombre,foto,marca,categoria,precio) VALUES ("."'".$this->nombre."'".","."'".$this->foto."'".","."'".$this->marca."'".","."'".$this->categoria."'".","."'".$this->precio."'".")";
-        $resultado=$conexion->query($consulta);
-        $this->idProducto=mysqli_insert_id($conexion);
-        return true;
+    public function postProducto($conexion){
+        try{
+            $sql = $conexion->prepare("INSERT INTO productos (nombre,foto,marca,categoria,unidades,precio) VALUES (:nombre, :foto, :marca, :categoria, :unidades, :precio)");
+            $sql->bindParam(':nombre',$this->nombre);
+            $sql->bindParam(':foto',$this->foto);
+            $sql->bindParam(':marca',$this->marca);
+            $sql->bindParam(':categoria',$this->categoria);
+            $sql->bindParam(':unidades',$this->unidades);
+            $sql->bindParam(':precio',$this->precio);
+            $sql->execute();
+        }
+        catch(PDOException $ex){
+            $msg=$ex;
+        }
     }
 
-    public function SelectProducto($conexion){
-        $consulta="SELECT * from productos WHERE productos.idProducto=".$this->idProducto;
-        $resultado=$conexion->query($consulta);
-        $row_cnt = $resultado->num_rows;
-        if ($row_cnt==0){
-            return false;
+    public function getProducto($conexion){
+        try{
+            $sql = $conexion->prepare("SELECT * FROM productos where idProducto=:idProducto");
+            $sql->bindValue(':idProducto', $this->idProducto);
+            $sql->execute();
+            $datos=$sql->fetch(PDO::FETCH_ASSOC);
+                $this->nombre=$datos["nombre"];
+                $this->foto=$datos["foto"];
+                $this->marca=$datos["marca"];
+                $this->categoria=$datos["categoria"];
+                $this->precio=$datos["precio"];
         }
-        else{
-            $producto=$resultado->fetch_assoc();
-            $this->idProducto=$producto["idProducto"];
-            $this->nombre=$producto["nombre"];
-            $this->foto=$producto["foto"];
-            $this->marca=$producto["marca"];
-            $this->categoria=$producto["categoria"];
-            $this->unidades=$producto["unidades"];
-            $this->precio=$producto["precio"];
-        }
+        catch(PDOException $ex){
+            echo $ex;
+        }  
     }
 
     public function deleteProducto($conexion){
-        $consulta="DELETE FROM productos WHERE idProducto = "."'".$this->idProducto."'";
-        $conexion->query($consulta);
+        try{
+            $sql = $conexion->prepare("DELETE FROM prodructos WHERE idProducto=:idProducto");
+            $sql->bindParam(':idProducto',$this->idProducto);
+            $sql->execute();
+        }
+        catch(PDOException $ex){
+            echo $msg=$ex;
+        }
     }
 
     public function updateproducto($conexion){
         $consulta="UPDATE productos SET nombre = "."'".$this->nombre."'".", foto="."'".$this->foto."'".", marca="."'".$this->marca."'".", categoria="."'".$this->categoria."'".", precio="."'".$this->precio."'"." WHERE idProducto=".$this->idProducto;
         $conexion->query($consulta);
+    }
+    public function putCliente($conexion){
+        try{
+            $sql = $conexion->prepare("UPDATE productos  SET nombre=:nombre, foto=:foto, marca=:marca, categoria=:categoria, unidades=:unidades, precio=precio WHERE idProducto=:idProducto");
+            $sql->bindParam(':idProducto',$this->idProducto);
+            $sql->bindParam(':nombre',$this->nombre);
+            $sql->bindParam(':foto',$this->foto);
+            $sql->bindParam(':marca',$this->marca);
+            $sql->bindParam(':categoria',$this->categoria);
+            $sql->bindParam(':unidades',$this->unidades);
+            $sql->bindParam(':precio',$this->precio);
+            $sql->execute();
+        }
+        catch(PDOException $ex){
+            $msg=$ex;
+        }
     }
 
  }
@@ -236,15 +301,22 @@ class Usuario{
       $this->$var=$valor;
     }
 
-    static function listarPedidos($conexion){
-        $consulta="SELECT * FROM pedidos";
-        return $result=$conexion->query($consulta);
+    static function getAllPedidos($conexion){
+        $sql = $conexion->prepare("SELECT * FROM pedidos");
+        $result=$sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function listarLineasPedidos($conexion){
         $consulta="SELECT * FROM lineaspedidos WHERE idPedido=".$this->idPedido;
        // var_dump($consulta);
         return $result=$conexion->query($consulta);
+    }
+
+    public function getAllLineasPedidos($conexion){
+        $sql = $conexion->prepare("SELECT * FROM clientes");
+        $result=$sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function mostrarPedido($conexion){
