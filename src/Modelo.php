@@ -5,7 +5,7 @@
         public function __construct(){
             if(!isset($this->conexion)){
                 try{
-                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', 'root');
+                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', '');
                     $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 }
                 catch(PDOException $e){
@@ -233,22 +233,22 @@ class Usuario{
 
  }
 
- class lineaCarrito{
-    private $idLineaCarro;
+ class Carro{
+    private $lineaCarro;
     private $idCarro;
-    private $dniCliente
+    private $dniCliente;
     private $idProducto;
     private $cantidad;
 
-    function __construct($idLineaCarro,$idCarro,$dniCliente,$idProducto,$cantidad){
-        $this->idLineaCarro=$idLineaCarro;
+    function __construct($idCarro,$lineaCarro,$dniCliente,$idProducto,$cantidad){
         $this->idCarro=$idCarro;
+        $this->lineaCarro=$lineaCarro;
         $this->dniCliente=$dniCliente;
         $this->idProducto=$idProducto;
         $this->cantidad=$cantidad;
     }
 
-    static function getAllProductos($conexion,$idCarro){
+    static function getAllLinesOfCarro($conexion,$idCarro){
         try{
             $sql = $conexion->prepare("SELECT * FROM productos where idCarro=:idCarro");
             $sql->bindParam(':idCarro',$idCarro);
@@ -261,10 +261,29 @@ class Usuario{
         }  
     }
 
-    public function postLineaCarro(){
+    static function maxIdCarro($conexion){
         try{
-            $sql = $conexion->prepare("INSERT INTO lineasCarro (idLineaCarro,idCarro,dniCliente,idProducto,cantidad) VALUES (:idLineaCarro, :idCarro, :dniCliente, :idProducto, :cantidad)");
-            $sql->bindParam(':idLineaCarro',$this->idLineaCarro);
+            $sql = $conexion->prepare("SELECT MAX(idCarro) from carro");
+            $sql->execute();
+            $max=$sql->fetch(PDO::FETCH_ASSOC);
+            return $max;
+        }
+        catch(PDOException $ex){
+            echo $ex;
+        } 
+    }
+
+    public function postLineaCarro($conexion){
+        try{
+            $sql = $conexion->prepare("SELECT MAX(lineaCarro) AS idLinea FROM carro where idCarro=:idCarro");
+            $sql->bindParam(':idCarro',$this->idCarro);
+            $sql->execute();
+            $datos=$sql->fetch(PDO::FETCH_ASSOC);
+            $newId=($datos["idLinea"]+1);
+            $this->lineaCarro=$newId;
+            
+            $sql = $conexion->prepare("INSERT INTO carro (lineaCarro,idCarro,dniCliente,idProducto,cantidad) VALUES (:lineaCarro, :idCarro, :dniCliente, :idProducto, :cantidad)");
+            $sql->bindParam(':lineaCarro',$this->lineaCarro);
             $sql->bindParam(':idCarro',$this->idCarro);
             $sql->bindParam(':dniCliente',$this->dniCliente);
             $sql->bindParam(':idProducto',$this->idProducto);
