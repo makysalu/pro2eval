@@ -20,19 +20,13 @@
         else{
             if(isset($_POST["Comprar"])){
                 require "../src/Modelo.php";
-                if(isset($_COOKIE["carro"])){
-                    $carro=json_decode($_COOKIE["carro"]);
-                    $total=$_COOKIE["total"];
+                if(isset($_COOKIE["idCarro"])){
                     $lineaCarro=Carrito::añadirLinea($_POST["idProducto"],$_POST["nombre"],$_POST["precio"],$_POST["cantidad"],$_POST["foto"],$total);
-                    setcookie('total',$total+1,time()+360000);
                 }
                 else{
                     $total=0;
                     setcookie("idCarro",0,time()+36000);
-                    setcookie('total',1,time()+360000);
-                    $carro= array();
                     
-                    $lineaCarro=Carrito::añadirLinea($_POST["idProducto"],$_POST["nombre"],$_POST["precio"],$_POST["cantidad"],$_POST["foto"],$total);
                 }
                 array_push($carro,$lineaCarro);
                 $carro=json_encode($carro);

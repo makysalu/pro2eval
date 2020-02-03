@@ -233,15 +233,49 @@ class Usuario{
 
  }
 
- class Carrito{
-    static function añadirLinea($idProducto,$nombre,$precio,$cantidad,$foto,$total){
-        $carro[$total]["idProducto"]=$idProducto;
-        $carro[$total]["nombre"]=$nombre;
-        $carro[$total]["precio"]=$precio;
-        $carro[$total]["cantidad"]=$cantidad;
-        $carro[$total]["foto"]=$foto;
-        return $carro;
+ class lineaCarrito{
+    private $idLineaCarro;
+    private $idCarro;
+    private $dniCliente
+    private $idProducto;
+    private $cantidad;
+
+    function __construct($idLineaCarro,$idCarro,$dniCliente,$idProducto,$cantidad){
+        $this->idLineaCarro=$idLineaCarro;
+        $this->idCarro=$idCarro;
+        $this->dniCliente=$dniCliente;
+        $this->idProducto=$idProducto;
+        $this->cantidad=$cantidad;
     }
+
+    static function getAllProductos($conexion,$idCarro){
+        try{
+            $sql = $conexion->prepare("SELECT * FROM productos where idCarro=:idCarro");
+            $sql->bindParam(':idCarro',$idCarro);
+            $sql->execute();
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+            
+        }
+        catch(PDOException $ex){
+            echo $ex;
+        }  
+    }
+
+    public function postLineaCarro(){
+        try{
+            $sql = $conexion->prepare("INSERT INTO lineasCarro (idLineaCarro,idCarro,dniCliente,idProducto,cantidad) VALUES (:idLineaCarro, :idCarro, :dniCliente, :idProducto, :cantidad)");
+            $sql->bindParam(':idLineaCarro',$this->idLineaCarro);
+            $sql->bindParam(':idCarro',$this->idCarro);
+            $sql->bindParam(':dniCliente',$this->dniCliente);
+            $sql->bindParam(':idProducto',$this->idProducto);
+            $sql->bindParam(':cantidad',$this->cantidad);
+            $sql->execute();
+        }
+        catch(PDOException $ex){
+            $msg=$ex;
+        }
+    }
+
     static function ActualizarCarro($cantidad){
        foreach ($cantidad as $key => $value) {
            if($value>0){
