@@ -16,7 +16,7 @@
                require "./assets/inicioHTML.php";
                require "./assets/header.php";
                require "./assets/pedido.php";
-               session_destroy();
+               //session_destroy();
            }
         }
         else{

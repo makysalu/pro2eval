@@ -9,6 +9,7 @@
             <form class="form-horizontal" action="Vercarrito.php" method="post" enctype="multipart/form-data" name="buy">
                 <input type="hidden" name="idProducto" value="<?php echo $producto->idProducto;?>" readonly>
                 <input type="hidden" name="nombre" id="input-nombre" value="<?php echo $producto->nombre;?>" readonly><br>
+                <input type="hidden" name="foto" id="input-foto" value="<?php echo $producto->foto;?>" readonly><br>
                 <div class="form-group row">
                     <label for="input-marca" class="col-sm-3 col-md-3 form-control-label">Marca:</label>
                     <div class="col-sm-9 col-md-9">
@@ -32,13 +33,13 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-md-3 form-control-label">Description:</label>
                     <div class="col-sm-8 col-md-9">
-                        <p>Just getting going.Sta own effects, experiment, and share your stuff with others digitally. Most of all, have some fun! </p>
+                        <p><?php echo $producto->descripcion ?></p>
                     </div>
                 </div>
                 <div class="form-group product-stock product-available row visible">
                     <label class="col-sm-3 col-md-3 form-control-label"></label>
                     <div class="col-sm-8 col-md-9">
-                        <input type="submit" class="btn btn-secondary w-100" value="Añadir al Carro">
+                        <input type="submit" class="btn btn-secondary w-100" name="Comprar" value="Añadir al Carro">
                     </div>
                 </div>  
                 <div id="product-sharing" class="row">

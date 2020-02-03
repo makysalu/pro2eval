@@ -6,8 +6,8 @@
              require "../src/Modelo.php";
              $base=new BBDD;
              $usuario= new Usuario($datos["DNI"],"","","","","");
-             $estadoLogin=$usuario->ComprobarCliente($base->conexion);
-             if ($estadoLogin===false) {
+             $datosUsuario=$usuario->getUsuario($base->conexion);
+             if ($datosUsuario===false) {
                 $base->cerrarconexion();
                 require "./assets/msgCuenta.php";
                 require "./assets/login.php";

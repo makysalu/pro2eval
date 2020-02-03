@@ -5,7 +5,7 @@
             if(isset($_GET["idProducto"])){
                 require "../src/Modelo.php";
                 $base= new BBDD;
-                $producto=new Producto($_GET["idProducto"],"","","","","",""); 
+                $producto=new Producto($_GET["idProducto"],"","","","","","",""); 
                 $producto->getProducto($base->conexion);
                 if ($producto===false) {
                     $base->cerrarconexion();

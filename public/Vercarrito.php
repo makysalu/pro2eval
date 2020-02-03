@@ -1,4 +1,5 @@
 <?php 
+    var_dump($_POST);
         session_start();
         $total=0;  
         if(isset($_SESSION["dni"])){
