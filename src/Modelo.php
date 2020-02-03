@@ -5,7 +5,7 @@
         public function __construct(){
             if(!isset($this->conexion)){
                 try{
-                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', '');
+                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', 'root');
                     $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 }
                 catch(PDOException $e){
@@ -234,32 +234,31 @@ class Usuario{
  }
 
  class Carrito{
-
-    static function añadirLinea($idProducto,$nombre,$precio,$cantidad,$foto){
-        $_SESSION["Carro"]["idProducto"][$_SESSION["total"]]=$_POST["idProducto"];
-        $_SESSION["Carro"]["foto"][$_SESSION["total"]]=$_POST["foto"];
-        $_SESSION["Carro"]["nombre"][$_SESSION["total"]]=$_POST["nombre"];
-        $_SESSION["Carro"]["precio"][$_SESSION["total"]]=$_POST["precio"];
-        $_SESSION["Carro"]["cantidad"][$_SESSION["total"]]=$_POST["cantidad"];
-        $_SESSION["total"]=$_SESSION["total"]+1;
+    static function añadirLinea($idProducto,$nombre,$precio,$cantidad,$foto,$total){
+        $carro[$total]["idProducto"]=$idProducto;
+        $carro[$total]["nombre"]=$nombre;
+        $carro[$total]["precio"]=$precio;
+        $carro[$total]["cantidad"]=$cantidad;
+        $carro[$total]["foto"]=$foto;
+        return $carro;
     }
     static function ActualizarCarro($cantidad){
        foreach ($cantidad as $key => $value) {
            if($value>0){
-                $_SESSION["Carro"]["cantidad"][$key]=$value;  
+                $_COOKIE["Carro"]["cantidad"][$key]=$value;  
            }
            else{
-            unset($_SESSION["Carro"]["idProducto"][$key]);
-            $_SESSION["Carro"]["idProducto"]=array_values($_SESSION["Carro"]["idProducto"]);
-            unset($_SESSION["Carro"]["foto"][$key]);
-            $_SESSION["Carro"]["foto"]=array_values($_SESSION["Carro"]["foto"]);
-            unset($_SESSION["Carro"]["nombre"][$key]);
-            $_SESSION["Carro"]["nombre"]=array_values($_SESSION["Carro"]["nombre"]);
-            unset($_SESSION["Carro"]["precio"][$key]);
-            $_SESSION["Carro"]["precio"]=array_values($_SESSION["Carro"]["precio"]);
-            unset($_SESSION["Carro"]["cantidad"][$key]);
-            $_SESSION["Carro"]["cantidad"]=array_values($_SESSION["Carro"]["cantidad"]);
-            $_SESSION["total"]=$_SESSION["total"]-1;
+            unset($_COOKIE["Carro"]["idProducto"][$key]);
+            $_COOKIE["Carro"]["idProducto"]=array_values($_COOKIE["Carro"]["idProducto"]);
+            unset($_COOKIE["Carro"]["foto"][$key]);
+            $_COOKIE["Carro"]["foto"]=array_values($_COOKIE["Carro"]["foto"]);
+            unset($_COOKIE["Carro"]["nombre"][$key]);
+            $_COOKIE["Carro"]["nombre"]=array_values($_COOKIE["Carro"]["nombre"]);
+            unset($_COOKIE["Carro"]["precio"][$key]);
+            $_COOKIE["Carro"]["precio"]=array_values($_COOKIE["Carro"]["precio"]);
+            unset($_COOKIE["Carro"]["cantidad"][$key]);
+            $_COOKIE["Carro"]["cantidad"]=array_values($_COOKIE["Carro"]["cantidad"]);
+            $_COOKIE["carro"]["total"]=$_COOKIE["carro"]["total"]-1;
            }
            
        }
@@ -359,8 +358,8 @@ class Usuario{
     }
 
     public function altaLineaPedido($conexion){
-         for ($cont=$_SESSION["total"]-1; $cont > 0 ; $cont--) { 
-             $consulta="INSERT INTO lineaspedidos (idPedido,nlinea,idProducto,cantidad) VALUES ("."'".$this->idPedido."'".","."'".$cont."'".","."'".$_SESSION["Carro"]["idProducto"][$cont]."'".","."'".$_SESSION["Carro"]["cantidad"][$cont]."'".")";
+         for ($cont=$_COOKIE["carro"]["total"]-1; $cont > 0 ; $cont--) { 
+             $consulta="INSERT INTO lineaspedidos (idPedido,nlinea,idProducto,cantidad) VALUES ("."'".$this->idPedido."'".","."'".$cont."'".","."'".$_COOKIE["Carro"]["idProducto"][$cont]."'".","."'".$_COOKIE["Carro"]["cantidad"][$cont]."'".")";
              
              $conexion->query($consulta);
          }
@@ -369,17 +368,17 @@ class Usuario{
     static function postLineaPedido($conexion,$idProducto,$cantidad){
         try{
             $sql = $conexion->prepare("SELECT MAX(nlinea) AS nlinea FROM lineaspedidos WHERE idPedido=:idPedido");
-            $sql->bindParam(':idPedido', $this->idPedido;);
+            $sql->bindParam(':idPedido', $this->idPedido);
             $sql->execute();
             $datos=$sql->fetch(PDO::FETCH_ASSOC);
             $newId=($datos["idPedido"]+1);
             $this->idPedido=$newId;
             
             $sql = $conexion->prepare("INSERT INTO lineaspedidos (idPedido,nlinea,idProducto,cantidad) VALUES (:idPedido, :nlinea, :idProducto, :cantidad)");
-            $sql->bindParam(':idPedido', $this->idPedido;);
-            $sql->bindParam(':nlinea', $newId;);
-            $sql->bindParam(':idProducto', $idProducto;);
-            $sql->bindParam(':cantidad', $cantidad;);
+            $sql->bindParam(':idPedido', $this->idPedido);
+            $sql->bindParam(':nlinea', $newId);
+            $sql->bindParam(':idProducto', $idProducto);
+            $sql->bindParam(':cantidad', $cantidad);
             $sql->execute();
         }
         catch(PDOException $ex){
@@ -397,7 +396,6 @@ class Usuario{
         catch(PDOException $ex){
             echo $msg=$ex;
         }
-    }
     }
 
     public function deletePedido($conexion){
