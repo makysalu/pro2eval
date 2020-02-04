@@ -1,15 +1,32 @@
 <header class="cabecera">
-    <ul class="nav-superior nav justify-content-end navbar-light">
-        <li class="nav-item">
-            <a class="nav-link active" href="#">Cliente</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Logout</a>
-        </li>
+  <nav id="navbar-example2" class="navbar navbar-light bg-light pt-0 pb-0">
+    <a class="navbar-brand" href="#"></a>
+    <ul class="nav nav-pills">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">login</a>
+        <form class="dropdown-menu p-4" action="validar.php" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="DNI">DNI:</label>
+            <input type="text" class="form-control" name="DNI" id="DNI"paceholder="DNI">
+          </div>
+          <div class="form-group">
+            <label for="exampleDropdownFormPassword2">Password</label>
+            <input type="password" class="form-control" name="Password" id="Password" placeholder="Password">
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="dropdownCheck2">
+            <label class="form-check-label" for="dropdownCheck2">
+              Recordar
+            </label>
+          </div>
+          <button type="submit" class="btn btn-secondary mt-2" name="Loguear">Loguear</button>
+        </form>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href='validar.php?desconectar=true'><?php if(isset($_COOKIE["username"])){echo $_COOKIE["username"];} else{ echo "Usuario";} ?></a>
+      </li>
     </ul>
-    <div class="img-header containt-fluid d-flex justify-content-center p-4">
-        <h1 class="display-1">URBAN SHOTS</h1>
-    </div>
+  </nav>
 </header>
 
 
@@ -31,9 +48,24 @@
         <a class="nav-link" href="#">Categoria</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <ul class="nav justify-content-end">
+      <li class="nav-item text-light">
+        <ion-icon size="large" name="cart"></ion-icon>
+        <?php 
+            if(isset($totalCarro)){
+              echo $totalCarro;
+            }
+            elseif(isset($_COOKIE["idCarro"])){
+              echo $_COOKIE["totalCarro"];
+            }
+            else{
+              echo 0;
+            } 
+        ?>
+      </li>
+    </ul>
   </div>
 </nav>
+
+
+

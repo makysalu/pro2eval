@@ -5,7 +5,7 @@
         public function __construct(){
             if(!isset($this->conexion)){
                 try{
-                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', '');
+                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', 'root');
                     $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 }
                 catch(PDOException $e){
@@ -69,7 +69,7 @@ class Usuario{
             $sql->execute();
             $datos=$sql->fetch(PDO::FETCH_ASSOC);
             $this->nombre=$datos["nombre"];
-            $this->direccion=$datos["dirreccion"];
+            $this->direccion=$datos["direccion"];
             $this->email=$datos["email"];
             $this->pwd=$datos["pwd"];
             $this->admin=$datos["admin"];
@@ -239,18 +239,58 @@ class Usuario{
     private $dniCliente;
     private $idProducto;
     private $cantidad;
+    private $idTemporal;
 
-    function __construct($idCarro,$lineaCarro,$dniCliente,$idProducto,$cantidad){
+    function __construct($idCarro,$lineaCarro,$dniCliente,$idTemporal,$idProducto,$cantidad){
         $this->idCarro=$idCarro;
         $this->lineaCarro=$lineaCarro;
         $this->dniCliente=$dniCliente;
+        $this->idTemporal=$idTemporal;
         $this->idProducto=$idProducto;
         $this->cantidad=$cantidad;
     }
 
+    public function __get($var){
+        return $this->$var;
+    }
+
+    public function __set($var,$valor){
+      $this->$var=$valor;
+    }
+
+    public function getIdCarroBydniCliente($conexion){
+        try{
+            $sql = $conexion->prepare("SELECT idCarro FROM carro WHERE dniCliente=:dniCliente");
+            $sql->bindParam(':dniCliente',$this->dniCliente);
+            $sql->execute();
+            $datos=$sql->fetchAll(PDO::FETCH_ASSOC);
+            if($datos==null){
+                $this->idCarro =null;
+            }
+            else{
+                $this->idCarro = $datos[0]["idCarro"];
+            }
+        }
+        catch(PDOException $ex){
+            echo $ex;
+        }  
+    }
+
+    public function putCarroByUser($conexion){
+        try{
+            $sql = $conexion->prepare("UPDATE carro  SET dniCliente=:dniCliente WHERE idCarro=:idCarro");
+            $sql->bindParam('idCarro',$this->idCarro);
+            $sql->bindParam(':dniCliente', $this->dniCliente);
+            $sql->execute();
+        }
+        catch(PDOException $ex){
+            $msg=$ex;
+        }
+    }
+
     static function getAllLinesOfCarro($conexion,$idCarro){
         try{
-            $sql = $conexion->prepare("SELECT carro.cantidad,carro.lineaCarro, productos.nombre, productos.foto, productos.precio FROM carro LEFT JOIN productos ON carro.idProducto = productos.idProducto WHERE carro.idCarro=:idCarro");
+            $sql = $conexion->prepare("SELECT carro.idProducto, carro.cantidad,carro.lineaCarro, productos.nombre, productos.foto, productos.precio FROM carro LEFT JOIN productos ON carro.idProducto = productos.idProducto WHERE carro.idCarro=:idCarro");
             $sql->bindParam(':idCarro',$idCarro);
             $sql->execute();
             return $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -282,12 +322,14 @@ class Usuario{
             $newId=($datos["idLinea"]+1);
             $this->lineaCarro=$newId;
             
-            $sql = $conexion->prepare("INSERT INTO carro (lineaCarro,idCarro,dniCliente,idProducto,cantidad) VALUES (:lineaCarro, :idCarro, :dniCliente, :idProducto, :cantidad)");
+            $sql = $conexion->prepare("INSERT INTO carro (lineaCarro,idCarro,dniCliente,idTemporal,idProducto,cantidad) VALUES (:lineaCarro, :idCarro, :dniCliente, :idTemporal, :idProducto, :cantidad)");
             $sql->bindParam(':lineaCarro',$this->lineaCarro);
             $sql->bindParam(':idCarro',$this->idCarro);
             $sql->bindParam(':dniCliente',$this->dniCliente);
+            $sql->bindParam(':idTemporal',$this->idTemporal);
             $sql->bindParam(':idProducto',$this->idProducto);
             $sql->bindParam(':cantidad',$this->cantidad);
+            //var_dump($sql);
             $sql->execute();
         }
         catch(PDOException $ex){
@@ -313,6 +355,17 @@ class Usuario{
             $sql = $conexion->prepare("DELETE FROM carro WHERE idCarro=:idCarro AND lineaCarro=:lineaCarro");
             $sql->bindParam(':idCarro',$this->idCarro);
             $sql->bindParam(':lineaCarro',$this->lineaCarro);
+            $sql->execute();
+        }
+        catch(PDOException $ex){
+            echo $msg=$ex;
+        }
+    }
+
+    public function deleteCarro($conexion){
+        try{
+            $sql = $conexion->prepare("DELETE FROM carro WHERE idCarro=:idCarro");
+            $sql->bindParam(':idCarro',$this->idCarro);
             $sql->execute();
         }
         catch(PDOException $ex){
@@ -361,18 +414,7 @@ class Usuario{
         }  
     }
 
-    public function getAllLineasPedidos($conexion){
-        try{
-            $sql = $conexion->prepare("SELECT * FROM lineaspedidos WHERE idPedido=:idPedido");
-            $sql->bindParam(':idPedido',$this->idPedido);
-            $sql->execute();
-            return $sql->fetchAll(PDO::FETCH_ASSOC);
-            
-        }
-        catch(PDOException $ex){
-            echo $ex;
-        } 
-    }
+    
 
     public function getPedido($conexion){
         try{
@@ -400,7 +442,8 @@ class Usuario{
             $newId=($datos["idPedido"]+1);
             $this->idPedido=$newId;
 
-            $sql = $conexion->prepare("INSERT INTO productos (fecha,dirEntrega,nTarjeta,fechaCaducidad,matriculaRepartidor,dniCliente) VALUES (:fecha, :dirEntrega, :nTarjeta, :fechaCaducidad, :matriculaRepartidor, :dniCliente)");
+            $sql = $conexion->prepare("INSERT INTO pedidos (idPedido, fecha,dirEntrega,nTarjeta,fechaCaducidad,matriculaRepartidor,dniCliente) VALUES (:idPedido, :fecha, :dirEntrega, :nTarjeta, :fechaCaducidad, :matriculaRepartidor, :dniCliente)");
+            $sql->bindParam('idPedido',$this->idPedido);
             $sql->bindParam(':fecha',$this->fecha);
             $sql->bindParam(':dirEntrega', $this->dirEntrega);
             $sql->bindParam(':nTarjeta',$this->nTarjeta);
@@ -408,52 +451,22 @@ class Usuario{
             $sql->bindParam(':matriculaRepartidor',$this->matriculaRepartidor);
             $sql->bindParam(':dniCliente',$this->dniCliente);
             $sql->execute();
+            
         }
         catch(PDOException $ex){
             echo $ex;
         } 
     }
 
-    public function altaLineaPedido($conexion){
+    /*public function postLineaPedido($conexion){
          for ($cont=$_COOKIE["carro"]["total"]-1; $cont > 0 ; $cont--) { 
              $consulta="INSERT INTO lineaspedidos (idPedido,nlinea,idProducto,cantidad) VALUES ("."'".$this->idPedido."'".","."'".$cont."'".","."'".$_COOKIE["Carro"]["idProducto"][$cont]."'".","."'".$_COOKIE["Carro"]["cantidad"][$cont]."'".")";
              
              $conexion->query($consulta);
          }
-    }
+    }*/
 
-    static function postLineaPedido($conexion,$idProducto,$cantidad){
-        try{
-            $sql = $conexion->prepare("SELECT MAX(nlinea) AS nlinea FROM lineaspedidos WHERE idPedido=:idPedido");
-            $sql->bindParam(':idPedido', $this->idPedido);
-            $sql->execute();
-            $datos=$sql->fetch(PDO::FETCH_ASSOC);
-            $newId=($datos["idPedido"]+1);
-            $this->idPedido=$newId;
-            
-            $sql = $conexion->prepare("INSERT INTO lineaspedidos (idPedido,nlinea,idProducto,cantidad) VALUES (:idPedido, :nlinea, :idProducto, :cantidad)");
-            $sql->bindParam(':idPedido', $this->idPedido);
-            $sql->bindParam(':nlinea', $newId);
-            $sql->bindParam(':idProducto', $idProducto);
-            $sql->bindParam(':cantidad', $cantidad);
-            $sql->execute();
-        }
-        catch(PDOException $ex){
-            echo $ex;
-        } 
-   }
-
-    public function deleteLineaPedido($conexion, $nlinea){
-        try{
-            $sql = $conexion->prepare("DELETE FROM lineaspedidos WHERE idPedido =:idPedido && nlinea=:nlinea");
-            $sql->bindParam(':idProducto',$this->idPedido);
-            $sql->bindParam(':idProducto',$nlinea);
-            $sql->execute();
-        }
-        catch(PDOException $ex){
-            echo $msg=$ex;
-        }
-    }
+    
 
     public function deletePedido($conexion){
         try{
@@ -487,4 +500,72 @@ class Usuario{
         }
     }
 
+ }
+
+ class LineaPedido{
+    private $idPedido;
+    private $nlinea;
+    private $idProducto;
+    private $cantidad;
+
+    function __construct($idPedido,$nlinea,$idProducto,$cantidad){
+       $this->idPedido=$idPedido;
+       $this->nlinea=$nlinea;
+       $this->idProducto=$idProducto;
+       $this->cantidad=$cantidad;
+    }
+
+    public function __get($var){
+        return $this->$var;
+    }
+
+    public function __set($var,$valor){
+      $this->$var=$valor;
+    }
+
+    public function postLineaPedido($conexion){
+        try{
+            $sql = $conexion->prepare("SELECT MAX(nlinea) AS nlinea FROM lineaspedidos WHERE idPedido=:idPedido");
+            $sql->bindParam(':idPedido', $this->idPedido);
+            $sql->execute();
+            $datos=$sql->fetch(PDO::FETCH_ASSOC);
+            $newId=($datos["nlinea"]+1);
+            $this->nlinea=$newId;
+            
+            $sql = $conexion->prepare("INSERT INTO lineaspedidos (idPedido,nlinea,idProducto,cantidad) VALUES (:idPedido, :nlinea, :idProducto, :cantidad)");
+            $sql->bindParam(':idPedido', $this->idPedido);
+            $sql->bindParam(':nlinea', $this->nlinea);
+            $sql->bindParam(':idProducto', $this->idProducto);
+            $sql->bindParam(':cantidad', $this->cantidad);
+            $sql->execute();
+        }
+        catch(PDOException $ex){
+            echo $ex;
+        } 
+   }
+
+    public function deleteLineaPedido($conexion, $nlinea){
+        try{
+            $sql = $conexion->prepare("DELETE FROM lineaspedidos WHERE idPedido =:idPedido && nlinea=:nlinea");
+            $sql->bindParam(':idProducto',$this->idPedido);
+            $sql->bindParam(':idProducto',$nlinea);
+            $sql->execute();
+        }
+        catch(PDOException $ex){
+            echo $msg=$ex;
+        }
+    }
+
+    public function getAllLineasPedidos($conexion){
+        try{
+            $sql = $conexion->prepare("SELECT * FROM lineaspedidos WHERE idPedido=:idPedido");
+            $sql->bindParam(':idPedido',$this->idPedido);
+            $sql->execute();
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+            
+        }
+        catch(PDOException $ex){
+            echo $ex;
+        } 
+    }
  }

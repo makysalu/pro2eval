@@ -10,9 +10,15 @@ section{
     color: black
 }
     /*  Este es para el elemento activo lo puedes omitir si asi deseas */
-.nav-superior .nav-item .nav-link:hover {
-     color: rgb(107, 107, 107);
+.dropdown-toggle, .nav-pills .nav-link{
+     color: rgb(107, 107, 107) !important;
 }
+
+.dropdown-toggle:focus, .dropdown-toggle:active{
+    color: whitesmoke !important;
+    background-color: rgb(107, 107, 107) !important;
+}
+
 
 .img-header{
     background-image: url("../img/rascacielos.jpg");
@@ -26,3 +32,7 @@ section{
     height: 25vw;
 }
 
+.dropdown-menu {
+    left: -120px !important;
+    width: 300px !important;
+}

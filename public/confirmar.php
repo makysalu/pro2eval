@@ -1,25 +1,31 @@
 <?php
-    session_start();
-        if(isset($_SESSION["dni"])){
-           if(isset($_SESSION["Carro"])){
-               require "../src/Modelo.php";
-               $base = new BBDD;
-               $pedido=new Pedido("",date("y-m-d"),"","","","","",$_SESSION["dni"]);
-               $pedido->altaPedido($base->conexion);
-               $pedido->altaLineaPedido($base->conexion);
-               $total=0;
-                for ($cont=0; $cont < $_SESSION["total"]; $cont++) {
-                    $precio=$_SESSION["Carro"]["precio"][$cont];
-                    $cantidad=$_SESSION["Carro"]["cantidad"][$cont];
-                    $total=$total+($precio*$cantidad);
-                }
-               require "./assets/inicioHTML.php";
-               require "./assets/header.php";
-               require "./assets/pedido.php";
-               //session_destroy();
-           }
+    if(isset($_COOKIE["dniCliente"])){
+        if(isset($_COOKIE["idCarro"])){
+            require "../src/Modelo.php";
+            $bbdd = new BBDD;
+            $total=0;
+            $carro=Carro::getAllLinesOfCarro($bbdd->conexion,$_COOKIE["idCarro"]);
+            $pedido=new Pedido("",date("y-m-d"),"","","","",0);
+            $pedido->postPedido($bbdd->conexion);
+            foreach ($carro as $lineaCarro) {
+                $lineaPedido=new LineaPedido($pedido->idPedido,"",$lineaCarro["idProducto"],$lineaCarro["cantidad"]);
+                $lineaPedido->postLineaPedido($bbdd->conexion);
+                $total=$total+$lineaCarro["precio"]*$lineaCarro["cantidad"];
+            }
+            require "./assets/inicioHTML.php";
+            require "./assets/header.php";
+            require "./assets/pedido.php";
+            $closeCarro=new Carro($_COOKIE["idCarro"],"","","","");
+            $closeCarro->deleteCarro($bbdd->conexion);
+            setcookie("idCarro","",time()-36000);
+            setcookie("totalCarro","",time()-36000);
         }
         else{
-            header("location:validar.php");
-        }          
+            header("location:Vercarrito.php");
+        }        
+    }
+    else{
+        header("location:Vercarrito.php");
+    }
+      
 ?>
