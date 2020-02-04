@@ -14,36 +14,28 @@
             </thead>
             <tbody>
                 <?php
-                    if(isset($_COOKIE["carro"])){
-                        $lineasCarro=json_decode($_COOKIE["carro"]);
-                        var_dump($lineasCarro);
-                        foreach ($lineasCarro as $linea) {
-                            
+                    if(isset($_COOKIE["idCarro"])){     
+                        foreach ($carro as $lineaCarro) {
                             echo "<tr class='text-center table-active'>";
-                                echo "<td style='width: 100px'><img class='mw-100' src="."'./img/productos/".$linea["foto"]."' alt='imagen-producto'></td>";
-                                echo "<td class='align-middle'>".$linea->nombre."</td>";
-                                echo "<td class='align-middle'><input type='number' name='cantidad[]' min='0' max='100' value='".$linea->cantidad."' required></td>";
-                                echo "<td class='align-middle'>".$linea->precio."</td>";
-                                echo "<td style='width: 80px' ><img class='mw-100  pt-4 p-3' id='logo_close' src='./img/close.png' alt='fotocierre'></td>";
+                                echo "<td style='width: 100px'><img class='mw-100' src="."'./img/productos/".$lineaCarro["foto"]."' alt='imagen-producto'></td>";
+                                echo "<td class='align-middle'>".$lineaCarro["nombre"]."</td>";
+                                echo "<td class='align-middle'><input type='hidden' name='nlinea[]' value='".$lineaCarro["lineaCarro"]."' readonly><input type='number' name='cantidad[]' min='0' max='100' value='".$lineaCarro["cantidad"]."' required></td>";
+                                echo "<td class='align-middle'>".$lineaCarro["precio"]*$lineaCarro["cantidad"]."</td>";
+                                $total=$total+$lineaCarro["precio"]*$lineaCarro["cantidad"];
+                                echo "<td style='width: 80px' ><a href='Vercarrito.php?lineaCarro=".$lineaCarro["lineaCarro"]."'><img class='mw-100  pt-4 p-3' id='logo_close' src='./img/close.png' alt='fotocierre'></a></td>";
                             echo "</tr>";
                         }
-                        /*for ($cont=0; $cont < $_COOKIE["total"]; $cont++) {
-                            echo "<tr class='text-center table-active'>";
-                                echo "<td style='width: 100px'><img class='mw-100' src="."'./img/productos/".$lineasCarro[$cont]->foto."' alt='imagen-producto'></td>";
-                                echo "<td class='align-middle'>".$lineasCarro[$cont]->nombre."</td>";
-                                echo "<td class='align-middle'><input type='number' name='cantidad[]' min='0' max='100' value='".$lineasCarro[$cont]->cantidad."' required></td>";
-                                echo "<td class='align-middle'>".$lineasCarro[$cont]->precio."</td>";
-                                echo "<td style='width: 80px' ><img class='mw-100  pt-4 p-3' id='logo_close' src='./img/close.png' alt='fotocierre'></td>";
-                            echo "</tr>";
-                        }*/
                     }
-                    echo "<tr class='text-center table-active'>";
-                        echo "<td style='width: 100px'><img class='mw-100' src="."'./img/productos/".$_POST["foto"]."' alt='imagen-producto'></td>";
-                        echo "<td class='align-middle'>".$_POST["nombre"]."</td>";
-                        echo "<td class='align-middle'><input type='number' name='cantidad[]' min='0' max='100' value='".$_POST["cantidad"]."' required></td>";
-                        echo "<td class='align-middle'>".$_POST["precio"]."</td>";
-                         echo "<td style='width: 80px' ><img class='mw-100  pt-4 p-3' id='logo_close' src='./img/close.png' alt='fotocierre'></td>";
-                    echo "</tr>";
+                    if(isset($_POST["Comprar"])&&!isset($_COOKIE["idCarro"])){
+                        echo "<tr class='text-center table-active'>";
+                            echo "<td style='width: 100px'><img class='mw-100' src="."'./img/productos/".$_POST["foto"]."' alt='imagen-producto'></td>";
+                            echo "<td class='align-middle'>".$_POST["nombre"]."</td>";
+                            echo "<td class='align-middle'><input type='hidden' name='nlinea[]' value='1' readonly><input type='number' name='cantidad[]' min='0' max='100' value='".$_POST["cantidad"]."' required></td>";
+                            echo "<td class='align-middle'>".$_POST["precio"]*$_POST["cantidad"]."</td>";
+                            $total=$total+$_POST["precio"]*$_POST["cantidad"];
+                            echo "<td style='width: 80px' ><a href='Vercarrito.php?lineaCarro=1'><img class='mw-100  pt-4 p-3' id='logo_close' src='./img/close.png' alt='fotocierre'></a></td>";
+                        echo "</tr>";
+                    }
                     
                 ?>
             </tbody>

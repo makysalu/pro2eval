@@ -250,7 +250,7 @@ class Usuario{
 
     static function getAllLinesOfCarro($conexion,$idCarro){
         try{
-            $sql = $conexion->prepare("SELECT * FROM productos where idCarro=:idCarro");
+            $sql = $conexion->prepare("SELECT carro.cantidad,carro.lineaCarro, productos.nombre, productos.foto, productos.precio FROM carro LEFT JOIN productos ON carro.idProducto = productos.idProducto WHERE carro.idCarro=:idCarro");
             $sql->bindParam(':idCarro',$idCarro);
             $sql->execute();
             return $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -295,27 +295,31 @@ class Usuario{
         }
     }
 
-    static function ActualizarCarro($cantidad){
-       foreach ($cantidad as $key => $value) {
-           if($value>0){
-                $_COOKIE["Carro"]["cantidad"][$key]=$value;  
-           }
-           else{
-            unset($_COOKIE["Carro"]["idProducto"][$key]);
-            $_COOKIE["Carro"]["idProducto"]=array_values($_COOKIE["Carro"]["idProducto"]);
-            unset($_COOKIE["Carro"]["foto"][$key]);
-            $_COOKIE["Carro"]["foto"]=array_values($_COOKIE["Carro"]["foto"]);
-            unset($_COOKIE["Carro"]["nombre"][$key]);
-            $_COOKIE["Carro"]["nombre"]=array_values($_COOKIE["Carro"]["nombre"]);
-            unset($_COOKIE["Carro"]["precio"][$key]);
-            $_COOKIE["Carro"]["precio"]=array_values($_COOKIE["Carro"]["precio"]);
-            unset($_COOKIE["Carro"]["cantidad"][$key]);
-            $_COOKIE["Carro"]["cantidad"]=array_values($_COOKIE["Carro"]["cantidad"]);
-            $_COOKIE["carro"]["total"]=$_COOKIE["carro"]["total"]-1;
-           }
-           
-       }
+    public function putLineaCarro($conexion){
+        try{
+            $sql = $conexion->prepare("UPDATE carro  SET cantidad=:cantidad WHERE lineaCarro=:lineaCarro AND idCarro=:idCarro");
+            $sql->bindParam('idCarro',$this->idCarro);
+            $sql->bindParam(':lineaCarro',$this->lineaCarro);
+            $sql->bindParam(':cantidad', $this->cantidad);
+            $sql->execute();
+        }
+        catch(PDOException $ex){
+            $msg=$ex;
+        }
     }
+
+    public function deleteLineaCarro($conexion){
+        try{
+            $sql = $conexion->prepare("DELETE FROM carro WHERE idCarro=:idCarro AND lineaCarro=:lineaCarro");
+            $sql->bindParam(':idCarro',$this->idCarro);
+            $sql->bindParam(':lineaCarro',$this->lineaCarro);
+            $sql->execute();
+        }
+        catch(PDOException $ex){
+            echo $msg=$ex;
+        }
+    }
+
  }
 
  class Pedido{
