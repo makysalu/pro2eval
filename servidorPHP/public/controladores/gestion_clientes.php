@@ -1,15 +1,17 @@
 <?php
+    require "../../src/Modelo.php";
+    $bbdd = new BBDD;
     if ($_SERVER['REQUEST_METHOD'] == 'GET'){
         if (isset($_GET['dniCliente'])){
-          $cliente= new Cliente($_GET['dniCliente'],'','','','');
-          $datos=$cliente->buscar($base->link);
+          $cliente= new Usuario($_GET['dniCliente'],'','','','');
+          $datos=$cliente->getUsuario($bbdd->conexion);
           header("HTTP/1.1 200 OK");
           echo json_encode($dato);
           exit();
         }
         else {
           //Mostrar lista de post
-          $dato=Cliente::getAll($base->link);
+          $datos=Usuario::getAllUsuarios($base->link);
           $dato->setFetchMode(PDO::FETCH_ASSOC);
           header("HTTP/1.1 200 OK");
           echo json_encode($dato->fetchAll());
