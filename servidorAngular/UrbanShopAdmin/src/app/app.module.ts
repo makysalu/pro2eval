@@ -7,7 +7,10 @@ import { CabeceraComponent } from './cabecera/cabecera.component';
 import { GestionClientesComponent } from './gestion-clientes/gestion-clientes.component';
 import { GestionProductosComponent } from './gestion-productos/gestion-productos.component';
 import { GestionPedidosComponent } from './gestion-pedidos/gestion-pedidos.component';
+import {SClientesService} from '../../services/s-clientes.service';
 
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +21,9 @@ import { GestionPedidosComponent } from './gestion-pedidos/gestion-pedidos.compo
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

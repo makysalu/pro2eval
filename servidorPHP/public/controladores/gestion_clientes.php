@@ -11,10 +11,9 @@
         }
         else {
           //Mostrar lista de post
-          $datos=Usuario::getAllUsuarios($base->link);
-          $dato->setFetchMode(PDO::FETCH_ASSOC);
+          $datos=Usuario::getAllUsuarios($bbdd->conexion);
           header("HTTP/1.1 200 OK");
-          echo json_encode($dato->fetchAll());
+          echo json_encode($datos);
           exit();
         }
     }

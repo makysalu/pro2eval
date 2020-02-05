@@ -14,9 +14,14 @@ export class GestionClientesComponent implements OnInit {
 
   clientes:ICliente[]=[]
 
-  
+
 
   ngOnInit() {
+    this.clienteService.getAllClientes().subscribe(
+      prods => this.clientes = prods, // Success function
+      error => console.error(error), // Error function (optional)
+      () => console.log("Clientes loaded") // Finally function (optional)
+      );
   }
 
 }

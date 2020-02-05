@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class SClientesService {
   private controladorURL = 'http://localhost/web/2DAW/pro2eval/servidorPHP/public/controladores/gestion_clientes.php';
   constructor(private http: HttpClient) { }
-  getAlumnos(): Observable<ICliente[]> {
+  getAllClientes(): Observable<ICliente[]> {
     return this.http.get<{clientes: ICliente[]}>(this.controladorURL).pipe(
       map(response => response.clientes) );
  }
