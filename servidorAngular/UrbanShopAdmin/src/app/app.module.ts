@@ -11,13 +11,15 @@ import {SClientesService} from '../../services/s-clientes.service';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { TablaClientesComponent } from './tabla-clientes/tabla-clientes.component';
 @NgModule({
   declarations: [
     AppComponent,
     CabeceraComponent,
     GestionClientesComponent,
     GestionProductosComponent,
-    GestionPedidosComponent
+    GestionPedidosComponent,
+    TablaClientesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {ICliente} from '../../../interfaces/i-cliente';
-import {SClientesService} from '../../../services/s-clientes.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { ICliente } from '../../../interfaces/i-cliente';
+import { SClientesService } from '../../../services/s-clientes.service';
 
 @Component({
   selector: 'gestion-clientes',
@@ -12,7 +12,7 @@ export class GestionClientesComponent implements OnInit {
 
   constructor(private clienteService: SClientesService) { }
 
-  clientes:ICliente[]=[]
+  clientes: ICliente[] = []
 
 
 
@@ -21,7 +21,7 @@ export class GestionClientesComponent implements OnInit {
       prods => this.clientes = prods, // Success function
       error => console.error(error), // Error function (optional)
       () => console.log("Clientes loaded") // Finally function (optional)
-      );
+    );
   }
 
 }

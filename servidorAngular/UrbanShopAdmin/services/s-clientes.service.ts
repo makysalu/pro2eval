@@ -9,12 +9,11 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class SClientesService {
-  private controladorURL = 'http://localhost/web/2DAW/pro2eval/servidorPHP/public/controladores/gestion_clientes.php';
+  private controladorURL = 'http://localhost/daw2/pro2eval/servidorPHP/public/controladores/gestion_clientes.php';
   constructor(private http: HttpClient) { }
   getAllClientes(): Observable<ICliente[]> {
-    return this.http.get<{clientes: ICliente[]}>(this.controladorURL).pipe(
-      map(response => response.clientes) );
- }
+    return this.http.get<ICliente[]>(this.controladorURL);
+  }
 }
 
 
