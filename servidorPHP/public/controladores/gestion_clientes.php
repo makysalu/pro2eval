@@ -1,6 +1,22 @@
 <?php
-    
-
+    if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+        if (isset($_GET['dniCliente'])){
+          $cliente= new Cliente($_GET['dniCliente'],'','','','');
+          $datos=$cliente->buscar($base->link);
+          header("HTTP/1.1 200 OK");
+          echo json_encode($dato);
+          exit();
+        }
+        else {
+          //Mostrar lista de post
+          $dato=Cliente::getAll($base->link);
+          $dato->setFetchMode(PDO::FETCH_ASSOC);
+          header("HTTP/1.1 200 OK");
+          echo json_encode($dato->fetchAll());
+          exit();
+        }
+    }
+/*
     if(isset($_POST['funcion'])){
         if($_POST["funcion"]=="listar"){
             listar_cliente();
@@ -48,7 +64,7 @@
                 echo json_encode($respuesta);
             }
         }
-    }
+    }*/
     
 
     function listar_cliente(){

@@ -1,0 +1,6 @@
+<cabecera [title]="title" (cambio)=funCambiar($event)></cabecera>
+<gestion-clientes *ngIf="gestionClientes"></gestion-clientes>
+<gestion-productos *ngIf="gestionProductos"></gestion-productos>
+<gestion-pedidos *ngIf="gestionPedidos"></gestion-pedidos>
+<router-outlet></router-outlet>
+<!-- [title]="title" [gestionClientes]="gestionClientes" [gestionProductos]="gestionProductos" [gestionPedidos]="gestionPedidos" -->

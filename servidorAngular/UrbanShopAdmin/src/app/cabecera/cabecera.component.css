@@ -1,0 +1,7 @@
+.navbar-dark .navbar-nav .nav-link{
+    text-underline-position: under !important;
+    text-decoration: underline !important;
+}
+.navbar-dark .navbar-nav .nav-link:hover{
+    text-decoration: overline !important;
+}

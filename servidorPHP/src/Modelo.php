@@ -5,7 +5,7 @@
         public function __construct(){
             if(!isset($this->conexion)){
                 try{
-                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', 'root');
+                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', '');
                     $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 }
                 catch(PDOException $e){
@@ -239,13 +239,11 @@ class Usuario{
     private $dniCliente;
     private $idProducto;
     private $cantidad;
-    private $idTemporal;
 
-    function __construct($idCarro,$lineaCarro,$dniCliente,$idTemporal,$idProducto,$cantidad){
+    function __construct($idCarro,$lineaCarro,$dniCliente,$idProducto,$cantidad){
         $this->idCarro=$idCarro;
         $this->lineaCarro=$lineaCarro;
         $this->dniCliente=$dniCliente;
-        $this->idTemporal=$idTemporal;
         $this->idProducto=$idProducto;
         $this->cantidad=$cantidad;
     }
@@ -322,11 +320,10 @@ class Usuario{
             $newId=($datos["idLinea"]+1);
             $this->lineaCarro=$newId;
             
-            $sql = $conexion->prepare("INSERT INTO carro (lineaCarro,idCarro,dniCliente,idTemporal,idProducto,cantidad) VALUES (:lineaCarro, :idCarro, :dniCliente, :idTemporal, :idProducto, :cantidad)");
+            $sql = $conexion->prepare("INSERT INTO carro (lineaCarro,idCarro,dniCliente,idProducto,cantidad) VALUES (:lineaCarro, :idCarro, :dniCliente, :idProducto, :cantidad)");
             $sql->bindParam(':lineaCarro',$this->lineaCarro);
             $sql->bindParam(':idCarro',$this->idCarro);
             $sql->bindParam(':dniCliente',$this->dniCliente);
-            $sql->bindParam(':idTemporal',$this->idTemporal);
             $sql->bindParam(':idProducto',$this->idProducto);
             $sql->bindParam(':cantidad',$this->cantidad);
             //var_dump($sql);
