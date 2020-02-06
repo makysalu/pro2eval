@@ -1,23 +1,24 @@
 <table class="table">
     <thead class="table-dark">
         <tr>
-            <th scope="col">DniCliente</th>
-            <th scope="col">Nombre</th>
+            <th scope="col">Id Pedido</th>
+            <th scope="col">Fecha</th>
             <th scope="col">Direccion</th>
-            <th scope="col">Correo</th>
+            <th scope="col">Cliente</th>
+            <th></th>
             <th></th>
             <th></th>
         </tr>
     </thead>
-    <tbody *ngFor="let cliente of clientes">
+    <tbody *ngFor="let pedido of pedidos">
         <tr>
-            <td>{{cliente.dniCliente}}</td>
-            <td>{{cliente.nombre}}</td>
-            <td>{{cliente.direccion}}</td>
-            <td>{{cliente.email}}</td>
-            <td (click)="putCliente(cliente.dniCliente)" class="pl-1 pr-1" style="width: 40px">
+            <td class="align-middle">{{pedido.idPedido}}</td>
+            <td class="align-middle">{{pedido.fecha}}</td>
+            <td class="align-middle">{{pedido.direccion}}</td>
+            <td class="align-middle">{{pedido.dniCliente}}</td>
+            <td (click)="putPedido(pedido.idPedido)" class="p-0 pl-1 pr-1 align-middle" style="width: 40px">
                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                    viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                    viewBox="0 0 512 512" style="width: 40px enable-background:new 0 0 512 512;" xml:space="preserve">
                     <path d="M352.459,220c0-11.046-8.954-20-20-20h-206c-11.046,0-20,8.954-20,20s8.954,20,20,20h206
                         C343.505,240,352.459,231.046,352.459,220z"/>
                     <path d="M126.459,280c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20H251.57c11.046,0,20-8.954,20-20c0-11.046-8.954-20-20-20
@@ -33,13 +34,19 @@
                     <path d="M332.459,120h-206c-11.046,0-20,8.954-20,20s8.954,20,20,20h206c11.046,0,20-8.954,20-20S343.505,120,332.459,120z"/>
                 </svg>
             </td>
-            <td (click)="deleteCliente(cliente.dniCliente)" class="pl-1 pr-1" style="width: 40px">    
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                    viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+            <td (click)="deletePedido(pedido.idPedido)" class=" p-0 pl-1 pr-1 align-middle" style="width: 40px">    
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512" style="width: 40px enable-background:new 0 0 512 512;">
+                    <path d="m257.778 0c-142.137 0-257.778 115.641-257.778 257.778s115.641 257.778 257.778 257.778 257.778-115.641 257.778-257.778-115.642-257.778-257.778-257.778zm45.564 257.778 111.846-111.846c22.526 31.611 35.924 70.156 35.924 111.846s-13.397 80.235-35.924 111.846zm66.282-157.41-111.846 111.846-111.846-111.846c31.611-22.526 70.156-35.924 111.846-35.924s80.235 13.398 111.846 35.924zm-269.256 45.564 111.846 111.846-111.846 111.846c-22.526-31.611-35.924-70.156-35.924-111.846s13.398-80.235 35.924-111.846zm45.564 269.256 111.846-111.846 111.846 111.846c-31.611 22.526-70.156 35.924-111.846 35.924-41.69-.001-80.235-13.398-111.846-35.924z"/>
+                </svg>
+            </td>
+            <td (click)="deletePedido(pedido.idPedido)" class=" p-0 pl-1 pr-1 align-middle" style="width: 40px">    
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512" style="width: 40px enable-background:new 0 0 512 512;">
                     <path d="m257.778 0c-142.137 0-257.778 115.641-257.778 257.778s115.641 257.778 257.778 257.778 257.778-115.641 257.778-257.778-115.642-257.778-257.778-257.778zm45.564 257.778 111.846-111.846c22.526 31.611 35.924 70.156 35.924 111.846s-13.397 80.235-35.924 111.846zm66.282-157.41-111.846 111.846-111.846-111.846c31.611-22.526 70.156-35.924 111.846-35.924s80.235 13.398 111.846 35.924zm-269.256 45.564 111.846 111.846-111.846 111.846c-22.526-31.611-35.924-70.156-35.924-111.846s13.398-80.235 35.924-111.846zm45.564 269.256 111.846-111.846 111.846 111.846c-31.611 22.526-70.156 35.924-111.846 35.924-41.69-.001-80.235-13.398-111.846-35.924z"/>
                 </svg>
             </td>
         </tr>
     </tbody>
 </table>
-<button (click)="postCliente()" type="button" class="btn btn-secondary">Nuevo Cliente</button>
+<button  (click)="postPedido()"type="button" class="btn btn-secondary">Nuevo Pedido</button>

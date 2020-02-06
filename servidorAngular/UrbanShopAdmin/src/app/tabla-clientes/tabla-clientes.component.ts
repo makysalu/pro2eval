@@ -14,13 +14,17 @@ export class TablaClientesComponent implements OnInit {
   }
 
   putCliente(dniCliente) {
-    console.log(dniCliente);
+    console.log("put"+dniCliente);
 
   }
 
-  deleteCliente() {
-    console.log("delete");
+  deleteCliente(dniCliente) {
+    console.log("delete"+dniCliente);
+  }
 
+  postCliente(){
+    console.log("añadir");
+    
   }
 
 }

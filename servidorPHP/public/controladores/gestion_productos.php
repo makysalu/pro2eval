@@ -1,5 +1,30 @@
 <?php
+    header('Access-Control-Allow-Origin: *');
+    header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+    header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+
+    require "../../src/Modelo.php";
+    $bbdd = new BBDD;
+
+    if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+        if (isset($_GET['idProducto'])){
+          $producto= new Producto($_GET['idProducto'],"","","","","","","");
+          $datos=$producto->getProducto($bbdd->conexion);
+          header("HTTP/1.1 200 OK");
+          echo json_encode($datos);
+          exit();
+        }
+        else {
+          //Mostrar lista de post
+          $datos=Producto::getAllProductos($bbdd->conexion);
+          header("HTTP/1.1 200 OK");
+          echo json_encode($datos);
+          exit();
+        }
+    }
     
+    /*
     if(isset($_POST['funcion'])){
         if($_POST["funcion"]=="listar"){
             listar_productos();
@@ -74,7 +99,7 @@
     else{
         var_dump($_FILES);
         var_dump($_POST);
-    }
+    }*/
     
 
     function listar_productos(){

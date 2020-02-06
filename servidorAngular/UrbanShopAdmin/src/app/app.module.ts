@@ -12,6 +12,8 @@ import {SClientesService} from '../../services/s-clientes.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TablaClientesComponent } from './tabla-clientes/tabla-clientes.component';
+import { TablaProductosComponent } from './tabla-productos/tabla-productos.component';
+import { TablaPedidosComponent } from './tabla-pedidos/tabla-pedidos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,9 @@ import { TablaClientesComponent } from './tabla-clientes/tabla-clientes.componen
     GestionClientesComponent,
     GestionProductosComponent,
     GestionPedidosComponent,
-    TablaClientesComponent
+    TablaClientesComponent,
+    TablaProductosComponent,
+    TablaPedidosComponent
   ],
   imports: [
     BrowserModule,

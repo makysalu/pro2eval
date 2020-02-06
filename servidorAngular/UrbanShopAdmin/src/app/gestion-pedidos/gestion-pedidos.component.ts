@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { IPedido } from '../../../interfaces/i-pedido';
+import { SPedidosService } from '../../../services/s-pedidos.service';
 
 @Component({
   selector: 'gestion-pedidos',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GestionPedidosComponent implements OnInit {
 
-  constructor() { }
+  constructor(private pedidoService: SPedidosService) { }
 
+  pedidos: IPedido[] = []
+  
   ngOnInit() {
+    this.pedidoService.getAllPedidos().subscribe(
+      prods => this.pedidos = prods, // Success function
+      error => console.error(error), // Error function (optional)
+      () => console.log("Pedidos loaded") // Finally function (optional)
+    );
   }
+
 
 }
