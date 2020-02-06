@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TablaClientesComponent } from './tabla-clientes/tabla-clientes.component';
 import { TablaProductosComponent } from './tabla-productos/tabla-productos.component';
 import { TablaPedidosComponent } from './tabla-pedidos/tabla-pedidos.component';
+import { ModalPruebaComponent } from './modal-prueba/modal-prueba.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { TablaPedidosComponent } from './tabla-pedidos/tabla-pedidos.component';
     GestionPedidosComponent,
     TablaClientesComponent,
     TablaProductosComponent,
-    TablaPedidosComponent
+    TablaPedidosComponent,
+    ModalPruebaComponent
   ],
   imports: [
     BrowserModule,

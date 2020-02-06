@@ -1,0 +1,105 @@
+<section class="fixed-top modal-bg vw-100 vh-100 d-flex justify-content-center align-items-center">
+    <div id="contacto" class="modal-form formulario container p-5  w-md-50 w-75 bg-light">
+        <h1 class="display-4 text-center mb-4 pt-3">Añadir Cliente</h1>
+        <form class="needs-validation" novalidate>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="validationDniCliente">Dni Cliente</label>
+                <input type="text" class="form-control" id="validationDniCliente" value="" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Porfavor Introduce un DNI
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="validationNombre">Nombre</label>
+                <input type="text" class="form-control" id="validationNombre" value="" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Porfavor Introduce un Nombre.
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+                <div class="col-12 mb-3">
+                    <label for="validationDireccion">Direccion</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="validationDireccion" aria-describedby="inputGroupPrepend" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Porfavor Introduce una Direccion.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="validationEmail">Email</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        </div>
+                        <input type="text" class="form-control" id="validationEmail" aria-describedby="inputGroupPrepend" placeholder="dimoal01@gmail.com" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Porfavor Introduce tu Email.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="validationPassword">Contraseña</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="validationPassword" aria-describedby="inputGroupPrepend" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Porfavor Introduce una Contraseña.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="validationConfPassword">Confirma la contraseña</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="validationConfPassword" aria-describedby="inputGroupPrepend" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Porfavor Repite la Contraseña.
+                        </div>
+                    </div>
+                </div>
+            </div>              
+            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Enviar</button>
+        </form>
+              
+    <script>
+              // Example starter JavaScript for disabling form submissions if there are invalid fields
+              (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                  var forms = document.getElementsByClassName('needs-validation');
+                  // Loop over them and prevent submission
+                  var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                      if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                      }
+                      form.classList.add('was-validated');
+                    }, false);
+                  });
+                }, false);
+              })();
+    </script>
+
+    </div>
+</section>
