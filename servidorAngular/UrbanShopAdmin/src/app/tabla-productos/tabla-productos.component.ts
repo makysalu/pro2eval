@@ -8,6 +8,7 @@ import { IProducto } from '../../../interfaces/i-producto';
 })
 export class TablaProductosComponent implements OnInit {
   @Input() productos: IProducto;
+  @Output() cambio = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
@@ -15,15 +16,27 @@ export class TablaProductosComponent implements OnInit {
   }
 
   putProducto(idProducto) {
-    console.log("put"+idProducto);
-
+    let datos = {
+      idProducto: idProducto,
+      metodo: "Put"
+    }
+    this.cambio.emit(datos);
   }
 
   deleteProducto(idProducto) {
-    console.log("delete"+idProducto);
+    let datos = {
+      idProducto: idProducto,
+      metodo: "Delete"
+    }
+    this.cambio.emit(datos);
   }
 
-  postProducto(){
-    console.log("añadir");
+  postProducto() {
+    console.log("hola");
+
+    let datos = {
+      metodo: "Post"
+    }
+    this.cambio.emit(datos);
   }
 }

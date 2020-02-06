@@ -7,6 +7,7 @@
     require "../../src/Modelo.php";
     $bbdd = new BBDD;
 
+    //Entrada Por Metodo Get
     if ($_SERVER['REQUEST_METHOD'] == 'GET'){
         if (isset($_GET['dniCliente'])){
           $cliente= new Usuario($_GET['dniCliente'],'','','','');
@@ -23,26 +24,47 @@
           exit();
         }
     }
+
+    //Entrada Por Metodo Post
+    // Crear un nuevo post
+    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $inputJSON = file_get_contents('php://input');
+        $input= json_decode( $inputJSON, TRUE );
+        //var_dump($input["dniCliente"]); 
+        $cliente= new Usuario($input['dniCliente'],"","","","","");
+        $cliente->getUsuario($bbdd->conexion);
+        
+        if($cliente->nombre==""){
+            $cliente= new Usuario($input['dniCliente'],$input['nombre'],$input['direccion'],$input['email'],$input['pwd'],$input['admin']);
+            $cliente->postUsuario($bbdd->conexion);
+            header("HTTP/1.1 200 OK");
+            echo json_encode(true);
+            exit();
+        }
+        else{
+            echo json_encode(false);
+        }
+    }
 /*
-    if(isset($_POST['funcion'])){
-        if($_POST["funcion"]=="listar"){
+    if(isset($input['funcion'])){
+        if($input["funcion"]=="listar"){
             listar_cliente();
         }
-        else if($_POST["funcion"]=="datos"){
-            if(isset($_POST["dniCliente"])){
-                datos_cliente($_POST["dniCliente"]);
+        else if($input["funcion"]=="datos"){
+            if(isset($input["dniCliente"])){
+                datos_cliente($input["dniCliente"]);
             }
         }
-        else if($_POST["funcion"]=="añadir"){
+        else if($input["funcion"]=="añadir"){
             $respuesta=array();
             $error= array();
-            foreach ($_POST as $key => $value) {     
-                if(empty($_POST[$key])){
+            foreach ($input as $key => $value) {     
+                if(empty($input[$key])){
                     array_push($error,$key);
                 }
             }
             if (empty($error)){
-                añadir_cliente($_POST,$respuesta);
+                añadir_cliente($input,$respuesta);
             }
             else{
                 array_push($respuesta,false);
@@ -50,21 +72,21 @@
                 echo json_encode($respuesta);
             }
         }
-        else if($_POST["funcion"]=="eliminar"){
-            if(isset($_POST["dniCliente"])){
-                eliminar_cliente($_POST["dniCliente"]);
+        else if($input["funcion"]=="eliminar"){
+            if(isset($input["dniCliente"])){
+                eliminar_cliente($input["dniCliente"]);
             }
         }
-        else if($_POST["funcion"]=="modificar"){
+        else if($input["funcion"]=="modificar"){
             $respuesta=array();
             $error= array();
-            foreach ($_POST as $key => $value) {     
-                if(empty($_POST[$key])){
+            foreach ($input as $key => $value) {     
+                if(empty($input[$key])){
                     array_push($error,$key);
                 }
             }
             if (empty($error)){
-                modificar_cliente($_POST,$respuesta);
+                modificar_cliente($input,$respuesta);
             }
             else{
                 array_push($respuesta,false);

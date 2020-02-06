@@ -5,7 +5,7 @@
         public function __construct(){
             if(!isset($this->conexion)){
                 try{
-                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', '');
+                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', 'root');
                     $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 }
                 catch(PDOException $e){
@@ -83,7 +83,7 @@ class Usuario{
         try{
             $sql = $conexion->prepare("INSERT INTO clientes (dniCliente,admin,nombre,direccion,email,pwd) VALUES (:dniCliente,:admin, :nombre, :direccion, :email, :pwd)");
             $sql->bindParam(':dniCliente',$this->dniCliente);
-            $sql->bindParam(':admin',0);
+            $sql->bindParam(':admin',$this->admin);
             $sql->bindParam(':nombre',$this->nombre);
             $sql->bindParam(':direccion',$this->direccion);
             $sql->bindParam(':email',$this->email);

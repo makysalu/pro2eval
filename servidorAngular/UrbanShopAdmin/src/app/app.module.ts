@@ -7,7 +7,7 @@ import { CabeceraComponent } from './cabecera/cabecera.component';
 import { GestionClientesComponent } from './gestion-clientes/gestion-clientes.component';
 import { GestionProductosComponent } from './gestion-productos/gestion-productos.component';
 import { GestionPedidosComponent } from './gestion-pedidos/gestion-pedidos.component';
-import {SClientesService} from '../../services/s-clientes.service';
+import { SClientesService } from '../../services/s-clientes.service';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,6 +15,10 @@ import { TablaClientesComponent } from './tabla-clientes/tabla-clientes.componen
 import { TablaProductosComponent } from './tabla-productos/tabla-productos.component';
 import { TablaPedidosComponent } from './tabla-pedidos/tabla-pedidos.component';
 import { ModalPruebaComponent } from './modal-prueba/modal-prueba.component';
+import { FormPostClienteComponent } from './form-post-cliente/form-post-cliente.component';
+import { FormPutClienteComponent } from './form-put-cliente/form-put-cliente.component';
+import { FormPostProductoComponent } from './form-post-producto/form-post-producto.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +29,10 @@ import { ModalPruebaComponent } from './modal-prueba/modal-prueba.component';
     TablaClientesComponent,
     TablaProductosComponent,
     TablaPedidosComponent,
-    ModalPruebaComponent
+    ModalPruebaComponent,
+    FormPostClienteComponent,
+    FormPutClienteComponent,
+    FormPostProductoComponent
   ],
   imports: [
     BrowserModule,

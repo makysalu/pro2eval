@@ -5,7 +5,7 @@
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label for="validationDniCliente">Dni Cliente</label>
-                    <input type="text" class="form-control" id="validationDniCliente" value="" required>
+                    <input type="text" class="form-control" id="validationDniCliente" value="{{dniCliente}}" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -54,35 +54,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 mb-3">
-                    <label for="validationPassword">Contraseña</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="validationPassword"
-                            aria-describedby="inputGroupPrepend" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div class="invalid-feedback">
-                            Porfavor Introduce una Contraseña.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-3">
-                    <label for="validationConfPassword">Confirma la contraseña</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="validationConfPassword"
-                            aria-describedby="inputGroupPrepend" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div class="invalid-feedback">
-                            Porfavor Repite la Contraseña.
-                        </div>
-                    </div>
-                </div>
             </div>
-            <button type="submit" class="btn btn-primary" data-toggle="modal"
+            <button type="submit" class="btn btn-primary mr-3 mt-1" data-toggle="modal"
                 data-target="#exampleModal">Enviar</button>
+            <button (click)="close()" type="button" class="btn btn-secondary">Cerrar</button>
         </form>
 
         <script>

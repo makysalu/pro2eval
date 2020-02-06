@@ -5,7 +5,8 @@
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label for="validationDniCliente">Dni Cliente</label>
-                    <input type="text" class="form-control" id="validationDniCliente" value="" required>
+                    <input type="text" class="form-control" id="validationDniCliente" value="" name="dniCliente"
+                        [(ngModel)]="nuevoCliente.dniCliente" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -15,7 +16,8 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="validationNombre">Nombre</label>
-                    <input type="text" class="form-control" id="validationNombre" value="" required>
+                    <input type="text" class="form-control" id="validationNombre" value="" name="nombre"
+                        [(ngModel)]="nuevoCliente.nombre" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -28,8 +30,8 @@
                 <div class="col-12 mb-3">
                     <label for="validationDireccion">Direccion</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="validationDireccion"
-                            aria-describedby="inputGroupPrepend" required>
+                        <input type="text" class="form-control" id="validationDireccion" value="" name="direccion"
+                            [(ngModel)]="nuevoCliente.direccion" required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -44,8 +46,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupPrepend">@</span>
                         </div>
-                        <input type="text" class="form-control" id="validationEmail"
-                            aria-describedby="inputGroupPrepend" placeholder="dimoal01@gmail.com" required>
+                        <input type="text" class="form-control" id="validationEmail" value="" name="email"
+                            [(ngModel)]="nuevoCliente.email" placeholder="dimoal01@gmail.com" required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -57,8 +59,8 @@
                 <div class="col-12 mb-3">
                     <label for="validationPassword">Contraseña</label>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="validationPassword"
-                            aria-describedby="inputGroupPrepend" required>
+                        <input type="password" class="form-control" id="validationPassword" value="" name="password"
+                            [(ngModel)]="nuevoCliente.pwd" required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -70,8 +72,8 @@
                 <div class="col-12 mb-3">
                     <label for="validationConfPassword">Confirma la contraseña</label>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="validationConfPassword"
-                            aria-describedby="inputGroupPrepend" required>
+                        <input type="password" class="form-control" id="validationConfPassword" value=""
+                            name="confPassword" [(ngModel)]="confPassword" required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -81,8 +83,9 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" data-toggle="modal"
+            <button (click)="postCliente()" type="submit" class="btn btn-primary mr-3" data-toggle="modal"
                 data-target="#exampleModal">Enviar</button>
+            <button (click)="close()" type="button" class="btn btn-secondary">Cerrar</button>
         </form>
 
         <script>

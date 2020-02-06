@@ -1,4 +1,5 @@
 <section class="container-fluid pl-5 pr-5">
-    <h1 class="mb-4 text-center">Gestion Productos</h1>
-    <tabla-productos [productos]="productos"></tabla-productos>
-  </section>
+  <h1 class="mb-4 text-center">Gestion Productos</h1>
+  <tabla-productos [productos]="productos" (cambio)=funCambiar($event)></tabla-productos>
+  <form-post-producto *ngIf="modalPostProducto" (cambio)=funCambiar($event)></form-post-producto>
+</section>

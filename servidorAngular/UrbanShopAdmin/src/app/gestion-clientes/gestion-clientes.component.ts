@@ -9,6 +9,10 @@ import { SClientesService } from '../../../services/s-clientes.service';
 })
 
 export class GestionClientesComponent implements OnInit {
+  modalPostCliente = false;
+  modalDeleteCliente = false;
+  modalPutCliente = false;
+  dniCliente = "";
 
   constructor(private clienteService: SClientesService) { }
 
@@ -20,8 +24,22 @@ export class GestionClientesComponent implements OnInit {
     this.clienteService.getAllClientes().subscribe(
       prods => this.clientes = prods, // Success function
       error => console.error(error), // Error function (optional)
-      () => console.log("Clientes loaded") // Finally function (optional)
+      //() => console.log("Clientes loaded") // Finally function (optional)
     );
+  }
+
+  funCambiar(evento) {
+    if (evento.metodo == "Post") {
+      this.modalPostCliente = !this.modalPostCliente;
+    }
+    else if (evento.metodo == "Delete") {
+      this.modalDeleteCliente = !this.modalDeleteCliente;
+      this.dniCliente = evento.dniCliente;
+    }
+    else if (evento.metodo == "Put") {
+      this.modalPutCliente = !this.modalPutCliente;
+      this.dniCliente = evento.dniCliente;
+    }
   }
 
 }

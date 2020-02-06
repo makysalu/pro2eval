@@ -1,88 +1,93 @@
 <section class="fixed-top modal-bg vw-100 vh-100 d-flex justify-content-center align-items-center">
     <div id="contacto" class="modal-form formulario container p-5 w-75 w-md-50  bg-light">
-        <h1 class="display-4 text-center mb-4 pt-3">Añadir Cliente</h1>
+        <h1 class="display-4 text-center mb-4 pt-3">Añadir Producto</h1>
         <form class="needs-validation" novalidate>
             <div class="form-row">
                 <div class="col-md-6 mb-3">
-                    <label for="validationDniCliente">Dni Cliente</label>
-                    <input type="text" class="form-control" id="validationDniCliente" value="" required>
+                    <label for="validationNombre">Nombre</label>
+                    <input type="text" class="form-control" id="validationDniCliente" value="" name="nombre"
+                        [(ngModel)]="nuevoProducto.nombre" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
                     <div class="invalid-feedback">
-                        Porfavor Introduce un DNI
+                        Porfavor Introduce el Nombre del Producto
                     </div>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="validationNombre">Nombre</label>
-                    <input type="text" class="form-control" id="validationNombre" value="" required>
+                    <label for="validationMarca">Marca</label>
+                    <input type="text" class="form-control" id="validationNombre" value="" name="marca"
+                        [(ngModel)]="nuevoProducto.marca" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
                     <div class="invalid-feedback">
-                        Porfavor Introduce un Nombre.
+                        Porfavor Introduce la Marca.
                     </div>
                 </div>
             </div>
             <div class="form-row">
-                <div class="col-12 mb-3">
-                    <label for="validationDireccion">Direccion</label>
+                <div class="col-md-6 mb-3">
+                    <label for="validationFoto">Foto</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="validationDireccion"
-                            aria-describedby="inputGroupPrepend" required>
+                        <input type="text" class="form-control" id="validationFoto" value="" name="foto"
+                            [(ngModel)]="nuevoProducto.foto" required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
                         <div class="invalid-feedback">
-                            Porfavor Introduce una Direccion.
+                            Porfavor Introduce una Imagen del Producto.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="validationCategoria">Categoria</label>
+                    <select class="custom-select" id="validationCategoria" name="Categoria"
+                        [(ngModel)]="nuevoProducto.categoria">
+                        <option selected>Elige una Opcion...</option>
+                        <option value="pantalones">Pantalones</option>
+                        <option value="zapatillas">Zapatillas</option>
+                        <option value="camisetas">Camisetas</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="validationPrecio">Precio</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="validationPrecio" value="" name="precio"
+                            [(ngModel)]="nuevoProducto.precio" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Porfavor Introduce el Precio.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="validationUnidades">Unidades</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="validationUnidades" value="" name="confPassword"
+                            [(ngModel)]="nuevoProducto.unidades" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Porfavor introduce las Unidades.
                         </div>
                     </div>
                 </div>
                 <div class="col-12 mb-3">
-                    <label for="validationEmail">Email</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        </div>
-                        <input type="text" class="form-control" id="validationEmail"
-                            aria-describedby="inputGroupPrepend" placeholder="dimoal01@gmail.com" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div class="invalid-feedback">
-                            Porfavor Introduce tu Email.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-3">
-                    <label for="validationPassword">Contraseña</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="validationPassword"
-                            aria-describedby="inputGroupPrepend" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div class="invalid-feedback">
-                            Porfavor Introduce una Contraseña.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-3">
-                    <label for="validationConfPassword">Confirma la contraseña</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="validationConfPassword"
-                            aria-describedby="inputGroupPrepend" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div class="invalid-feedback">
-                            Porfavor Repite la Contraseña.
-                        </div>
+                    <label for="validationComentario">Descripcion</label>
+                    <textarea class="form-control" id="validationComentario" placeholder="Required example textarea"
+                        name="descripcion" [(ngModel)]="nuevoProducto.descripcion" required></textarea>
+                    <div class="valid-feedback">
+                        Gracias por introducir un Comentario.
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" data-toggle="modal"
+            <button (click)="postCliente()" type="submit" class="btn btn-primary mr-3" data-toggle="modal"
                 data-target="#exampleModal">Enviar</button>
+            <button (click)="close()" type="button" class="btn btn-secondary">Cerrar</button>
         </form>
 
         <script>

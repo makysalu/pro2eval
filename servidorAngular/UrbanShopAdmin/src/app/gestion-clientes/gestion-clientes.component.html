@@ -1,5 +1,6 @@
 <section class="container-fluid pl-5 pr-5">
   <h1 class="mb-4 text-center">Gestion Clientes</h1>
-  <tabla-clientes [clientes]="clientes"></tabla-clientes>
-  <modal-prueba></modal-prueba>
+  <tabla-clientes [clientes]="clientes" (cambio)=funCambiar($event)></tabla-clientes>
+  <form-post-cliente *ngIf="modalPostCliente" (cambio)=funCambiar($event)></form-post-cliente>
+  <form-put-cliente *ngIf="modalPutCliente" [dniCliente]="dniCliente" (cambio)=funCambiar($event)></form-put-cliente>
 </section>

@@ -7,24 +7,33 @@ import { ICliente } from '../../../interfaces/i-cliente';
 })
 export class TablaClientesComponent implements OnInit {
   @Input() clientes: ICliente;
+  @Output() cambio = new EventEmitter();
   constructor() { }
-
   ngOnInit() {
 
   }
 
   putCliente(dniCliente) {
-    console.log("put"+dniCliente);
-
+    let datos = {
+      dniCliente: dniCliente,
+      metodo: "Put"
+    }
+    this.cambio.emit(datos);
   }
 
   deleteCliente(dniCliente) {
-    console.log("delete"+dniCliente);
+    let datos = {
+      dniCliente: dniCliente,
+      metodo: "Put"
+    }
+    this.cambio.emit(datos);
   }
 
-  postCliente(){
-    console.log("añadir");
-    
+  postCliente() {
+    let datos = {
+      metodo: "Post"
+    }
+    this.cambio.emit(datos);
   }
 
 }
