@@ -5,7 +5,7 @@
         public function __construct(){
             if(!isset($this->conexion)){
                 try{
-                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', '');
+                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', 'root');
                     $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 }
                 catch(PDOException $e){
@@ -188,6 +188,7 @@ class Usuario{
             $sql->bindValue(':idProducto', $this->idProducto);
             $sql->execute();
             $datos=$sql->fetch(PDO::FETCH_ASSOC);
+            return $datos;
                 $this->nombre=$datos["nombre"];
                 $this->descripcion=$datos["descripcion"];
                 $this->foto=$datos["foto"];
@@ -202,7 +203,7 @@ class Usuario{
 
     public function deleteProducto($conexion){
         try{
-            $sql = $conexion->prepare("DELETE FROM prodructos WHERE idProducto=:idProducto");
+            $sql = $conexion->prepare("DELETE FROM productos WHERE idProducto=:idProducto");
             $sql->bindParam(':idProducto',$this->idProducto);
             $sql->execute();
         }
@@ -215,22 +216,20 @@ class Usuario{
         $consulta="UPDATE productos SET nombre = "."'".$this->nombre."'".", foto="."'".$this->foto."'".", marca="."'".$this->marca."'".", categoria="."'".$this->categoria."'".", precio="."'".$this->precio."'"." WHERE idProducto=".$this->idProducto;
         $conexion->query($consulta);
     }
-    public function putCliente($conexion){
+    public function putProducto($conexion,$input){
         try{
-            $sql = $conexion->prepare("UPDATE productos  SET nombre=:nombre, descripcion=:descripcion foto=:foto, marca=:marca, categoria=:categoria, unidades=:unidades, precio=precio WHERE idProducto=:idProducto");
-            $sql->bindParam(':idProducto',$this->idProducto);
-            $sql->bindParam(':descripcion', $this->descripcion);
-            $sql->bindParam(':nombre',$this->nombre);
-            $sql->bindParam(':foto',$this->foto);
-            $sql->bindParam(':marca',$this->marca);
-            $sql->bindParam(':categoria',$this->categoria);
-            $sql->bindParam(':unidades',$this->unidades);
-            $sql->bindParam(':precio',$this->precio);
-            $sql->execute();
+            $fields = getParams($input);
+            $consulta = "UPDATE productos SET $fields WHERE idProducto='$this->idProducto'";
+            $result=$conexion->prepare($consulta);
+            bindAllValues($result,$input);
+            $result->execute();
+            return true;
         }
-        catch(PDOException $ex){
-            $msg=$ex;
-        }
+        catch(PDOException $e){
+            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+             return false;
+             die();
+         }
     }
 
  }

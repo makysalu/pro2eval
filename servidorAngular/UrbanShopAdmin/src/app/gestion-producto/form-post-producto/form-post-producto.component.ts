@@ -9,6 +9,7 @@ import { SProductosService } from '../../../../services/s-productos.service';
 })
 export class FormPostProductoComponent implements OnInit {
   @Output() cambio = new EventEmitter();
+  @Output() updateProductos = new EventEmitter();
   confPassword = "";
   nuevoProducto: IProducto = {
     idProducto: 0,
@@ -26,7 +27,7 @@ export class FormPostProductoComponent implements OnInit {
   ngOnInit() {
   }
 
-  postCliente() {
+  postProducto() {
     console.log(this.nuevoProducto);
 
     this.productosService.postProducto(this.nuevoProducto)
@@ -35,6 +36,7 @@ export class FormPostProductoComponent implements OnInit {
           let cliente = prod;
           if (cliente) {
             console.log("Producto Añadido");
+            this.updateProductos.emit();
             this.close();
           }
           else {
@@ -46,7 +48,7 @@ export class FormPostProductoComponent implements OnInit {
       );
   }
 
-  close(){
+  close() {
     let datos = {
       metodo: "Post"
     }

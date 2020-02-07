@@ -32,8 +32,6 @@ export class TablaProductosComponent implements OnInit {
   }
 
   postProducto() {
-    console.log("hola");
-
     let datos = {
       metodo: "Post"
     }

@@ -1,1 +1,115 @@
-<p>form-put-producto works!</p>
+<section class="fixed-top modal-bg vw-100 vh-100 d-flex justify-content-center align-items-center">
+    <div id="contacto" class="modal-form formulario container p-5 col-9 col-md-6  bg-light">
+        <h1 class="display-4 text-center mb-4 pt-3">Modificar Producto</h1>
+        <form class="needs-validation" novalidate>
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="validationNombre">Nombre</label>
+                    <input type="text" class="form-control" id="validationDniCliente" value="" name="nombre"
+                        [(ngModel)]="datosProducto.nombre" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Porfavor Introduce el Nombre del Producto
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="validationMarca">Marca</label>
+                    <input type="text" class="form-control" id="validationNombre" value="" name="marca"
+                        [(ngModel)]="datosProducto.marca" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Porfavor Introduce la Marca.
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="validationFoto">Foto</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="validationFoto" value="" name="foto"
+                            [(ngModel)]="datosProducto.foto" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Porfavor Introduce una Imagen del Producto.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="validationCategoria">Categoria</label>
+                    <select class="custom-select" id="validationCategoria" name="Categoria"
+                        [(ngModel)]="datosProducto.categoria">
+                        <option selected>Elige una Opcion...</option>
+                        <option value="pantalon">Pantalones</option>
+                        <option value="zapatilla">Zapatillas</option>
+                        <option value="camiseta">Camisetas</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="validationPrecio">Precio</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="validationPrecio" value="" name="precio"
+                            [(ngModel)]="datosProducto.precio" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Porfavor Introduce el Precio.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="validationUnidades">Unidades</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="validationUnidades" value="" name="confPassword"
+                            [(ngModel)]="datosProducto.unidades" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Porfavor introduce las Unidades.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="validationComentario">Descripcion</label>
+                    <textarea class="form-control" id="validationComentario" placeholder="Required example textarea"
+                        name="descripcion" [(ngModel)]="datosProducto.descripcion" required></textarea>
+                    <div class="valid-feedback">
+                        Gracias por introducir un Comentario.
+                    </div>
+                </div>
+            </div>
+            <button (click)="putProducto()" type="submit" class="btn btn-primary mr-3" data-toggle="modal"
+                data-target="#exampleModal">Enviar</button>
+            <button (click)="close()" type="button" class="btn btn-secondary">Cerrar</button>
+        </form>
+
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+        </script>
+
+    </div>
+</section>

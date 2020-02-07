@@ -10,15 +10,16 @@ import { SClientesService } from '../../../../services/s-clientes.service';
 export class FormPutClienteComponent implements OnInit {
   @Input() dniCliente: String;
   @Output() cambio = new EventEmitter();
+  @Output() updateClientes = new EventEmitter();
 
   cliente: ICliente[] = []
   datosCliente: ICliente = {
     dniCliente: this.dniCliente,
-    admin:0,
+    admin: 0,
     nombre: "",
     direccion: "",
     email: "",
-    pwd:"",
+    pwd: "",
   }
 
   constructor(private clienteService: SClientesService) { }
@@ -26,20 +27,21 @@ export class FormPutClienteComponent implements OnInit {
   ngOnInit() {
     //let dniCliente={"dniCliente":this.dniCliente}
     this.clienteService.getCliente(this.dniCliente).subscribe(
-      prods => { console.log(prods.nombre);
+      prods => {
+        console.log(prods.nombre);
         this.datosCliente.dniCliente = prods.dniCliente,
-        this.datosCliente.admin=prods.admin,
-        this.datosCliente.nombre = prods.nombre,
-        this.datosCliente.direccion= prods.direccion,
-        this.datosCliente.email=prods.email,
-        this.datosCliente.pwd=prods.pwdS
+          this.datosCliente.admin = prods.admin,
+          this.datosCliente.nombre = prods.nombre,
+          this.datosCliente.direccion = prods.direccion,
+          this.datosCliente.email = prods.email,
+          this.datosCliente.pwd = prods.pwd
       },
-         // Success function
+      // Success function
       error => console.error(error), // Error function (optional)
       //() => console.log("Clientes loaded") // Finally function (optional)
     );
   }
-  
+
   putCliente() {
     //console.log(this.datosCliente);
     this.clienteService.putCliente(this.datosCliente)
@@ -48,6 +50,7 @@ export class FormPutClienteComponent implements OnInit {
           let cliente = prod;
           if (cliente) {
             console.log("Cliente Creado");
+            this.updateClientes.emit();
             this.close();
           }
           else {
@@ -71,10 +74,9 @@ export class FormPutClienteComponent implements OnInit {
 
 
 
-  
-  
-  
-  
 
 
-  
+
+
+
+

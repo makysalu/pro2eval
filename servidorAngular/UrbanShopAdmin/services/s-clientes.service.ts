@@ -9,8 +9,8 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class SClientesService {
-  //private controladorURL = 'http://localhost/daw2/pro2eval/servidorPHP/public/controladores/gestion_clientes.php';
-  private controladorURL = 'http://localhost/web/2DAW/pro2eval/servidorPHP/public/controladores/gestion_clientes.php';
+  private controladorURL = 'http://localhost/daw2/pro2eval/servidorPHP/public/controladores/gestion_clientes.php';
+  //private controladorURL = 'http://localhost/web/2DAW/pro2eval/servidorPHP/public/controladores/gestion_clientes.php';
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +19,7 @@ export class SClientesService {
   }
 
   getCliente(dniCliente): Observable<any> {
-    return this.http.get(this.controladorURL+"/?dniCliente="+dniCliente);
+    return this.http.get(this.controladorURL + "/?dniCliente=" + dniCliente);
   }
 
   postCliente(cliente: ICliente): Observable<any> {
@@ -34,10 +34,20 @@ export class SClientesService {
   }
 
   putCliente(cliente: ICliente): Observable<any> {
-    console.log(cliente);
-    
-    return this.http.put(this.controladorURL+"/?dniCliente="+cliente.dniCliente+"&nombre="+cliente.nombre+"&direccion="+cliente.direccion+"&email="+cliente.email,cliente)
+    return this.http.put(this.controladorURL, {
+      dniCliente: cliente.dniCliente,
+      admin: cliente.admin,
+      nombre: cliente.nombre,
+      direccion: cliente.direccion,
+      email: cliente.email,
+      pwd: cliente.email,
+    })
   }
+
+  deleteCliente(dniCliente): Observable<any> {
+    return this.http.delete(this.controladorURL + "/?dniCliente=" + dniCliente);
+  }
+
 }
 
 

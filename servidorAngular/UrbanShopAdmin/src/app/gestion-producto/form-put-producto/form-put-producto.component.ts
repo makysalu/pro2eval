@@ -8,46 +8,54 @@ import { SProductosService } from '../../../../services/s-productos.service';
   styleUrls: ['./form-put-producto.component.css']
 })
 export class FormPutProductoComponent implements OnInit {
-  @Input() idProducto: String;
+  @Input() idProducto: Number;
   @Output() cambio = new EventEmitter();
+  @Output() updateProductos = new EventEmitter();
 
   producto: IProducto[] = []
   datosProducto: IProducto = {
     idProducto: this.idProducto,
-    admin:0,
     nombre: "",
-    direccion: "",
-    email: "",
-    pwd:"",
+    descripcion: "",
+    foto: "",
+    marca: "",
+    categoria: "",
+    unidades: 0,
+    precio: 0,
   }
+
   constructor(private productoService: SProductosService) { }
 
-  
+
   ngOnInit() {
-    //let dniCliente={"dniCliente":this.dniCliente}
-    this.productoService.getProducto(this.dniCliente).subscribe(
-      prods => { console.log(prods.nombre);
-        this.datosCliente.dniCliente = prods.dniCliente,
-        this.datosCliente.admin=prods.admin,
-        this.datosCliente.nombre = prods.nombre,
-        this.datosCliente.direccion= prods.direccion,
-        this.datosCliente.email=prods.email,
-        this.datosCliente.pwd=prods.pwdS
-      },
-         // Success function
-      error => console.error(error), // Error function (optional)
-      //() => console.log("Clientes loaded") // Finally function (optional)
-    );
+    console.log(this.idProducto);
+
+    this.productoService.getProducto(this.idProducto)
+      .subscribe(
+        prods => {
+          this.datosProducto.idProducto = prods.idProducto,
+            this.datosProducto.nombre = prods.nombre,
+            this.datosProducto.descripcion = prods.descripcion,
+            this.datosProducto.foto = prods.foto,
+            this.datosProducto.marca = prods.marca,
+            this.datosProducto.categoria = prods.categoria,
+            this.datosProducto.unidades = prods.unidades,
+            this.datosProducto.precio = prods.precio
+        },
+        // Success function
+        error => console.error(error), // Error function (optional)
+        //() => console.log("Clientes loaded") // Finally function (optional)
+      );
   }
-  
-  putCliente() {
-    //console.log(this.datosCliente);
-    this.clienteService.putCliente(this.datosCliente)
+
+  putProducto() {
+    this.productoService.putProducto(this.datosProducto)
       .subscribe(
         prod => {
-          let cliente = prod;
-          if (cliente) {
+          let producto = prod;
+          if (producto) {
             console.log("Cliente Creado");
+            this.updateProductos.emit();
             this.close();
           }
           else {

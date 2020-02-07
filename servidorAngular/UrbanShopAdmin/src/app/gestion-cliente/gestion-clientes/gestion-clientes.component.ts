@@ -21,11 +21,16 @@ export class GestionClientesComponent implements OnInit {
 
 
   ngOnInit() {
+    this.getAllClientes()
+  }
+
+  getAllClientes() {
     this.clienteService.getAllClientes().subscribe(
       prods => this.clientes = prods, // Success function
       error => console.error(error), // Error function (optional)
       //() => console.log("Clientes loaded") // Finally function (optional)
     );
+    console.log(this.clientes);
   }
 
   funCambiar(evento) {
@@ -40,6 +45,10 @@ export class GestionClientesComponent implements OnInit {
       this.modalPutCliente = !this.modalPutCliente;
       this.dniCliente = evento.dniCliente;
     }
+  }
+
+  updateClientes() {
+    this.getAllClientes()
   }
 
 }

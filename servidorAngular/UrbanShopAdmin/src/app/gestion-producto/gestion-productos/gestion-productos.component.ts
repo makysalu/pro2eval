@@ -11,13 +11,17 @@ export class GestionProductosComponent implements OnInit {
   modalPostProducto = false;
   modalDeleteProducto = false;
   modalPutProducto = false;
-  idProducto = "";
+  idProducto = 0;
 
   constructor(private productoService: SProductosService) { }
 
   productos: IProducto[] = []
 
   ngOnInit() {
+    this.getAllProductos()
+  }
+
+  getAllProductos() {
     this.productoService.getAllProductos().subscribe(
       prods => this.productos = prods, // Success function
       error => console.error(error), // Error function (optional)
@@ -31,12 +35,16 @@ export class GestionProductosComponent implements OnInit {
     }
     else if (evento.metodo == "Delete") {
       this.modalDeleteProducto = !this.modalDeleteProducto;
-      this.idProducto = evento.dniCliente;
+      this.idProducto = 2;
     }
     else if (evento.metodo == "Put") {
       this.modalPutProducto = !this.modalPutProducto;
-      this.idProducto = evento.dniCliente;
+      this.idProducto = evento.idProducto;
     }
+  }
+
+  updateProductos() {
+    this.getAllProductos()
   }
 
 }

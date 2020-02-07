@@ -9,6 +9,7 @@ import { SClientesService } from '../../../../services/s-clientes.service';
 })
 export class FormPostClienteComponent implements OnInit {
   @Output() cambio = new EventEmitter();
+  @Output() updateClientes = new EventEmitter();
   confPassword = "";
   nuevoCliente: ICliente = {
     dniCliente: "",
@@ -31,6 +32,7 @@ export class FormPostClienteComponent implements OnInit {
             let cliente = prod;
             if (cliente) {
               console.log("Cliente Creado");
+              this.updateClientes.emit();
               this.close();
             }
             else {

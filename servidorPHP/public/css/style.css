@@ -14,7 +14,7 @@ section{
      color: rgb(107, 107, 107) !important;
 }
 
-.dropdown-toggle:focus, .dropdown-toggle:active{
+.dropdown-toggle:focus, .dropdown-toggle:active, .nav-pills .show > .nav-link{
     color: whitesmoke !important;
     background-color: rgb(107, 107, 107) !important;
 }

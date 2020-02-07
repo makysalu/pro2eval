@@ -24,7 +24,7 @@ export class TablaClientesComponent implements OnInit {
   deleteCliente(dniCliente) {
     let datos = {
       dniCliente: dniCliente,
-      metodo: "Put"
+      metodo: "Delete"
     }
     this.cambio.emit(datos);
   }

@@ -5,6 +5,7 @@
     header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 
     require "../../src/Modelo.php";
+    require "utils.php";
     $bbdd = new BBDD;
 
     if ($_SERVER['REQUEST_METHOD'] == 'GET'){
@@ -46,175 +47,46 @@
         }
     }
     
-    /*
-    if(isset($_POST['funcion'])){
-        if($_POST["funcion"]=="listar"){
-            listar_productos();
+    //Entrada Por Metodo Put
+    // Actualizar campos mediante put
+    if ($_SERVER['REQUEST_METHOD'] == 'PUT'){
+        $_PUT=get_object_vars(json_decode(file_get_contents('php://input')));
+        if(isset($_PUT["idProducto"])){
+            $input = $_PUT;
+            $nombre=null;
+            $descripcion=null;
+            $foto=null;
+            $marca=null;
+            $categoria=null;
+            $unidades=null;
+            $precio=null;
+            if(isset($_PUT["nombre"])) $nombre=$_PUT["nombre"];
+            if(isset($_PUT["descripcion"])) $descripcion=$_PUT["descripcion"];
+            if(isset($_PUT["foto"])) $email=$_PUT["foto"];
+            if(isset($_PUT["marca"])) $email=$_PUT["marca"];
+            if(isset($_PUT["categoria"])) $email=$_PUT["categoria"];
+            if(isset($_PUT["unidades"])) $email=$_PUT["unidades"];
+            if(isset($_PUT["precio"])) $email=$_PUT["precio"];
+            
+            $producto= new Producto($_PUT['idProducto'],$nombre,$descripcion,$foto,$marca,$categoria,$unidades,$precio);
+            $resul=$producto->putProducto($bbdd->conexion,$input);
+            header("HTTP/1.1 200 OK");
+            echo json_encode($resul);
+            exit();
         }
-        else if($_POST["funcion"]=="datos"){
-            if(isset($_POST["idProducto"])){
-                datos_producto($_POST["idProducto"]);
-            }
-        }
-        else if($_POST["funcion"]=="añadir"){
-            $respuesta=array();
-            $error= array();
-            foreach ($_POST as $key => $value) {     
-                if(empty($_POST[$key])){
-                    array_push($error,$key);
-                } 
-            }
-            if(($_FILES['file']['name'])===""){
-                array_push($error,"file");
-            }
-            if (empty($error)){
-                $foto=introducirarchivo();
-                if($foto){
-                    añadir_producto($_POST,$foto,$respuesta);
-                }
-                else{
-                    array_push($respuesta,false);
-                    array_push($respuesta,2);
-                    echo json_encode($respuesta);
-                }
-            }
-            else{
-                array_push($respuesta,false);
-                array_push($respuesta,1);
-                echo json_encode($respuesta);
-            }
-        }
-        else if($_POST["funcion"]=="eliminar"){
-            if(isset($_POST["idProducto"])){
-                eliminar_producto($_POST["idProducto"]);
-            }
-        }
-        else if($_POST["funcion"]=="modificar"){
-            $respuesta=array();
-            $error= array();
-            foreach ($_POST as $key => $value) {     
-                if(empty($_POST[$key])){
-                    array_push($error,$key);
-                } 
-            }
-            if(($_FILES['file']['name'])===""){
-                array_push($error,"file");
-            }
-            if (empty($error)){
-                $foto=introducirarchivo();
-                if($foto){
-                    modificar_producto($_POST,$foto,$respuesta);
-                }
-                else{
-                    array_push($respuesta,false);
-                    array_push($respuesta,2);
-                    echo json_encode($respuesta);
-                }
-            }
-            else{
-                array_push($respuesta,false);
-                array_push($respuesta,1);
-                echo json_encode($respuesta);
-            }
-        }
-    }
-    else{
-        var_dump($_FILES);
-        var_dump($_POST);
-    }*/
-    
-
-    function listar_productos(){
-        require "../../src/Modelo.php";
-        $base = new BBDD;
-        $productos= Producto::listarProductos($base->conexion);
-        $listproductos= array();
-        foreach ($productos as $funcion) {
-            array_push($listproductos,$funcion);
-        }
-        echo json_encode($listproductos);
-    }
-
-    function datos_producto($idProducto){
-        require "../../src/Modelo.php";
-        $base = new BBDD();
-        $producto=new Producto($idProducto,"","","","","","");
-        $producto->SelectProducto($base->conexion);
-        $datosproducto["idProducto"]=$producto->idProducto;
-        $datosproducto["nombre"]=$producto->nombre;
-        $datosproducto["marca"]=$producto->marca;
-        $datosproducto["categoria"]=$producto->categoria;
-        $datosproducto["precio"]=$producto->precio;
-        echo json_encode($datosproducto);
     }
     
-    function añadir_producto($datos,$foto,$respuesta){
-        require "../../src/Modelo.php";
-        $base = new BBDD();
-        $producto=new Producto("",$datos["nombre"],$foto,$datos["marca"],$datos["categoria"],"",$datos["precio"]);
-        $estado=$producto->InsertProducto($base->conexion);
-        if (!$estado) {
-            array_push($respuesta,false);
-            array_push($respuesta,3);
-            echo json_encode($respuesta);
+    if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
+        if (isset($_GET['idProducto'])){
+            $producto= new Producto($_GET['idProducto'],"","","","","","","");
+            echo $producto->idProducto;
+            $producto->deleteProducto($bbdd->conexion);
+            header("HTTP/1.1 200 OK");
+            echo json_encode(true);
+            exit();
         }
         else{
-            array_push($respuesta,true);
-            $producto->SelectProducto($base->conexion);
-            array_push($respuesta,$producto->idProducto,$producto->foto,$producto->nombre,$producto->marca,$producto->precio);
-            echo json_encode($respuesta);
+            echo json_encode(false);
+            exit();
         }
-    }
-    
-    function introducirarchivo(){
-        if (is_uploaded_file ($_FILES['file']['tmp_name'] )){
-            $partes=explode('.',$_FILES['file']['name']);
-            $npartes=count($partes);
-            $nombrefile=$_FILES['file']['name'];
-            if ($partes>0) {
-                $dir = "../img/productos/";
-                if (is_file($dir.$_FILES['file']['name'])){
-                    $idUnico = time();
-                    $nombrefile=$partes[0];
-                    for ($cont=1; $cont < $npartes-1; $cont++) { 
-                        $nombrefile.=".".$partes[$cont];
-                    }
-                    $nombrefile.="_".$idUnico.".".$partes[$npartes-1];
-                }
-            }
-            $nombreCompleto = $dir.$nombrefile;
-            move_uploaded_file ($_FILES['file']['tmp_name'],$nombreCompleto);
-            return $nombrefile;
-
-        }
-        else{
-            false;
-        }
-    }
-
-    function eliminar_producto($idProducto){
-        $respuesta=array();
-        require "../../src/Modelo.php";
-        $base = new BBDD();
-        $Producto=new Producto($idProducto,"","","","","","");
-        $Producto->deleteproducto($base->conexion);
-        array_push($respuesta,true);
-        echo json_encode($respuesta);
-    }
-
-    function modificar_producto($datos,$foto,$respuesta){
-        require "../../src/Modelo.php";
-        $base = new BBDD();
-        $producto=new Producto($datos["idProducto"],$datos["nombre"],$foto,$datos["marca"],$datos["categoria"],"",$datos["precio"]);
-        $producto->updateproducto($base->conexion);
-        array_push($respuesta,true);
-        echo json_encode($respuesta);
-        /*$producto->SelectProducto($base->conexion);
-        $datosproducto["idProducto"]=$producto->idProducto;
-        $datosproducto["nombre"]=$producto->nombre;
-        $datosproducto["marca"]=$producto->marca;
-        $datosproducto["categoria"]=$producto->categoria;
-        $datosproducto["precio"]=$producto->precio;
-        echo json_encode($datosproducto);*/
-        //echo "Se ha modificado el producto ".$producto->nombre;
     }
