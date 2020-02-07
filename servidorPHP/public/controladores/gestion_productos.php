@@ -23,6 +23,28 @@
           exit();
         }
     }
+
+    //Entrada Por Metodo Post
+    // Crear un nuevo post
+    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $inputJSON = file_get_contents('php://input');
+        $input= json_decode( $inputJSON, TRUE );
+        //var_dump($input["dniid$idProducto"]); 
+        $idProducto= new Producto($input['idProducto'],"","","","","","","");
+        
+        $idProducto->getProducto($bbdd->conexion);
+        
+        if($idProducto->nombre==""){
+            $idProducto= new producto("",$input["nombre"],$input["descripcion"],$input["foto"],$input["marca"],$input["categoria"],$input["unidades"],$input["precio"]);
+            $idProducto->postProducto($bbdd->conexion);
+            header("HTTP/1.1 200 OK");
+            echo json_encode(true);
+            exit();
+        }
+        else{
+            echo json_encode(false);
+        }
+    }
     
     /*
     if(isset($_POST['funcion'])){

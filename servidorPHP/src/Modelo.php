@@ -5,7 +5,7 @@
         public function __construct(){
             if(!isset($this->conexion)){
                 try{
-                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', 'root');
+                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', '');
                     $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 }
                 catch(PDOException $e){
@@ -73,6 +73,7 @@ class Usuario{
             $this->email=$datos["email"];
             $this->pwd=$datos["pwd"];
             $this->admin=$datos["admin"];
+            return $datos;
         }
         catch(PDOException $ex){
             echo $ex;
@@ -106,19 +107,20 @@ class Usuario{
         }
     }
 
-    public function putCliente($conexion){
+    public function putCliente($conexion,$input){
         try{
-            $sql = $conexion->prepare("UPDATE clientes  SET nombre=:nombre, direccion=:direccion, email=:email, pwd=:pwd WHERE dniCliente=:dniCliente");
-            $sql->bindParam(':dniCliente',$this->dniCliente);
-            $sql->bindParam(':nombre',$this->nombre);
-            $sql->bindParam(':direccion',$this->direccion);
-            $sql->bindParam(':email',$this->email);
-            $sql->bindParam(':pwd',$this->pwd);
-            $sql->execute();
+            $fields = getParams($input);
+            $consulta = "UPDATE clientes SET $fields WHERE dniCliente='$this->dniCliente'";
+            $result=$conexion->prepare($consulta);
+            bindAllValues($result,$input);
+            $result->execute();
+            return true;
         }
-        catch(PDOException $ex){
-            $msg=$ex;
-        }
+        catch(PDOException $e){
+            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+             return false;
+             die();
+         }
     }
 }
 

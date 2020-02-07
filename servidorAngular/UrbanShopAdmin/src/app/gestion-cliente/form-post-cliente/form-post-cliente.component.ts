@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ICliente } from '../../../interfaces/i-cliente';
-import { SClientesService } from '../../../services/s-clientes.service';
+import { ICliente } from '../../../../interfaces/i-cliente';
+import { SClientesService } from '../../../../services/s-clientes.service';
 
 @Component({
   selector: 'form-post-cliente',

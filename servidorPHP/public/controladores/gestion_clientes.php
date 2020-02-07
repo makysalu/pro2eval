@@ -5,15 +5,17 @@
     header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 
     require "../../src/Modelo.php";
+    require "utils.php";
     $bbdd = new BBDD;
-
+    
+    
     //Entrada Por Metodo Get
-    if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+    if ($_SERVER['REQUEST_METHOD'] == 'GET'){  
         if (isset($_GET['dniCliente'])){
-          $cliente= new Usuario($_GET['dniCliente'],'','','','');
+          $cliente= new Usuario($_GET['dniCliente'],'','','','','');
           $datos=$cliente->getUsuario($bbdd->conexion);
           header("HTTP/1.1 200 OK");
-          echo json_encode($dato);
+          echo json_encode($datos);
           exit();
         }
         else {
@@ -43,6 +45,26 @@
         }
         else{
             echo json_encode(false);
+        }
+    }
+
+    //Entrada Por Metodo Put
+    // Actualizar campos mediante put
+    if ($_SERVER['REQUEST_METHOD'] == 'PUT'){
+        if(isset($_GET['dniCliente'])){
+            $input = $_GET;
+            $nombre=NULL;
+            $direccion=NULL;
+            $email=NULL;
+            if(isset($_GET['nombre'])) $nombre=$_GET['nombre'];
+            if(isset($_GET['direccion'])) $direccion=$_GET['direccion'];
+            if(isset($_GET['email'])) $email=$_GET['email'];
+
+            $cliente= new Usuario($_GET['dniCliente'],$nombre,$direccion,$email,null,null);
+            $resul=$cliente->putCliente($bbdd->conexion,$input);
+            header("HTTP/1.1 200 OK");
+            echo json_encode($resul);
+            exit();
         }
     }
 /*

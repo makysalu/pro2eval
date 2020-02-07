@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IPedido } from '../../../interfaces/i-pedido';
-import { SPedidosService } from '../../../services/s-pedidos.service';
+import { IPedido } from '../../../../interfaces/i-pedido';
+import { SPedidosService } from '../../../../services/s-pedidos.service';
 
 @Component({
   selector: 'gestion-pedidos',

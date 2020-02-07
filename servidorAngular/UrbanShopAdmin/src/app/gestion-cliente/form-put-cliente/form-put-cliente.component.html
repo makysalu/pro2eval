@@ -5,7 +5,8 @@
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label for="validationDniCliente">Dni Cliente</label>
-                    <input type="text" class="form-control" id="validationDniCliente" value="{{dniCliente}}" required>
+                    <input type="text" class="form-control" id="validationDniCliente" value="{{datosCliente.dniCliente}}" name="dniCliente"
+                    [(ngModel)]="datosCliente.dniCliente"required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -15,7 +16,8 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="validationNombre">Nombre</label>
-                    <input type="text" class="form-control" id="validationNombre" value="" required>
+                    <input type="text" class="form-control" id="validationNombre" value="{{datosCliente.nombre}}" name="nombre"
+                    [(ngModel)]="datosCliente.nombre"required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -28,7 +30,8 @@
                 <div class="col-12 mb-3">
                     <label for="validationDireccion">Direccion</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="validationDireccion"
+                        <input type="text" class="form-control" id="validationDireccion" value="{{datosCliente.direccion}}" name="direccion"
+                        [(ngModel)]="datosCliente.direccion"
                             aria-describedby="inputGroupPrepend" required>
                         <div class="valid-feedback">
                             Looks good!
@@ -44,7 +47,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupPrepend">@</span>
                         </div>
-                        <input type="text" class="form-control" id="validationEmail"
+                        <input type="text" class="form-control" id="validationEmail" value="{{datosCliente.email}}" name="email"
+                        [(ngModel)]="datosCliente.email"
                             aria-describedby="inputGroupPrepend" placeholder="dimoal01@gmail.com" required>
                         <div class="valid-feedback">
                             Looks good!
@@ -55,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary mr-3 mt-1" data-toggle="modal"
+            <button (click)="putCliente()" type="submit" class="btn btn-primary mr-3 mt-1" data-toggle="modal"
                 data-target="#exampleModal">Enviar</button>
             <button (click)="close()" type="button" class="btn btn-secondary">Cerrar</button>
         </form>

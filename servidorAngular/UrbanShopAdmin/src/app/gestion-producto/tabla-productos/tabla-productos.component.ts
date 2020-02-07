@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IProducto } from '../../../interfaces/i-producto';
+import { IProducto } from '../../../../interfaces/i-producto';
 
 @Component({
   selector: 'tabla-productos',

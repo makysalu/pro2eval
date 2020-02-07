@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IPedido } from '../../../interfaces/i-pedido';
+import { IPedido } from '../../../../interfaces/i-pedido';
 
 @Component({
   selector: 'tabla-pedidos',

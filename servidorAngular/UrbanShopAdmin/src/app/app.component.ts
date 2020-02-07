@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'UrbanShopAdmin';
-  gestionClientes = false;
-  gestionProductos = true;
+  gestionClientes = true;
+  gestionProductos = false;
   gestionPedidos = false;
 
 

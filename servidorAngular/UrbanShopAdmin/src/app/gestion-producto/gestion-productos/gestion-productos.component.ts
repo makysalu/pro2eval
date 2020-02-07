@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IProducto } from '../../../interfaces/i-producto';
-import { SProductosService } from '../../../services/s-productos.service';
+import { IProducto } from '../../../../interfaces/i-producto';
+import { SProductosService } from '../../../../services/s-productos.service';
 
 @Component({
   selector: 'gestion-productos',

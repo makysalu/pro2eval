@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ICliente } from '../../../interfaces/i-cliente';
+import { ICliente } from '../../../../interfaces/i-cliente';
 @Component({
   selector: 'tabla-clientes',
   templateUrl: './tabla-clientes.component.html',

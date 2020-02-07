@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IProducto } from '../../../interfaces/i-producto';
-import { SProductosService } from '../../../services/s-productos.service';
+import { IProducto } from '../../../../interfaces/i-producto';
+import { SProductosService } from '../../../../services/s-productos.service';
 
 @Component({
   selector: 'form-post-producto',
@@ -45,12 +45,13 @@ export class FormPostProductoComponent implements OnInit {
         //() => console.log("Alumnos loaded”) // Finally function (optional)")
       );
   }
+
+  close(){
+    let datos = {
+      metodo: "Post"
+    }
+    this.cambio.emit(datos);
+  }
 }
 
-close(){
-  let datos = {
-    metodo: "Post"
-  }
-  this.cambio.emit(datos);
-}
-}
+
