@@ -79,7 +79,6 @@
     if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
         if (isset($_GET['idProducto'])){
             $producto= new Producto($_GET['idProducto'],"","","","","","","");
-            echo $producto->idProducto;
             $producto->deleteProducto($bbdd->conexion);
             header("HTTP/1.1 200 OK");
             echo json_encode(true);

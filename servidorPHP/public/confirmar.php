@@ -5,7 +5,7 @@
             $bbdd = new BBDD;
             $total=0;
             $carro=Carro::getAllLinesOfCarro($bbdd->conexion,$_COOKIE["idCarro"]);
-            $pedido=new Pedido("",date("y-m-d"),"","","","",0);
+            $pedido=new Pedido("",date("y-m-d"),"","","",$_COOKIE["dniCliente"]);
             $pedido->postPedido($bbdd->conexion);
             foreach ($carro as $lineaCarro) {
                 $lineaPedido=new LineaPedido($pedido->idPedido,"",$lineaCarro["idProducto"],$lineaCarro["cantidad"]);

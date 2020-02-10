@@ -3,7 +3,6 @@ export interface IPedido {
     fecha: Date;
     dirEntrega: String;
     nTarjeta: Number;
-    fechaCaducidad: Date;
     matriculaRepartidor: Number;
     dniCliente: String;
 }

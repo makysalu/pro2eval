@@ -14,7 +14,6 @@ import { GestionPedidosComponent } from './gestion-pedido/gestion-pedidos/gestio
 
 import { TablaClientesComponent } from './gestion-cliente/tabla-clientes/tabla-clientes.component';
 import { TablaProductosComponent } from './gestion-producto/tabla-productos/tabla-productos.component';
-import { TablaPedidosComponent } from './gestion-pedido/tabla-pedidos/tabla-pedidos.component';
 
 import { ModalPruebaComponent } from './modal-prueba/modal-prueba.component';
 
@@ -27,6 +26,13 @@ import { FormPutProductoComponent } from './gestion-producto/form-put-producto/f
 import { ModalDeleteClienteComponent } from './gestion-cliente/modal-delete-cliente/modal-delete-cliente.component';
 import { ModalDeleteProductoComponent } from './gestion-producto/modal-delete-producto/modal-delete-producto.component';
 import { ModalDeletePedidoComponent } from './gestion-pedido/modal-delete-pedido/modal-delete-pedido.component';
+import { FormPostPedidoComponent } from './gestion-pedido/form-post-pedido/form-post-pedido.component';
+import { FormPutPedidoComponent } from './gestion-pedido/form-put-pedido/form-put-pedido.component';
+import { PedidoComponent } from './gestion-pedido/pedido/pedido.component';
+import { LineaPedidoComponent } from './gestion-lineasPedido/linea-pedido/linea-pedido.component';
+import { ModalDeleteLineaPedidoComponent } from './gestion-lineasPedido/modal-delete-linea-pedido/modal-delete-linea-pedido.component';
+import { GestionLineasPedidosComponent } from './gestion-lineasPedido/gestion-lineas-pedidos/gestion-lineas-pedidos.component';
+import { FormPostLineaPedidoComponent } from './gestion-lineasPedido/form-post-linea-pedido/form-post-linea-pedido.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +43,6 @@ import { ModalDeletePedidoComponent } from './gestion-pedido/modal-delete-pedido
     GestionPedidosComponent,
     TablaClientesComponent,
     TablaProductosComponent,
-    TablaPedidosComponent,
     ModalPruebaComponent,
     FormPostClienteComponent,
     FormPutClienteComponent,
@@ -45,7 +50,14 @@ import { ModalDeletePedidoComponent } from './gestion-pedido/modal-delete-pedido
     FormPutProductoComponent,
     ModalDeleteClienteComponent,
     ModalDeleteProductoComponent,
-    ModalDeletePedidoComponent
+    ModalDeletePedidoComponent,
+    FormPostPedidoComponent,
+    FormPutPedidoComponent,
+    PedidoComponent,
+    LineaPedidoComponent,
+    ModalDeleteLineaPedidoComponent,
+    GestionLineasPedidosComponent,
+    FormPostLineaPedidoComponent
   ],
   imports: [
     BrowserModule,

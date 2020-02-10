@@ -5,7 +5,7 @@
         public function __construct(){
             if(!isset($this->conexion)){
                 try{
-                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', 'root');
+                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', '');
                     $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 }
                 catch(PDOException $e){
@@ -188,13 +188,14 @@ class Usuario{
             $sql->bindValue(':idProducto', $this->idProducto);
             $sql->execute();
             $datos=$sql->fetch(PDO::FETCH_ASSOC);
-            return $datos;
+            
                 $this->nombre=$datos["nombre"];
                 $this->descripcion=$datos["descripcion"];
                 $this->foto=$datos["foto"];
                 $this->marca=$datos["marca"];
                 $this->categoria=$datos["categoria"];
                 $this->precio=$datos["precio"];
+                return $datos;
         }
         catch(PDOException $ex){
             echo $ex;
@@ -229,7 +230,7 @@ class Usuario{
             $dato= "¡Error!: " . $e->getMessage() . "<br/>";
              return false;
              die();
-         }
+        }
     }
 
  }
@@ -378,16 +379,14 @@ class Usuario{
      private $fecha;
      private $dirEntrega;
      private $nTarjeta;
-     private $fechaCaducidad;
      private $matriculaRepartidor;
      private $dniCliente;
 
-     function __construct($idPedido,$fecha,$dirEntrega,$nTarjeta,$fechaCaducidad,$matriculaRepartidor,$dniCliente){
+     function __construct($idPedido,$fecha,$dirEntrega,$nTarjeta,$matriculaRepartidor,$dniCliente){
         $this->idPedido=$idPedido;
         $this->fecha=$fecha;
         $this->dirEntrega=$dirEntrega;
         $this->nTarjeta=$nTarjeta;
-        $this->fechaCaducidad=$fechaCaducidad;
         $this->matriculaRepartidor=$matriculaRepartidor;
         $this->dniCliente=$dniCliente;
     }
@@ -421,11 +420,11 @@ class Usuario{
             $sql->execute();
             $datos=$sql->fetch(PDO::FETCH_ASSOC);
                 $this->fecha=$datos["fecha"];
-                $this->dirEntrega=$datos["direntrega"];
+                $this->dirEntrega=$datos["dirEntrega"];
                 $this->nTarjeta=$datos["nTarjeta"];
-                $this->fechaCaducidad=$datos["fechaCaducidad"];
                 $this->matriculaRepartidor=$datos["matriculaRepartidor"];
                 $this->dniCliente=$datos["dniCliente"];
+                return $datos;
         }
         catch(PDOException $ex){
             echo $ex;
@@ -440,12 +439,11 @@ class Usuario{
             $newId=($datos["idPedido"]+1);
             $this->idPedido=$newId;
 
-            $sql = $conexion->prepare("INSERT INTO pedidos (idPedido, fecha,dirEntrega,nTarjeta,fechaCaducidad,matriculaRepartidor,dniCliente) VALUES (:idPedido, :fecha, :dirEntrega, :nTarjeta, :fechaCaducidad, :matriculaRepartidor, :dniCliente)");
+            $sql = $conexion->prepare("INSERT INTO pedidos (idPedido, fecha,dirEntrega,nTarjeta,matriculaRepartidor,dniCliente) VALUES (:idPedido, :fecha, :dirEntrega, :nTarjeta, :matriculaRepartidor, :dniCliente)");
             $sql->bindParam('idPedido',$this->idPedido);
             $sql->bindParam(':fecha',$this->fecha);
             $sql->bindParam(':dirEntrega', $this->dirEntrega);
             $sql->bindParam(':nTarjeta',$this->nTarjeta);
-            $sql->bindParam(':fechaCaducidad',$this->fechaCaducidad);
             $sql->bindParam(':matriculaRepartidor',$this->matriculaRepartidor);
             $sql->bindParam(':dniCliente',$this->dniCliente);
             $sql->execute();
@@ -481,20 +479,19 @@ class Usuario{
         }
     }
 
-    public function putPedido($conexion){
+    public function putPedido($conexion,$input){
         try{
-            $sql = $conexion->prepare("UPDATE pedidos  SET fecha=:fecha, dirEntrega=:dirEntrega, nTarjeta=:nTarjeta, fechaCaducidad=:fechaCaducidad, matriculaRepartidor=:matriculaRepartidor, dniCliente=:dniCliente WHERE idPedido=:idPedido");
-            $sql->bindParam(':idPedido',$this->idPedido);
-            $sql->bindParam(':fecha',$this->fecha);
-            $sql->bindParam(':dirEntrega', $this->dirEntrega);
-            $sql->bindParam(':nTarjeta',$this->nTarjeta);
-            $sql->bindParam(':fechaCaducidad',$this->fechaCaducidad);
-            $sql->bindParam(':matriculaRepartidor',$this->matriculaRepartidor);
-            $sql->bindParam(':dniCliente',$this->dniCliente);
-            $sql->execute();
+            $fields = getParams($input);
+            $consulta = "UPDATE pedidos SET $fields WHERE idPedido='$this->idPedido'";
+            $result=$conexion->prepare($consulta);
+            bindAllValues($result,$input);
+            $result->execute();
+            return true;
         }
-        catch(PDOException $ex){
-            $msg=$ex;
+        catch(PDOException $e){
+            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+             return false;
+             die();
         }
     }
 
@@ -542,11 +539,11 @@ class Usuario{
         } 
    }
 
-    public function deleteLineaPedido($conexion, $nlinea){
+    public function deleteLineaPedido($conexion){
         try{
             $sql = $conexion->prepare("DELETE FROM lineaspedidos WHERE idPedido =:idPedido && nlinea=:nlinea");
-            $sql->bindParam(':idProducto',$this->idPedido);
-            $sql->bindParam(':idProducto',$nlinea);
+            $sql->bindParam(':idPedido',$this->idPedido);
+            $sql->bindParam(':nlinea',$this->nlinea);
             $sql->execute();
         }
         catch(PDOException $ex){
@@ -554,10 +551,10 @@ class Usuario{
         }
     }
 
-    public function getAllLineasPedidos($conexion){
+    public function getAllLineasPedidos($conexion,$idPedido){
         try{
             $sql = $conexion->prepare("SELECT * FROM lineaspedidos WHERE idPedido=:idPedido");
-            $sql->bindParam(':idPedido',$this->idPedido);
+            $sql->bindParam(':idPedido',$idPedido);
             $sql->execute();
             return $sql->fetchAll(PDO::FETCH_ASSOC);
             

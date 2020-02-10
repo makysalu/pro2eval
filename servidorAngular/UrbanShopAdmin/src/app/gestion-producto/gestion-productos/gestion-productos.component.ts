@@ -35,7 +35,7 @@ export class GestionProductosComponent implements OnInit {
     }
     else if (evento.metodo == "Delete") {
       this.modalDeleteProducto = !this.modalDeleteProducto;
-      this.idProducto = 2;
+      this.idProducto = evento.idProducto;
     }
     else if (evento.metodo == "Put") {
       this.modalPutProducto = !this.modalPutProducto;

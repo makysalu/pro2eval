@@ -1,9 +1,8 @@
 .modal-bg{
     background-color: rgba(73, 73, 73, 0.466);
-    
 }
 
-.modal-div{
+.modal-form{
     border: 2px groove rgb(78, 78, 78);
     border-radius: 15px;
 }

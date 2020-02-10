@@ -8,8 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'UrbanShopAdmin';
   gestionClientes = false;
-  gestionProductos = true;
-  gestionPedidos = false;
+  gestionProductos = false;
+  gestionPedidos = true;
 
 
   funCambiar(evento) {

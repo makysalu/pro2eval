@@ -5,11 +5,12 @@
     header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 
     require "../../src/Modelo.php";
+    require "utils.php";
     $bbdd = new BBDD;
 
     if ($_SERVER['REQUEST_METHOD'] == 'GET'){
         if (isset($_GET['idPedido'])){
-          $pedido= new Usuario($_GET['idPedido'],'','','','','','');
+          $pedido= new Pedido($_GET['idPedido'],'','','','','','');
           $datos=$pedido->getPedido($bbdd->conexion);
           header("HTTP/1.1 200 OK");
           echo json_encode($datos);
@@ -23,161 +24,51 @@
           exit();
         }
     }
-    /*
-    if(isset($_POST['funcion'])){
-        if($_POST["funcion"]=="listar"){
-            listar_pedidos();
-        }
-        else if($_POST["funcion"]=="listar_productos"){
-            if(isset($_POST["idPedido"])){
-                listar_productos($_POST["idPedido"]);
-            }
-        }
-        else if($_POST["funcion"]=="datos"){
-            if(isset($_POST["idPedido"])){
-                datos_pedido($_POST["idPedido"]);
-            }
-        }
-        else if($_POST["funcion"]=="añadir"){
-            $respuesta=array();
-            if((isset($_POST["direccion"]))&&(isset($_POST["dniCliente"]))){
-                añadir_pedido($_POST,$respuesta);
-            }
-            else{
-                array_push($respuesta,false);
-                echo json_encode($respuesta);
-            }
-        }
-        else if($_POST["funcion"]=="eliminar"){
-            if(isset($_POST["idPedido"])){
-                eliminar_pedido($_POST["idPedido"]);
-            }
-        }
-        else if($_POST["funcion"]=="modificar"){
-            $respuesta=array();
-            $error= array();
-            foreach ($_POST as $key => $value) {     
-                if(empty($_POST[$key])){
-                    array_push($error,$key);
-                } 
-            }
-            if (empty($error)){
-                modificar_pedido($_POST,$respuesta);
-            }
-            else{
-                array_push($respuesta,false);
-                echo json_encode($respuesta);
-            }
-        }
-        else if($_POST["funcion"]=="eliminar_linea"){
-            $respuesta=array();
-            if((isset($_POST["idPedido"]))&&(isset($_POST["nlinea"]))){
-                eliminar_linea($_POST,$respuesta);
-            }
-            else{
-                array_push($respuesta,false);
-                echo json_encode($respuesta);
-            }
-        }
-        if($_POST["funcion"]=="añadir_linea"){
-            $respuesta=array();
-            if((isset($_POST["idProducto"]))&&(isset($_POST["cantidad"]))){
-                añadir_linea($_POST,$respuesta);
-            }
-            else{
-                array_push($respuesta,false);
-                echo json_encode($respuesta);
-            }
-        }
-    }
-    */
-
-    function listar_pedidos(){
-        require "../../src/Modelo.php";
-        $base = new BBDD;
-        $pedidos= Pedido::listarPedidos($base->conexion);
-        $listpedidos= array();
-        foreach ($pedidos as $funcion) {
-            array_push($listpedidos,$funcion);
-        }
-        echo json_encode($listpedidos);
-    }
-
-    function listar_productos($idPedido){
-        require "../../src/Modelo.php";
-        $base = new BBDD;
-        $pedido= new Pedido($idPedido,"","","","","","");
-        $pedidos=$pedido->listarLineasPedidos($base->conexion);
-        $listpedidos= array();
-        $cont=0;
-        foreach ($pedidos as $funcion) {
-            array_push($listpedidos,$funcion);
-            $producto=new Producto($funcion["idProducto"],"","","","","","");
-            $producto->SelectProducto($base->conexion);
-            $listpedidos[$cont]["idProducto"]=$producto->nombre;
-            $cont++;
-        }
-        echo json_encode($listpedidos);
-    }
-
-    function datos_pedido($idPedido){
-        require "../../src/Modelo.php";
-        $base = new BBDD();
-        $pedidos=new Pedido($idPedido,"","","","","","","");
-        $pedidos->idPedido=$idPedido;
-        $pedidos->mostrarPedido($base->conexion);
-        $datospedido["idPedido"]=$pedidos->idPedido;
-        $datospedido["direccion"]=$pedidos->dirEntrega;
-        $datospedido["dniCliente"]=$pedidos->dniCliente;
-        echo json_encode($datospedido);
-    }
     
-    function añadir_pedido($datos,$respuesta){
-        require "../../src/Modelo.php";
-        $base = new BBDD();
-        $pedido=new Pedido("",date("y-m-d"),$datos["direccion"],"1","1","1",$datos["dniCliente"]);
-        $pedido->altaPedido($base->conexion);
-        array_push($respuesta,true);
-        array_push($respuesta,$pedido->idPedido,$pedido->fecha,$pedido->dirEntrega,$pedido->dniCliente);
-        echo json_encode($respuesta);
-    }
-    
-
-    function eliminar_pedido($idPedido){
-        $respuesta=array();
-        require "../../src/Modelo.php";
-        $base = new BBDD();
-        $pedido=new Pedido($idPedido,"","","","","","");
-        $pedido->deletePedido($base->conexion);
-        array_push($respuesta,true);
-        echo json_encode($respuesta);
+    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $inputJSON = file_get_contents('php://input');
+        $input= json_decode( $inputJSON, TRUE );
+        $pedido= new Pedido("",$input["fecha"],$input["dirEntrega"],$input["nTarjeta"],$input["matriculaRepartidor"],$input["dniCliente"]);
+        $pedido->postPedido($bbdd->conexion);
+        header("HTTP/1.1 200 OK");
+        echo json_encode(true);
+        exit();
     }
 
-    function modificar_pedido($datos,$respuesta){
-        require "../../src/Modelo.php";
-        $base = new BBDD();
-        $pedidos=new Pedido($datos["idPedido"],"",$datos["direccion"],"","","",$datos["dniCliente"]);
-        $pedidos->updatepedido($base->conexion);
-        array_push($respuesta,true);
-        echo json_encode($respuesta);
+    if ($_SERVER['REQUEST_METHOD'] == 'PUT'){
+        $_PUT=get_object_vars(json_decode(file_get_contents('php://input')));
+        if(isset($_PUT["idPedido"])){
+            $input = $_PUT;
+            $fecha=null;
+            $dirEntrega=null;
+            $nTarjeta=null;
+            $matriculaRepartidor=null;
+            $dniCliente=null;
+
+            if(isset($_PUT["fecha"])) $fecha=$_PUT["fecha"];
+            if(isset($_PUT["dirEntrega"])) $dirEntrega=$_PUT["dirEntrega"];
+            if(isset($_PUT["nTarjeta"])) $nTarjeta=$_PUT["nTarjeta"];
+            if(isset($_PUT["matriculaRepartidor"])) $matriculaRepartidor=$_PUT["matriculaRepartidor"];
+            if(isset($_PUT["dniCliente"])) $dniCliente=$_PUT["dniCliente"];
+            
+            $pedido= new Pedido($_PUT['idPedido'],$fecha,$dirEntrega,$nTarjeta,$matriculaRepartidor,$dniCliente);
+            $resul=$pedido->putPedido($bbdd->conexion,$input);
+            header("HTTP/1.1 200 OK");
+            echo json_encode($resul);
+            exit();
+        }
     }
 
-    function eliminar_linea($datos,$respuesta){
-        require "../../src/Modelo.php";
-        $base = new BBDD();
-        $Pedido= new Pedido($datos["idPedido"],"","","","","","");
-        $Pedido->eliminarLineaPedido($base->conexion,$datos["nlinea"]);
-        array_push($respuesta,true);
-        echo json_encode($respuesta);
-    }
-
-    function añadir_linea($datos,$respuesta){
-        require "../../src/Modelo.php";
-        $base = new BBDD();
-        $Pedido= new Pedido("","","","","","","");
-        $linea=Pedido::añadirLineaPedido($base->conexion,$datos["idPedido"],$datos["idProducto"],$datos["cantidad"]);
-        array_push($respuesta,true);
-        array_push($respuesta,$linea);
-        echo json_encode($respuesta);
-        $base->cerrarconexion();
+    if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
+        if (isset($_GET['idPedido'])){
+            $pedido= new Pedido($_GET['idPedido'],'','','','','','');
+            $pedido->deletePedido($bbdd->conexion);
+            header("HTTP/1.1 200 OK");
+            echo json_encode(true);
+            exit();
+        }
+        else{
+            echo json_encode(false);
+            exit();
+        }
     }

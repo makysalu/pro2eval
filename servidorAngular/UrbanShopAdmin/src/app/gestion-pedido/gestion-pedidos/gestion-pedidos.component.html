@@ -1,4 +1,20 @@
 <section class="container-fluid pl-5 pr-5">
-    <h1 class="mb-4 text-center">Gestion Pedidos</h1>
-    <tabla-pedidos [pedidos]="pedidos"></tabla-pedidos>
+  <h1 class="mb-4 text-center">Gestion Clientes</h1>
+  <section>
+    <div class="row text-center p-2 pb-3 pt-3 bg-secondary text-light">
+      <span class="col-1">Id</span>
+      <span class="col-3">Fecha</span>
+      <span class="col-2 col-sm-3">Direccion de Entrega</span>
+      <span class="col-2 col-md-3">dniClient</span>
+      <span class="ml-3 d-flex justify-content-end row"></span>
+    </div>
+    <pedido [pedido]="pedido" *ngFor="let pedido of pedidos" (cambio)=funCambiar($event)></pedido>
+  
   </section>
+  <form-put-pedido *ngIf="modalPutPedido" [idPedido]="idPedido" (updateLineasPedidos)=updateLineasPedidos(event)
+    (cambio)=funCambiar($event)>
+  </form-put-pedido>
+  <modal-delete-pedido *ngIf="modalDeletePedido" [idPedido]="idPedido" (updateLineasPedidos)=updateLineasPedidos(event)
+    (cambio)=funCambiar($event)>
+  </modal-delete-pedido>
+</section>

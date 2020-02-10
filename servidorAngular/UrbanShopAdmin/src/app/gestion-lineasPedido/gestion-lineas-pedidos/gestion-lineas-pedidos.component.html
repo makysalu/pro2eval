@@ -1,0 +1,15 @@
+<linea-pedido [lineaPedido]="lineaPedido" *ngFor="let lineaPedido of lineasPedidos" (cambio)=funCambiar($event)></linea-pedido>
+    <div class="row text-center bg-light border-bottom">
+        <span class="col-2 pt-1 pb-1"></span>
+        <span class="col-2 pt-1 pb-1"></span>
+        <span class="col-3 pt-1 pb-1"></span>
+        <span class="col-3 pt-1 pb-1"></span>
+        <span (click)="postLineaPedido(lineaPedido)" class="icono2 ml-sm-4 ml-md-5 p-1">
+            <svg version="1.1" id="Capa_1" 
+                viewBox="0 0 512 512" style="width: 40px enable-background:new 0 0 512 512;">
+                <path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#2196f3"/><path d="m368 277.332031h-90.667969v90.667969c0 11.777344-9.554687 21.332031-21.332031 21.332031s-21.332031-9.554687-21.332031-21.332031v-90.667969h-90.667969c-11.777344 0-21.332031-9.554687-21.332031-21.332031s9.554687-21.332031 21.332031-21.332031h90.667969v-90.667969c0-11.777344 9.554687-21.332031 21.332031-21.332031s21.332031 9.554687 21.332031 21.332031v90.667969h90.667969c11.777344 0 21.332031 9.554687 21.332031 21.332031s-9.554687 21.332031-21.332031 21.332031zm0 0" fill="#fafafa"/>
+            </svg>
+        </span>
+    </div>
+    <modal-delete-linea-pedido *ngIf="modalDeleteLineaPedido" (cambio)=funCambiar($event) [idPedido]="idPedido" [nlinea]="nlinea" (updateLineasPedidos)=updateLineasPedidos()></modal-delete-linea-pedido>
+    <form-post-linea-pedido *ngIf="modalPostLineaPedido" (cambio)=funCambiar($event) [idPedido]="idPedido" (updateLineasPedidos)=updateLineasPedidos()></form-post-linea-pedido>

@@ -1,0 +1,95 @@
+<section class="fixed-top modal-bg vw-100 vh-100 d-flex justify-content-center align-items-center">
+    <div id="contacto" class="modal-form formulario container p-5 col-9 col-md-6 bg-light">
+        <h1 class="display-4 text-center mb-4 pt-3">Añadir Pedido</h1>
+        <form class="needs-validation" novalidate>
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="validationDniCliente">DniCliente</label>
+                    <input type="text" class="form-control" id="validationDniCliente" value="" name="dniCliente"
+                        [(ngModel)]="nuevoPedido.dniCliente" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Porfavor Introduce un DNI
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="validationDirEntrega">Direcion de Entrega</label>
+                    <input type="text" class="form-control" id="validationDirEntrega" value="" name="DirEntrega"
+                        [(ngModel)]="nuevoPedido.dirEntrega" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Porfavor Introduce una Direcion de Entrega.
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-12 mb-3">
+                    <label for="validationNTarjeta">Numero de Tarjeta</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="validationNTarjeta" value="" name="nTarjeta"
+                            [(ngModel)]="nuevoPedido.nTarjeta" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Porfavor Introduce un Numero de Tarjeta.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="validationMatriculaRepartidor">Matricula Repartidor</label>
+                    <input type="text" class="form-control" id="validationMatriculaRepartidor" value="" name="matriculaRepartidor"
+                        [(ngModel)]="nuevoPedido.matriculaRepartidor" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Porfavor Introduce la matriculo del Repartidor
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="validationFecha">Fecha</label>
+                    <input type="date" class="form-control" id="validationFecha" value="" name="Fecha"
+                        [(ngModel)]="nuevoPedido.fecha" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Porfavor Introduce la Fecha.
+                    </div>
+                </div>
+            </div>
+            <button (click)="postPedido()" type="submit" class="btn btn-primary mr-3" data-toggle="modal"
+                data-target="#exampleModal">Enviar</button>
+            <button (click)="close()" type="button" class="btn btn-secondary">Cerrar</button>
+        </form>
+
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+        </script>
+
+    </div>
+</section>

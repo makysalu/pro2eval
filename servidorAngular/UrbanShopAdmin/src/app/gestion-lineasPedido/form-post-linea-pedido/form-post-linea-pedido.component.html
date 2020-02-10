@@ -1,0 +1,56 @@
+<section class="fixed-top modal-bg vw-100 vh-100 d-flex justify-content-center align-items-center">
+    <div id="contacto" class="modal-form formulario container p-5 col-9 col-md-6 bg-light">
+        <h1 class="display-4 text-center mb-4 pt-3">Añadir Linea de Pedido</h1>
+        <form class="needs-validation" novalidate>
+            <div class="form-row">
+                <div class="col-12 mb-3">
+                    <label for="validationIdProducto">Producto</label>
+                    <input type="text" class="form-control" id="validationIdProducto" value="" name="validationIdProducto"
+                    [(ngModel)]="nuevoLineaPedido.idProducto" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Porfavor Introduce un Producto
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="validationCantidad">Cantidad</label>
+                    <input type="text" class="form-control" id="validationCantidad" value="" name="Cantidad"
+                    [(ngModel)]="nuevoLineaPedido.cantidad" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Porfavor Introduce una Cantidad.
+                    </div>
+                </div>
+            </div>
+            <button (click)="postLineaPedido()" type="submit" class="btn btn-primary mr-3" data-toggle="modal"
+                data-target="#exampleModal">Enviar</button>
+            <button (click)="close(idPedido)" type="button" class="btn btn-secondary">Cerrar</button>
+        </form>
+
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+        </script>
+
+    </div>
+</section>
