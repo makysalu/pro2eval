@@ -12,7 +12,10 @@ export class GestionPedidosComponent implements OnInit {
   modalPostPedido = false;
   modalDeletePedido = false;
   modalPutPedido = false;
+  modalError = false;
+
   idPedido = "";
+  msgError: String = "";
 
   constructor(private pedidoService: SPedidosService) { }
 
@@ -32,6 +35,9 @@ export class GestionPedidosComponent implements OnInit {
     );
   }
 
+  postPedido() {
+    this.modalPostPedido = !this.modalPostPedido;
+  }
   funCambiar(evento) {
     if (evento.metodo == "Post") {
       this.modalPostPedido = !this.modalPostPedido;
@@ -49,4 +55,14 @@ export class GestionPedidosComponent implements OnInit {
   updatePedidos() {
     this.getAllPedidos()
   }
+
+  funError(evento) {
+    this.msgError = evento;
+    this.modalError = true;
+  }
+
+  cerrarModal() {
+    this.modalError = false;
+  }
+
 }

@@ -12,6 +12,7 @@ export class FormPostLineaPedidoComponent implements OnInit {
   @Input() idPedido: Number;
   @Output() cambio = new EventEmitter();
   @Output() updateLineasPedidos = new EventEmitter();
+  @Output() msgError = new EventEmitter();
 
   constructor(private lineaPedidoService: LineasPedidosService) { }
   nuevoLineaPedido: ILineaPedido = {
@@ -22,26 +23,25 @@ export class FormPostLineaPedidoComponent implements OnInit {
   }
 
   ngOnInit() {
-  
+
   }
 
-  postLineaPedido() { 
-    this.nuevoLineaPedido.idPedido=this.idPedido;   
-    
+  postLineaPedido() {
+    this.nuevoLineaPedido.idPedido = this.idPedido;
+
     this.lineaPedidoService.postLineaPedido(this.nuevoLineaPedido)
       .subscribe(
         prod => {
           let pedido = prod;
           if (pedido) {
-            console.log("Pedido Creado");
-            this.updateLineasPedidos.emit(this.idPedido); 
+            this.updateLineasPedidos.emit(this.idPedido);
             this.close(this.idPedido);
           }
           else {
-            console.log("NO se a prodido Crear el Pedido");
+            this.msgError.emit("No se a Podido Añadir esta Linea");
           }
         },// Success function
-        error => console.error(error), // Error function (optional)
+        error => this.msgError.emit("No se a Podido Añadir esta Linea"), // Error function (optional)
         //() => console.log("Alumnos loaded”) // Finally function (optional)")
       );
 

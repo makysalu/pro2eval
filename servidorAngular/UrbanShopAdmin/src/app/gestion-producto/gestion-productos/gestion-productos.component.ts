@@ -11,7 +11,10 @@ export class GestionProductosComponent implements OnInit {
   modalPostProducto = false;
   modalDeleteProducto = false;
   modalPutProducto = false;
+  modalError = false;
+
   idProducto = 0;
+  msgError: String = "";
 
   constructor(private productoService: SProductosService) { }
 
@@ -45,6 +48,15 @@ export class GestionProductosComponent implements OnInit {
 
   updateProductos() {
     this.getAllProductos()
+  }
+
+  funError(evento) {
+    this.msgError = evento;
+    this.modalError = true;
+  }
+
+  cerrarModal() {
+    this.modalError = false;
   }
 
 }

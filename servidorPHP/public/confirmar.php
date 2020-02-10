@@ -12,13 +12,13 @@
                 $lineaPedido->postLineaPedido($bbdd->conexion);
                 $total=$total+$lineaCarro["precio"]*$lineaCarro["cantidad"];
             }
-            require "./assets/inicioHTML.php";
-            require "./assets/header.php";
-            require "./assets/pedido.php";
             $closeCarro=new Carro($_COOKIE["idCarro"],"","","","");
             $closeCarro->deleteCarro($bbdd->conexion);
             setcookie("idCarro","",time()-36000);
             setcookie("totalCarro","",time()-36000);
+            require "./assets/inicioHTML.php";
+            require "./assets/header.php";
+            require "./assets/pedido.php";
         }
         else{
             header("location:Vercarrito.php");

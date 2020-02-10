@@ -35,9 +35,10 @@
         //var_dump($input["dniCliente"]); 
         $cliente= new Usuario($input['dniCliente'],"","","","","");
         $cliente->getUsuario($bbdd->conexion);
-        
+        $password=password_hash($input['pwd'], PASSWORD_DEFAULT);
+
         if($cliente->nombre==""){
-            $cliente= new Usuario($input['dniCliente'],$input['nombre'],$input['direccion'],$input['email'],$input['pwd'],$input['admin']);
+            $cliente= new Usuario($input['dniCliente'],$input['nombre'],$input['direccion'],$input['email'],$password,$input['admin']);
             $cliente->postUsuario($bbdd->conexion);
             header("HTTP/1.1 200 OK");
             echo json_encode(true);

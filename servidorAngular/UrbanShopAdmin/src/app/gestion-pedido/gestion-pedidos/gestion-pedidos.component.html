@@ -4,17 +4,22 @@
     <div class="row text-center p-2 pb-3 pt-3 bg-secondary text-light">
       <span class="col-1">Id</span>
       <span class="col-3">Fecha</span>
-      <span class="col-2 col-sm-3">Direccion de Entrega</span>
-      <span class="col-2 col-md-3">dniClient</span>
-      <span class="ml-3 d-flex justify-content-end row"></span>
+      <span class="col-2 col-md-3">Direccion de Entrega</span>
+      <span class="col-2 col-lg-3">dniClient</span>
+      <span class="col-4 col-md-3 col-lg-2"></span>
     </div>
     <pedido [pedido]="pedido" *ngFor="let pedido of pedidos" (cambio)=funCambiar($event)></pedido>
-  
+    <button (click)="postPedido()" type="submit" class="btn btn-secondary mr-3 mt-1" data-toggle="modal"
+      data-target="#exampleModal">Nuevo Pedido</button>
   </section>
+  <form-post-pedido *ngIf="modalPostPedido" (updateLineasPedidos)=updateLineasPedidos(event) (cambio)=funCambiar($event)
+    (msgError)=funError($event)>
+  </form-post-pedido>
   <form-put-pedido *ngIf="modalPutPedido" [idPedido]="idPedido" (updateLineasPedidos)=updateLineasPedidos(event)
-    (cambio)=funCambiar($event)>
+    (cambio)=funCambiar($event) (msgError)=funError($event)>
   </form-put-pedido>
   <modal-delete-pedido *ngIf="modalDeletePedido" [idPedido]="idPedido" (updateLineasPedidos)=updateLineasPedidos(event)
-    (cambio)=funCambiar($event)>
+    (cambio)=funCambiar($event) (msgError)=funError($event)>
   </modal-delete-pedido>
+  <modal-error *ngIf="modalError" [msgError]="msgError" (close)=cerrarModal()></modal-error>
 </section>

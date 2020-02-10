@@ -22,5 +22,13 @@
                 $seccion.="</tbody>";
             $seccion.="</table>";
         $seccion.="</article>";
-    $seccion.="</section>";
     echo $seccion;
+    ?>
+    <form action="crearPDF.php" method="post">
+        <div class='d-flex justify-content-end p-2'>
+            <input type="hidden" value="<?php echo $seccion ?>" name="html">
+            <button type="submit" class="btn btn-secondary p-3">Download PDF</button>
+        </div>
+    </form>
+</secction>
+                

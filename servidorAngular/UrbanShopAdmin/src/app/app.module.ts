@@ -33,6 +33,8 @@ import { LineaPedidoComponent } from './gestion-lineasPedido/linea-pedido/linea-
 import { ModalDeleteLineaPedidoComponent } from './gestion-lineasPedido/modal-delete-linea-pedido/modal-delete-linea-pedido.component';
 import { GestionLineasPedidosComponent } from './gestion-lineasPedido/gestion-lineas-pedidos/gestion-lineas-pedidos.component';
 import { FormPostLineaPedidoComponent } from './gestion-lineasPedido/form-post-linea-pedido/form-post-linea-pedido.component';
+import { LoginComponent } from './login/login.component';
+import { ModalErrorComponent } from './modal-error/modal-error.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { FormPostLineaPedidoComponent } from './gestion-lineasPedido/form-post-l
     LineaPedidoComponent,
     ModalDeleteLineaPedidoComponent,
     GestionLineasPedidosComponent,
-    FormPostLineaPedidoComponent
+    FormPostLineaPedidoComponent,
+    LoginComponent,
+    ModalErrorComponent
   ],
   imports: [
     BrowserModule,

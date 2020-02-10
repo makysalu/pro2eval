@@ -10,6 +10,7 @@ export class ModalDeletePedidoComponent implements OnInit {
   @Input() idPedido: String;
   @Output() cambio = new EventEmitter();
   @Output() updatePedidos = new EventEmitter();
+  @Output() msgError = new EventEmitter();
 
   constructor(private pedidoService: SPedidosService) { }
 
@@ -23,15 +24,14 @@ export class ModalDeletePedidoComponent implements OnInit {
         prod => {
           let pedido = prod;
           if (pedido) {
-            console.log("Pedido Creado");
             this.updatePedidos.emit();
             this.close();
           }
           else {
-            console.log("NO se a prodido borrar el Pedido");
+            this.msgError.emit("No se a Podido Eliminar el Pedido");
           }
         },// Success function
-        error => console.error(error), // Error function (optional)
+        error => this.msgError.emit("No se a Podido Eliminar el Pedido"), // Error function (optional)
         //() => console.log("Alumnos loaded”) // Finally function (optional)")
       );
   }

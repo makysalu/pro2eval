@@ -2,3 +2,6 @@
     width: 40px;
 }
 
+.border-secondary{
+    border-bottom:solid 1.5px #DEE2E6 !important;
+}

@@ -10,6 +10,8 @@ import { SProductosService } from '../../../../services/s-productos.service';
 export class FormPostProductoComponent implements OnInit {
   @Output() cambio = new EventEmitter();
   @Output() updateProductos = new EventEmitter();
+  @Output() msgError = new EventEmitter();
+
   confPassword = "";
   nuevoProducto: IProducto = {
     idProducto: 0,
@@ -35,15 +37,14 @@ export class FormPostProductoComponent implements OnInit {
         prod => {
           let cliente = prod;
           if (cliente) {
-            console.log("Producto Añadido");
             this.updateProductos.emit();
             this.close();
           }
           else {
-            console.log("NO se a prodido Añadir el Producto");
+            this.msgError.emit("No se a Podido Añadir el Producto");
           }
         },// Success function
-        error => console.error(error), // Error function (optional)
+        error => this.msgError.emit("No se a Podido Añadir el Producto"), // Error function (optional)
         //() => console.log("Alumnos loaded”) // Finally function (optional)")
       );
   }

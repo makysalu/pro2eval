@@ -1,12 +1,14 @@
 <section class="container-fluid pl-5 pr-5">
   <h1 class="mb-4 text-center">Gestion Productos</h1>
   <tabla-productos [productos]="productos" (cambio)=funCambiar($event)></tabla-productos>
-  <form-post-producto *ngIf="modalPostProducto" (updateProductos)=updateProductos() (cambio)=funCambiar($event)>
+  <form-post-producto *ngIf="modalPostProducto" (updateProductos)=updateProductos() (cambio)=funCambiar($event)
+    (msgError)=funError($event)>
   </form-post-producto>
   <form-put-producto *ngIf="modalPutProducto" [idProducto]="idProducto" (updateProductos)=updateProductos()
-    (cambio)=funCambiar($event)>
+    (cambio)=funCambiar($event) (msgError)=funError($event)>
   </form-put-producto>
   <modal-delete-producto *ngIf="modalDeleteProducto" [idProducto]="idProducto" (updateProductos)=updateProductos()
-    (cambio)=funCambiar($event)>
+    (cambio)=funCambiar($event) (msgError)=funError($event)>
   </modal-delete-producto>
+  <modal-error *ngIf="modalError" [msgError]="msgError" (close)=cerrarModal()></modal-error>
 </section>

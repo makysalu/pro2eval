@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ILineaPedido } from '../../../../interfaces/i-linea-pedido';
 import { LineasPedidosService } from '../../../../services/lineas-pedidos.service';
 
@@ -10,38 +10,47 @@ import { LineasPedidosService } from '../../../../services/lineas-pedidos.servic
 export class GestionLineasPedidosComponent implements OnInit {
   @Input() lineasPedidos: ILineaPedido[];
   @Input() idPedido: Number;
-  
-  
+
+
   modalDeleteLineaPedido = false;
-  modalPostLineaPedido =  false;
-  nlinea="";
+  modalPostLineaPedido = false;
+  nlinea = "";
   constructor(private lineaPedidoService: LineasPedidosService) { }
 
   ngOnInit() {
-    
+
   }
 
-  postLineaPedido(){
-    this.modalPostLineaPedido=!this.modalPostLineaPedido
+  postLineaPedido() {
+    this.modalPostLineaPedido = !this.modalPostLineaPedido
   }
 
-  updateLineasPedidos(){
+  updateLineasPedidos() {
     this.lineaPedidoService.getAllLineasPedidos(this.idPedido).subscribe(
       prods => this.lineasPedidos = prods, // Success function
       error => console.error(error), // Error function (optional)
       //() => console.log("Pedidos loaded") // Finally function (optional)
     );
   }
-  
+
   funCambiar(evento) {
     if (evento.metodo == "Post") {
       this.modalPostLineaPedido = !this.modalPostLineaPedido;
-      this.idPedido=evento.idPedido
+      this.idPedido = evento.idPedido
     }
     if (evento.metodo == "Delete") {
       this.modalDeleteLineaPedido = !this.modalDeleteLineaPedido;
       this.nlinea = evento.nlinea;
       this.idPedido = evento.idPedido;
     }
+  }
+
+  funError(evento) {
+    this.msgError = evento;
+    this.modalError = true;
+  }
+
+  cerrarModal() {
+    this.modalError = false;
   }
 }

@@ -11,6 +11,7 @@ export class FormPutClienteComponent implements OnInit {
   @Input() dniCliente: String;
   @Output() cambio = new EventEmitter();
   @Output() updateClientes = new EventEmitter();
+  @Output() msgError = new EventEmitter();
 
   cliente: ICliente[] = []
   datosCliente: ICliente = {
@@ -49,15 +50,14 @@ export class FormPutClienteComponent implements OnInit {
         prod => {
           let cliente = prod;
           if (cliente) {
-            console.log("Cliente Creado");
             this.updateClientes.emit();
             this.close();
           }
           else {
-            console.log("NO se a prodido Crear el Cliente");
+            this.msgError.emit("No se a Podido Modificar el Usuario");
           }
         },// Success function
-        error => console.error(error), // Error function (optional)
+        error => this.msgError.emit("No se a Podido Modificar el Usuario"), // Error function (optional)
         //() => console.log("Alumnos loaded”) // Finally function (optional)")
       );
   }

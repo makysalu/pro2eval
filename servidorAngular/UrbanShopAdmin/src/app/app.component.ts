@@ -7,9 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'UrbanShopAdmin';
-  gestionClientes = false;
+  gestionClientes = true;
   gestionProductos = false;
-  gestionPedidos = true;
+  gestionPedidos = false;
+  login = true;
 
 
   funCambiar(evento) {
@@ -28,5 +29,9 @@ export class AppComponent {
       this.gestionClientes = false;
       this.gestionProductos = false;
     }
+  }
+
+  funLogin(evento) {
+    this.login = evento;
   }
 }

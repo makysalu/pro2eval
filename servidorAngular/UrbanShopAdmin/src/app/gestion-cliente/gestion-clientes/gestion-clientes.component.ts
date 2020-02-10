@@ -12,7 +12,10 @@ export class GestionClientesComponent implements OnInit {
   modalPostCliente = false;
   modalDeleteCliente = false;
   modalPutCliente = false;
+  modalError = false;
+
   dniCliente = "";
+  msgError: String = "";
 
   constructor(private clienteService: SClientesService) { }
 
@@ -51,4 +54,12 @@ export class GestionClientesComponent implements OnInit {
     this.getAllClientes()
   }
 
+  funError(evento) {
+    this.msgError = evento;
+    this.modalError = true;
+  }
+
+  cerrarModal() {
+    this.modalError = false;
+  }
 }

@@ -10,6 +10,8 @@ import { SPedidosService } from '../../../../services/s-pedidos.service';
 export class FormPostPedidoComponent implements OnInit {
   @Output() cambio = new EventEmitter();
   @Output() updatePedidos = new EventEmitter();
+  @Output() msgError = new EventEmitter();
+
   nuevoPedido: IPedido = {
     idPedido: 0,
     fecha: new Date(),
@@ -23,21 +25,20 @@ export class FormPostPedidoComponent implements OnInit {
   ngOnInit() {
   }
 
-  postPedido() {    
+  postPedido() {
     this.pedidoService.postPedido(this.nuevoPedido)
       .subscribe(
         prod => {
           let pedido = prod;
           if (pedido) {
-            console.log("Pedido Creado");
             this.updatePedidos.emit();
             this.close();
           }
           else {
-            console.log("NO se a prodido Crear el Pedido");
+            this.msgError.emit("No se a Podido Añadir el Pedido");
           }
         },// Success function
-        error => console.error(error), // Error function (optional)
+        error => this.msgError.emit("No se a Podido Añadir el Pedido"), // Error function (optional)
         //() => console.log("Alumnos loaded”) // Finally function (optional)")
       );
 

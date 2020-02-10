@@ -11,6 +11,7 @@ export class FormPutProductoComponent implements OnInit {
   @Input() idProducto: Number;
   @Output() cambio = new EventEmitter();
   @Output() updateProductos = new EventEmitter();
+  @Output() msgError = new EventEmitter();
 
   producto: IProducto[] = []
   datosProducto: IProducto = {
@@ -54,15 +55,14 @@ export class FormPutProductoComponent implements OnInit {
         prod => {
           let producto = prod;
           if (producto) {
-            console.log("Cliente Creado");
             this.updateProductos.emit();
             this.close();
           }
           else {
-            console.log("NO se a prodido Crear el Cliente");
+            this.msgError.emit("No se a Podido Modificar el Producto");
           }
         },// Success function
-        error => console.error(error), // Error function (optional)
+        error => this.msgError.emit("No se a Podido Modificar el Producto"), // Error function (optional)
         //() => console.log("Alumnos loaded”) // Finally function (optional)")
       );
   }

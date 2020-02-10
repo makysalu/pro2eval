@@ -8,8 +8,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class LineasPedidosService {
-  //private controladorURL = 'http://localhost/daw2/pro2eval/servidorPHP/public/controladores/gestion_clientes.php';
-  private controladorURL = 'http://localhost/web/2DAW/pro2eval/servidorPHP/public/controladores/gestion_lineasPedidos.php';
+  private controladorURL = 'http://localhost/daw2/pro2eval/servidorPHP/public/controladores/gestion_lineasPedidos.php';
+  //private controladorURL = 'http://localhost/web/2DAW/pro2eval/servidorPHP/public/controladores/gestion_lineasPedidos.php';
 
   constructor(private http: HttpClient) { }
 
@@ -26,8 +26,8 @@ export class LineasPedidosService {
     })
   }
 
-  deleteLineaPedido(idPedido,nlinea): Observable<any> {
-    return this.http.delete(this.controladorURL + "/?idPedido=" + idPedido + "&" + "nlinea=" +nlinea);
+  deleteLineaPedido(idPedido, nlinea): Observable<any> {
+    return this.http.delete(this.controladorURL + "/?idPedido=" + idPedido + "&" + "nlinea=" + nlinea);
   }
 
 }

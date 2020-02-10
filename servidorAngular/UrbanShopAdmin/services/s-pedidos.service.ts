@@ -8,8 +8,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class SPedidosService {
-  private controladorURL = 'http://localhost/web/2DAW/pro2eval/servidorPHP/public/controladores/gestion_pedidos.php';
-  //private controladorURL = 'http://localhost/daw2/pro2eval/servidorPHP/public/controladores/gestion_pedidos.php';
+  //private controladorURL = 'http://localhost/web/2DAW/pro2eval/servidorPHP/public/controladores/gestion_pedidos.php';
+  private controladorURL = 'http://localhost/daw2/pro2eval/servidorPHP/public/controladores/gestion_pedidos.php';
 
   constructor(private http: HttpClient) { }
 
