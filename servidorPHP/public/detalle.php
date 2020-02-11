@@ -11,12 +11,11 @@
             }
              else{
                 $monedas=json_decode(conexion_api());
-                var_dump($monedas->formula);
-               /* require "./assets/inicioHTML.php";
+                require "./assets/inicioHTML.php";
                 include "./assets/header.php";
                 include "./assets/detalles.php";
                 //include "./assets/admin/footer_admin.php";
-                require "./assets/cierreHTML.php";*/
+                require "./assets/cierreHTML.php";
              }     
         }
         else{

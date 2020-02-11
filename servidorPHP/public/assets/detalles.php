@@ -20,7 +20,12 @@
                 <div class="form-group price_elem row">
                     <label form="input-precio" class="col-sm-3 col-md-3 form-control-label">Precio:</label>
                     <div class="col-sm-8 col-md-9">
-                        <span><?php echo $producto->precio;?>€</span>
+                        <select name="moneda" id="">
+                            <option value="EURO"><?php echo (($monedas->currency_rates->EUR-0.0949)*$producto->precio)."€" ?></option>                     
+                            <option value="EURO"><?php echo (($monedas->currency_rates->USD-0.0949)*$producto->precio)."$" ?></option>
+                            <option value="EURO"><?php echo (($monedas->currency_rates->GBP-0.0949)*$producto->precio)."£" ?></option>
+                            <option value="EURO"><?php echo (($monedas->currency_rates->CAD-0.0949)*$producto->precio)."$ canadiense" ?></option>
+                        </select>
                         <input type="hidden" name="precio" id="input-precio" value="<?php echo $producto->precio;?>" readonly><br>
                     </div>
                 </div>
