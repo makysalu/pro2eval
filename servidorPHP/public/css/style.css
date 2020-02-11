@@ -36,3 +36,15 @@ section{
     left: -120px !important;
     width: 300px !important;
 }
+
+.form-contacto{
+    border:none !important;
+    border-bottom: 2px solid grey !important;
+    margin-bottom: 10px !important;
+    border-radius: 0 !important;
+}
+
+.form-contacto:focus{
+    border-bottom: 2px solid green !important;
+    box-shadow: 0px 0px 0px #999 !important;
+}

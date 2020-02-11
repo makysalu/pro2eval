@@ -47,6 +47,9 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Categoria</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contacto.php">Contacto</a>
+      </li>
     </ul>
     <ul class="nav justify-content-end">
       <li class="nav-item text-light">

@@ -77,7 +77,19 @@
     'italic' => $fontDir . '\DejaVuSerif-Italic',
     'normal' => $fontDir . '\DejaVuSerif',
   ),
-  'glyphicons halflings' => array(
-    'normal' => $fontDir . '\c47afe5539ba1b2094563d54dce2def7',
+  'absolute_pink' => array(
+    'normal' => $fontDir . '\6d50d93b5a798afb6aba2d8e7fb66cdf',
+  ),
+  'acratica' => array(
+    'normal' => $fontDir . '\108b5b4319e64e833fb2dedea324f917',
+  ),
+  'overpass' => array(
+    'normal' => $fontDir . '\39adb09e6cf757e51718a54b11d5ce56',
+  ),
+  'urban_labels' => array(
+    'normal' => $fontDir . '\fba834ff44bbba710ddc25841552020e',
+  ),
+  'robotos' => array(
+    'normal' => $fontDir . '\4eb15cf56bf56b87da49b0c0a7a47281',
   ),
 ) ?>

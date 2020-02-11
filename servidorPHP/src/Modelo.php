@@ -5,7 +5,7 @@
         public function __construct(){
             if(!isset($this->conexion)){
                 try{
-                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', 'root');
+                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', '');
                     $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 }
                 catch(PDOException $e){
