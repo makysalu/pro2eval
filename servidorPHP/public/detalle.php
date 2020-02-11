@@ -1,13 +1,13 @@
 
     <?php 
+        require "../src/Modelo.php";
         if(isset($_GET["idProducto"])){
-            require "../src/Modelo.php";
             $base= new BBDD;
             $producto=new Producto($_GET["idProducto"],"","","","","","",""); 
             $producto->getProducto($base->conexion);
             if ($producto===false) {
                 $base->cerrarconexion();
-                header("location:principal.php");
+                header("location: ".S);
             }
              else{
                 $monedas=json_decode(conexion_api());
@@ -19,7 +19,8 @@
              }     
         }
         else{
-            //header("location:principal.php");
+            //var_dump(S);
+            header("location: ".S);
         }
 
         function conexion_api(){

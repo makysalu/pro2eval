@@ -13,24 +13,10 @@ echo $html;
 
 // Introducimos HTML de prueba
 
-
-
-
-
-
- 
-// Instanciamos un objeto de la clase DOMPDF.
-$pdf = new DOMPDF();
- 
-// Definimos el tamaño y orientación del papel que queremos.
-$pdf->set_paper("A4", "landscape");
- 
-// Cargamos el contenido HTML.
-$pdf->load_html(utf8_decode($html));
- 
-// Renderizamos el documento PDF.
-$pdf->render();
- 
-// Enviamos el fichero PDF al navegador.
-$pdf->stream('factura.pdf');
-
+$dompdf = new DOMPDF();
+$dompdf->load_html($html); 
+$dompdf->render();    
+$pdf = $dompdf->output();
+ob_end_clean();
+$dompdf->stream('fichero.pdf');
+exit;

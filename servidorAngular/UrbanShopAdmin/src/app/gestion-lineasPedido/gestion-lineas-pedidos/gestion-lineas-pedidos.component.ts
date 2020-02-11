@@ -11,10 +11,11 @@ export class GestionLineasPedidosComponent implements OnInit {
   @Input() lineasPedidos: ILineaPedido[];
   @Input() idPedido: Number;
 
-
   modalDeleteLineaPedido = false;
   modalPostLineaPedido = false;
+  modalError = false;
   nlinea = "";
+  msgError = "";
   constructor(private lineaPedidoService: LineasPedidosService) { }
 
   ngOnInit() {

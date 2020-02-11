@@ -17,23 +17,23 @@
                     if(isset($_COOKIE["idCarro"])){     
                         foreach ($carro as $lineaCarro) {
                             echo "<tr class='text-center table-active'>";
-                                echo "<td style='width: 100px'><img class='mw-100' src="."'./img/productos/".$lineaCarro["foto"]."' alt='imagen-producto'></td>";
+                                echo "<td style='width: 100px'><img class='mw-100' src='".IMG."/productos/".$lineaCarro["foto"]."' alt='imagen-producto'></td>";
                                 echo "<td class='align-middle'>".$lineaCarro["nombre"]."</td>";
                                 echo "<td class='align-middle'><input type='hidden' name='nlinea[]' value='".$lineaCarro["lineaCarro"]."' readonly><input type='number' name='cantidad[]' min='0' max='100' value='".$lineaCarro["cantidad"]."' required></td>";
                                 echo "<td class='align-middle'>".$lineaCarro["precio"]*$lineaCarro["cantidad"]."</td>";
                                 $total=$total+$lineaCarro["precio"]*$lineaCarro["cantidad"];
-                                echo "<td style='width: 80px' ><a href='Vercarrito.php?lineaCarro=".$lineaCarro["lineaCarro"]."'><img class='mw-100  pt-4 p-3' id='logo_close' src='./img/close.png' alt='fotocierre'></a></td>";
+                                echo "<td style='width: 80px' ><a href='pedido=".$lineaCarro["lineaCarro"]."'><img class='mw-100  pt-4 p-3' id='logo_close' src='".IMG."/close.png' alt='fotocierre'></a></td>";
                             echo "</tr>";
                         }
                     }
                     if(isset($_POST["Comprar"])&&!isset($_COOKIE["idCarro"])){
                         echo "<tr class='text-center table-active'>";
-                            echo "<td style='width: 100px'><img class='mw-100' src="."'./img/productos/".$_POST["foto"]."' alt='imagen-producto'></td>";
+                            echo "<td style='width: 100px'><img class='mw-100' src='".IMG."/productos/".$_POST["foto"]."' alt='imagen-producto'></td>";
                             echo "<td class='align-middle'>".$_POST["nombre"]."</td>";
                             echo "<td class='align-middle'><input type='hidden' name='nlinea[]' value='1' readonly><input type='number' name='cantidad[]' min='0' max='100' value='".$_POST["cantidad"]."' required></td>";
                             echo "<td class='align-middle'>".$_POST["precio"]*$_POST["cantidad"]."</td>";
                             $total=$total+$_POST["precio"]*$_POST["cantidad"];
-                            echo "<td style='width: 80px' ><a href='Vercarrito.php?lineaCarro=1'><img class='mw-100  pt-4 p-3' id='logo_close' src='./img/close.png' alt='fotocierre'></a></td>";
+                            echo "<td style='width: 80px' ><a href='pedido=1'><img class='mw-100  pt-4 p-3' id='logo_close' src='./img/close.png' alt='fotocierre'></a></td>";
                         echo "</tr>";
                     }
                     
@@ -42,7 +42,7 @@
         </table>
             <?php
                 echo "<div class='row mr-1'>";
-                        echo "<span class='col align-self-start'><a href='index.php'><input class='btn btn-secondary ml-5' id='boton_seguirComprando' type='button' value='Seguir Comprando'></a></span>";
+                        echo "<span class='col align-self-start'><a href='../'><input class='btn btn-secondary ml-5' id='boton_seguirComprando' type='button' value='Seguir Comprando'></a></span>";
                         echo "<span class='col align-self-center'>&nbsp;</span>";
                         echo "<div class='col align-self-end table-active p-4'>";
                             echo "<div class='d-flex flex-row'>";
@@ -56,7 +56,7 @@
                             echo "</div>";
                             echo "<div class='d-flex flex-row mt-4'>";
                                 echo "<span class='col align-self-start'><input class='btn btn-secondary' id='boton_actualizarCarro' type='submit' value='Actualizar' name='actualizar'></span>";
-                                echo "<span class='col align-self-end'><a href='confirmar.php'><input class='btn btn-secondary' id='boton_confirmarCarro' type='button' value='Confirmar'></a></span>";
+                                echo "<span class='col align-self-end'><a href='".S."/comprar' class='btn btn-secondary'>Confirmar</a></span>";
                             echo "</div>";
                         echo "</div>";
                     echo "</div>";

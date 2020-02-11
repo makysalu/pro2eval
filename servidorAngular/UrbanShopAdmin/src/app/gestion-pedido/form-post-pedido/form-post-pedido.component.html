@@ -5,8 +5,12 @@
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label for="validationDniCliente">DniCliente</label>
-                    <input type="text" class="form-control" id="validationDniCliente" value="" name="dniCliente"
+                    <select class="form-control" name="validationDniCliente" id="validationDniCliente"
                         [(ngModel)]="nuevoPedido.dniCliente" required>
+                        <option *ngFor="let cliente of clientes" value="{{cliente.dniCliente}}">
+                            {{cliente.nombre}}
+                        </option>
+                    </select>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -44,8 +48,8 @@
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label for="validationMatriculaRepartidor">Matricula Repartidor</label>
-                    <input type="text" class="form-control" id="validationMatriculaRepartidor" value="" name="matriculaRepartidor"
-                        [(ngModel)]="nuevoPedido.matriculaRepartidor" required>
+                    <input type="text" class="form-control" id="validationMatriculaRepartidor" value=""
+                        name="matriculaRepartidor" [(ngModel)]="nuevoPedido.matriculaRepartidor" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>

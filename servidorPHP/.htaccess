@@ -1,0 +1,13 @@
+RewriteEngine on
+
+#Gestion Tienda
+RewriteRule ^$ public/principal.php
+RewriteRule ^detalle/producto=(.+)$ public/detalle.php?idProducto=$1
+RewriteRule ^comprar$ public/confirmar.php 
+RewriteRule ^carrito$ public/Vercarrito.php
+RewriteRule ^carrito/pedido=(.+)$ public/Vercarrito.php?lineaCarro=$1
+
+
+RewriteRule ^contoladores/gestion_clientes/(.+)$ contoladores/gestion_clientes.php?dniCliente=$1
+RewriteRule ^contoladores/gestion_clientes/(.+)/(.+)/(.+)/(.+)/(.+)$ contoladores/gestion_clientes.php?dniCliente=$1&$2=$3&$4=$5
+

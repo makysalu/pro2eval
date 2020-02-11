@@ -1,6 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ILineaPedido } from '../../../../interfaces/i-linea-pedido';
+import { IProducto } from '../../../../interfaces/i-producto';
+
+import { SProductosService } from '../../../../services/s-productos.service';
 import { LineasPedidosService } from '../../../../services/lineas-pedidos.service';
+
 
 @Component({
   selector: 'form-post-linea-pedido',
@@ -14,7 +18,13 @@ export class FormPostLineaPedidoComponent implements OnInit {
   @Output() updateLineasPedidos = new EventEmitter();
   @Output() msgError = new EventEmitter();
 
-  constructor(private lineaPedidoService: LineasPedidosService) { }
+  constructor(
+    private lineaPedidoService: LineasPedidosService,
+    private productoService: SProductosService,
+
+  ) { }
+  productos: IProducto[] = [];
+
   nuevoLineaPedido: ILineaPedido = {
     idPedido: 0,
     nlinea: 0,
@@ -23,7 +33,15 @@ export class FormPostLineaPedidoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAllProductos();
+  }
 
+  getAllProductos() {
+    this.productoService.getAllProductos().subscribe(
+      prods => this.productos = prods, // Success function
+      error => console.error(error), // Error function (optional)
+      //() => console.log("Clientes loaded") // Finally function (optional)
+    );
   }
 
   postLineaPedido() {

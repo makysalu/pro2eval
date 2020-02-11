@@ -1,11 +1,12 @@
 <?php
+    require_once "../config.php";
     class BBDD{
         private $conexion;
 
         public function __construct(){
             if(!isset($this->conexion)){
                 try{
-                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', '');
+                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', 'root');
                     $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 }
                 catch(PDOException $e){
@@ -553,7 +554,7 @@ class Usuario{
 
     public function getAllLineasPedidos($conexion,$idPedido){
         try{
-            $sql = $conexion->prepare("SELECT * FROM lineaspedidos WHERE idPedido=:idPedido");
+            $sql = $conexion->prepare("SELECT lineaspedidos.*,productos.nombre FROM lineaspedidos LEFT JOIN productos ON lineaspedidos.idProducto = productos.idProducto WHERE idPedido=:idPedido");
             $sql->bindParam(':idPedido',$idPedido);
             $sql->execute();
             return $sql->fetchAll(PDO::FETCH_ASSOC);

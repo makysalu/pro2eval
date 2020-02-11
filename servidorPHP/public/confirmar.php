@@ -21,11 +21,11 @@
             require "./assets/pedido.php";
         }
         else{
-            header("location:Vercarrito.php");
+            header("location:carrito");
         }        
     }
     else{
-        header("location:Vercarrito.php");
+        header("location:carrito");
     }
       
 ?>

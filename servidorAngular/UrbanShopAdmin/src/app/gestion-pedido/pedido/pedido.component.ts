@@ -1,4 +1,4 @@
-import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ILineaPedido } from '../../../../interfaces/i-linea-pedido';
 import { IPedido } from '../../../../interfaces/i-pedido';
 import { LineasPedidosService } from '../../../../services/lineas-pedidos.service';
@@ -11,31 +11,34 @@ import { LineasPedidosService } from '../../../../services/lineas-pedidos.servic
 export class PedidoComponent implements OnInit {
   @Input() pedido: IPedido;
   @Output() cambio = new EventEmitter();
-  idPedido="";
+  idPedido = "";
   lineasPedidos: ILineaPedido[] = []
-  verLineas=false;
+  verLineas = false;
   constructor(private pedidoService: LineasPedidosService) { }
 
   ngOnInit() {
   }
 
-  getAllLineasPedido(idPedido){
-    if(this.lineasPedidos.length!=0){
-      this.lineasPedidos=[];
+  getAllLineasPedido(idPedido) {
+    if (this.lineasPedidos.length != 0) {
+      this.lineasPedidos = [];
     }
-    else{
-      this.idPedido= idPedido;
+    else {
+      this.idPedido = idPedido;
       this.pedidoService.getAllLineasPedidos(idPedido).subscribe(
-        prods => this.lineasPedidos = prods, // Success function
+        prods => {
+        this.lineasPedidos = prods
+          console.log(this.lineasPedidos);
+        }, // Success function
         error => console.error(error), // Error function (optional)
         //() => console.log("Pedidos loaded") // Finally function (optional)
       );
     }
   }
-  
+
   putPedido(idPedido) {
     console.log(idPedido);
-    
+
     let datos = {
       idPedido: idPedido,
       metodo: "Put"
@@ -58,8 +61,8 @@ export class PedidoComponent implements OnInit {
     this.cambio.emit(datos);
   }
 
-  mostrar(){
-    this.verLineas=!this.verLineas;
+  mostrar() {
+    this.verLineas = !this.verLineas;
   }
 
 }

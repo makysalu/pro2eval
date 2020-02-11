@@ -4,10 +4,10 @@
         <!--hola-->
         <!--<h1 class="col-12 display-4 text-center pb-2 mb-4 border-bottom"></h1>-->
         <div class="col-6 d-flex justify-content-center">
-            <img src="./img/productos/<?php echo $producto->foto;?>" class="img-thumbnail img-detalle" alt="...">
+            <?php echo "<img src='".IMG."/productos/$producto->foto' class='img-thumbnail img-detalle' alt='...'>" ?>
         </div>
         <div class="col-6 pr-5">
-            <form class="form-horizontal" action="Vercarrito.php" method="post" enctype="multipart/form-data" name="buy">
+            <form class="form-horizontal" action="../carrito" method="post" enctype="multipart/form-data" name="buy">
                 <input type="hidden" name="idProducto" value="<?php echo $producto->idProducto;?>" readonly>
                 <input type="hidden" name="nombre" id="input-nombre" value="<?php echo $producto->nombre;?>" readonly><br>
                 <input type="hidden" name="foto" id="input-foto" value="<?php echo $producto->foto;?>" readonly><br>
@@ -22,10 +22,10 @@
                     <label form="input-precio" class="col-sm-3 col-md-3 form-control-label">Precio:</label>
                     <div class="col-sm-8 col-md-9">
                         <select name="moneda" id="">
-                            <option value="EURO"><?php echo (($monedas->currency_rates->EUR-0.0949)*$producto->precio)."€" ?></option>                     
-                            <option value="EURO"><?php echo (($monedas->currency_rates->USD-0.0949)*$producto->precio)."$" ?></option>
-                            <option value="EURO"><?php echo (($monedas->currency_rates->GBP-0.0949)*$producto->precio)."£" ?></option>
-                            <option value="EURO"><?php echo (($monedas->currency_rates->CAD-0.0949)*$producto->precio)."$ canadiense" ?></option>
+                            <option value="EURO"><?php echo round(($monedas->currency_rates->EUR*$producto->precio/$monedas->currency_rates->USD/$monedas->currency_rates->EUR),2)."€" ?></option>
+                            <option value="EURO"><?php echo round(($monedas->currency_rates->EUR*$producto->precio/$monedas->currency_rates->USD/$monedas->currency_rates->USD),2)."$" ?></option>
+                            <option value="EURO"><?php echo round(($monedas->currency_rates->EUR*$producto->precio/$monedas->currency_rates->USD/$monedas->currency_rates->GBP),2)."£" ?></option>                       
+                            <option value="EURO"><?php echo round(($monedas->currency_rates->EUR*$producto->precio/$monedas->currency_rates->USD/$monedas->currency_rates->CAD),2)."$ canadiense" ?></option>
                         </select>
                         <input type="hidden" name="precio" id="input-precio" value="<?php echo $producto->precio;?>" readonly><br>
                     </div>
