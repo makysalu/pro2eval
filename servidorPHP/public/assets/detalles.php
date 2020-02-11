@@ -1,6 +1,7 @@
 <section class="container p-0 pb-5" >
     <header class="text-center display-4 text-white m-0 mb-4 p-5 bg-secondary"><?php echo $producto->nombre;?></header>
     <article class="row">
+        <!--hola-->
         <!--<h1 class="col-12 display-4 text-center pb-2 mb-4 border-bottom"></h1>-->
         <div class="col-6 d-flex justify-content-center">
             <img src="./img/productos/<?php echo $producto->foto;?>" class="img-thumbnail img-detalle" alt="...">
