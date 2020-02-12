@@ -6,7 +6,7 @@
         public function __construct(){
             if(!isset($this->conexion)){
                 try{
-                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', 'root');
+                    $this->conexion=new PDO('mysql:host=localhost; dbname=virtualmarket', 'root', '');
                     $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 }
                 catch(PDOException $e){
@@ -283,6 +283,18 @@ class Usuario{
             $sql->bindParam('idCarro',$this->idCarro);
             $sql->bindParam(':dniCliente', $this->dniCliente);
             $sql->execute();
+        }
+        catch(PDOException $ex){
+            $msg=$ex;
+        }
+    }
+    public function contLineasCarro($conexion){
+        try{
+            $sql = $conexion->prepare("SELECT COUNT(lineacarro) FROM carro WHERE idCarro=:idCarro");
+            $sql->bindParam('idCarro',$this->idCarro);
+            $sql->execute();
+            var_dump($sql);
+            return $sql->fetch(PDO::FETCH_ASSOC);
         }
         catch(PDOException $ex){
             $msg=$ex;

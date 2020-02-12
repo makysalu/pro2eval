@@ -42,7 +42,7 @@
                     }
                 }
         }
-        elseif (isset($_GET["lineaCarro"])){
+        elseif (isset($_GET["lineaCarro"])){    
             $lineaCarro=new Carro($_COOKIE["idCarro"],$_GET["lineaCarro"],"","","");
             $lineaCarro->deleteLineaCarro($bbdd->conexion);
             $totalCarro=$totalCarro-1;

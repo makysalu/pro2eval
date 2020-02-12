@@ -1,7 +1,7 @@
 <?php
 
 /*Servidor*/
-define("S","http://localhost/daw2/pro2eval/servidorPHP");
+define("S","http://localhost/web/2DAW/pro2eval/servidorPHP/");
 define("G","http://localhost:4200");
 
 /* Recurdos*/

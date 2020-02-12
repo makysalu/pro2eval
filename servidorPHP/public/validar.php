@@ -1,7 +1,7 @@
   <?php
+  require "../src/Modelo.php";
     if(isset($_POST["Loguear"])){
         $datos=limpiardatos($_POST);
-        require "../src/Modelo.php";
         $bbdd=new BBDD;
         $usuario = new Usuario($datos["DNI"],"","","","","");
         $usuario->getUsuario($bbdd->conexion);
@@ -17,6 +17,9 @@
                     $carro=new Carro("","",$usuario->dniCliente,"","");
                     $carro->getIdCarroBydniCliente($bbdd->conexion);
                     if($carro->idCarro!=null){
+                        $totalCarro=$carro->contLineasCarro($bbdd->conexion);
+                        var_dump($totalCarro);
+                        setcookie("totalCarro",$totalCarro["COUNT(lineacarro)"],time()+36000);
                         setcookie("idCarro",$carro->idCarro,time()+36000);
                     }
                 }
@@ -26,13 +29,13 @@
             }
         }
     }
-    else if($_GET["desconectar"]==true){
+    else if($_GET["desconectar"]=="true"){
         setcookie("dniCliente","",time()-36000);
         setcookie("username","",time()-36000);
         setcookie("idCarro","",time()-36000);
         setcookie("totalCarro","",time()-36000);
     }
-    header("location:index.php");
+    header("location: ".S);
    
 
     function limpiardatos($post){

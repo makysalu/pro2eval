@@ -6,7 +6,9 @@ RewriteRule ^detalle/producto=(.+)$ public/detalle.php?idProducto=$1
 RewriteRule ^comprar$ public/confirmar.php 
 RewriteRule ^carrito$ public/Vercarrito.php
 RewriteRule ^carrito/pedido=(.+)$ public/Vercarrito.php?lineaCarro=$1
-
+RewriteRule ^pedido=(.+)$ public/Vercarrito.php?lineaCarro=$1
+RewriteRule ^login$ public/validar.php
+RewriteRule ^desconectar=(.+)$ public/validar.php?desconectar=$1
 
 RewriteRule ^contoladores/gestion_clientes/(.+)$ contoladores/gestion_clientes.php?dniCliente=$1
 RewriteRule ^contoladores/gestion_clientes/(.+)/(.+)/(.+)/(.+)/(.+)$ contoladores/gestion_clientes.php?dniCliente=$1&$2=$3&$4=$5

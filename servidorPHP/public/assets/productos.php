@@ -12,9 +12,13 @@
                     echo "<img src='".IMG."/banner2.jpeg' class='d-none d-md-block w-100 col p-0' alt='...'>";
                  ?>
             </div>
-            <!--<div class="carousel-item">
-                <img src="img/banner.jpeg" class="d-block w-100" alt="...">
+            <div class="carousel-item">
+            <?php 
+                    echo "<img src='".IMG."/hip-hop.jpg' class='d-block d-md-none w-100 col p-0' alt='...'>";
+                    echo "<img src='".IMG."/hip-hop2.jpg' class='d-none d-md-block w-100 col p-0' alt='...'>";
+                 ?>
             </div>
+            <!--
             <div class="carousel-item">
                 <img src="img/banner.jpeg" class="d-block w-100 col" alt="...">
                 <img src="img/banner2.jpeg" class="d-block w-100" alt="...">
