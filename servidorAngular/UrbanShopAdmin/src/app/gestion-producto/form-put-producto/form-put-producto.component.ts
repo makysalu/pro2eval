@@ -14,6 +14,7 @@ export class FormPutProductoComponent implements OnInit {
   @Output() msgError = new EventEmitter();
 
   producto: IProducto[] = []
+  //añadimos a una variable datos que almacenara los nuevos datos introducidos para modificar el producto
   datosProducto: IProducto = {
     idProducto: this.idProducto,
     nombre: "",
@@ -31,6 +32,7 @@ export class FormPutProductoComponent implements OnInit {
   ngOnInit() {
     console.log(this.idProducto);
 
+    //hacemos una peticion get al servicio y le damos a cada valor de datos el valor de la bbdd
     this.productoService.getProducto(this.idProducto)
       .subscribe(
         prods => {
@@ -49,6 +51,8 @@ export class FormPutProductoComponent implements OnInit {
       );
   }
 
+  //realizamos una peticion put introduciendoles la variable datos productos para modificar mandar esos datos al controlador
+  //si falla el put se activa el modal de error con el mensaje correspondiente
   putProducto() {
     this.productoService.putProducto(this.datosProducto)
       .subscribe(
@@ -67,6 +71,7 @@ export class FormPutProductoComponent implements OnInit {
       );
   }
 
+//cierra el modal
   close() {
     let datos = {
       metodo: "Put",

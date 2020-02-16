@@ -1,0 +1,26 @@
+RewriteEngine on
+
+#Gestion Tienda
+RewriteRule ^$ public/principal.php
+RewriteRule ^msg/(.+)$ public/principal.php?msg=$1.
+RewriteRule ^detalle/(.+)$ public/detalle.php?idProducto=$1
+RewriteRule ^carrito/$ public/Vercarrito.php
+RewriteRule ^carrito/(.+)$ public/Vercarrito.php?lineaCarro=$1
+RewriteRule ^comprar/$ public/confirmar.php 
+RewriteRule ^login/$ public/validar.php
+RewriteRule ^login/(.+)$ public/validar.php?desconectar=$1
+RewriteRule ^registro/$ public/registro.php
+RewriteRule ^download-pdf/$ public/crearPdf.php
+RewriteRule ^contacto/$ public/contacto.php
+RewriteRule ^gestion-clientes/$ public/controladores/gestion_clientes.php
+RewriteRule ^gestion-clientes/(.+)$ public/controladores/gestion_clientes.php?dniCliente=$1
+RewriteRule ^gestion-productos/$ public/controladores/gestion_productos.php
+RewriteRule ^gestion-productos/(.+)$ public/controladores/gestion_productos.php?idProducto=$1
+RewriteRule ^gestion-pedidos/$ public/controladores/gestion_pedidos.php
+RewriteRule ^gestion-pedidos/(.+)$ public/controladores/gestion_pedidos.php?idPedido=$1
+RewriteRule ^gestion-lineas-pedidos/$ public/controladores/gestion_lineasPedidos.php
+RewriteRule ^gestion-lineas-pedidos/(.+)/(.+)$ public/controladores/gestion_lineasPedidos.php?idPedido=$1&&nlinea=$2
+RewriteRule ^gestion-lineas-pedidos/(.+)$ public/controladores/gestion_lineasPedidos.php?idPedido=$1
+
+
+

@@ -12,13 +12,14 @@
     <button (click)="postPedido()" type="submit" class="btn btn-secondary mr-3 mt-1" data-toggle="modal"
       data-target="#exampleModal">Nuevo Pedido</button>
   </section>
-  <form-post-pedido *ngIf="modalPostPedido" (updateLineasPedidos)=updateLineasPedidos(event) (cambio)=funCambiar($event)
+  <!--depende de la funcion que realicemos activamos un modal u otro-->
+  <form-post-pedido *ngIf="modalPostPedido" (updatePedidos)=updatePedidos(event) (cambio)=funCambiar($event)
     (msgError)=funError($event)>
   </form-post-pedido>
-  <form-put-pedido *ngIf="modalPutPedido" [idPedido]="idPedido" (updateLineasPedidos)=updateLineasPedidos(event)
+  <form-put-pedido *ngIf="modalPutPedido" [idPedido]="idPedido" (updatePedidos)=updatePedidos(event)
     (cambio)=funCambiar($event) (msgError)=funError($event)>
   </form-put-pedido>
-  <modal-delete-pedido *ngIf="modalDeletePedido" [idPedido]="idPedido" (updateLineasPedidos)=updateLineasPedidos(event)
+  <modal-delete-pedido *ngIf="modalDeletePedido" [idPedido]="idPedido" (updatePedidos)=updatePedidos(event)
     (cambio)=funCambiar($event) (msgError)=funError($event)>
   </modal-delete-pedido>
   <modal-error *ngIf="modalError" [msgError]="msgError" (close)=cerrarModal()></modal-error>

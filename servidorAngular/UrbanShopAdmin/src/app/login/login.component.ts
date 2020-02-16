@@ -8,8 +8,10 @@ import { LoginService } from '../../../services/login.service';
 })
 export class LoginComponent implements OnInit {
   @Output() cambio = new EventEmitter();
+  @Output() username = new EventEmitter();
   dni = "";
   password = "";
+
 
   constructor(private loginService: LoginService) { }
 
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
           let usuario = prod;
           if (usuario) {
             this.cambio.emit(true);
+            this.username.emit(usuario);
             //this.updateClientes.emit();
             //this.close();
           }

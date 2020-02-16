@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class LoginService {
-  private controladorURL = 'http://localhost/daw2/pro2eval/servidorPHP/public/controladores/gestion_login.php';
+  private controladorURL = 'http://localhost/public/controladores/gestion_login.php';
   //private controladorURL = 'http://localhost/web/2DAW/pro2eval/servidorPHP/public/controladores/gestion_clientes.php';
 
   constructor(private http: HttpClient) { }

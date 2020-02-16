@@ -27,6 +27,7 @@ export class GestionPedidosComponent implements OnInit {
     this.getAllPedidos()
   }
 
+  //realizamos una peticion get que para mostrar todas los pedidos
   getAllPedidos() {
     this.pedidoService.getAllPedidos().subscribe(
       prods => this.pedidos = prods, // Success function
@@ -35,6 +36,7 @@ export class GestionPedidosComponent implements OnInit {
     );
   }
 
+  //depende de la funcion que realizamos  activamos un modal u otro
   postPedido() {
     this.modalPostPedido = !this.modalPostPedido;
   }
@@ -52,10 +54,12 @@ export class GestionPedidosComponent implements OnInit {
     }
   }
 
+  //actualizamos lso pedidos
   updatePedidos() {
     this.getAllPedidos()
   }
 
+  //activamos el modal error y le introducimos el mensaje correspondiente
   funError(evento) {
     this.msgError = evento;
     this.modalError = true;

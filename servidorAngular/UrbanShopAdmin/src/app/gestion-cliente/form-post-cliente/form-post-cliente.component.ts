@@ -12,6 +12,8 @@ export class FormPostClienteComponent implements OnInit {
   @Output() msgError = new EventEmitter();
   @Output() updateClientes = new EventEmitter();
   confPassword = "";
+
+  //añadimos una variable nuevo cuyos datos recojeremos en el formulario
   nuevoCliente: ICliente = {
     dniCliente: "",
     admin: 0,
@@ -25,6 +27,8 @@ export class FormPostClienteComponent implements OnInit {
   ngOnInit() {
   }
 
+  //realizamos una peticion post y añadimos la funcion datos con los datos que hemos introducido en el formulario
+  //comprobamos que la contraseña y el confirmar coincida, muestra modal en caso de error
   postCliente() {
     if (this.nuevoCliente.pwd == this.confPassword) {
       this.clienteService.postCliente(this.nuevoCliente)
@@ -48,6 +52,7 @@ export class FormPostClienteComponent implements OnInit {
 
   }
 
+  //cerramos modal
   close() {
     let datos = {
       metodo: "Post"

@@ -14,6 +14,7 @@ export class FormPutPedidoComponent implements OnInit {
   @Output() msgError = new EventEmitter();
 
   pedido: IPedido[] = []
+  //creamos una variable con los datos de pedido que modificaremos en el formulario
   datosPedido: IPedido = {
     idPedido: this.idPedido,
     fecha: new Date(),
@@ -25,8 +26,8 @@ export class FormPutPedidoComponent implements OnInit {
 
   constructor(private pedidoService: SPedidosService) { }
 
+  //realizamos una peticion get con el id del pedido para sacar los datos del pedido y actualizar la varible datos con sus datos
   ngOnInit() {
-    //let dniCliente={"dniCliente":this.dniCliente}
     this.pedidoService.getPedido(this.idPedido).subscribe(
       prods => {
         this.datosPedido.idPedido = prods.idPedido,
@@ -42,6 +43,7 @@ export class FormPutPedidoComponent implements OnInit {
     );
   }
 
+  //realizamos una peticion put que manda la variable datos con los datos recojidos del formulario, muestra modal en caso de error
   putPedido() {
     //console.log(this.datosCliente);
     this.pedidoService.putPedido(this.datosPedido)
@@ -61,6 +63,7 @@ export class FormPutPedidoComponent implements OnInit {
       );
   }
 
+  //cerramos el modal
   close() {
     let datos = {
       metodo: "Put",

@@ -25,6 +25,7 @@ export class FormPostLineaPedidoComponent implements OnInit {
   ) { }
   productos: IProducto[] = [];
 
+  //añadimos un array nueva linea de pedido
   nuevoLineaPedido: ILineaPedido = {
     idPedido: 0,
     nlinea: 0,
@@ -36,6 +37,7 @@ export class FormPostLineaPedidoComponent implements OnInit {
     this.getAllProductos();
   }
 
+  //acemos una peticion get para sacar todos los productos de la bbdd
   getAllProductos() {
     this.productoService.getAllProductos().subscribe(
       prods => this.productos = prods, // Success function
@@ -44,6 +46,7 @@ export class FormPostLineaPedidoComponent implements OnInit {
     );
   }
 
+  //realizamos una peticion post e introducimos los datos recojidos en el formulario, mostramos modal en caso de error
   postLineaPedido() {
     this.nuevoLineaPedido.idPedido = this.idPedido;
 
@@ -65,6 +68,7 @@ export class FormPostLineaPedidoComponent implements OnInit {
 
   }
 
+  //cerramos modal
   close(idPedido) {
     let datos = {
       idPedido: idPedido,

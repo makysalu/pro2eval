@@ -27,15 +27,16 @@ export class GestionClientesComponent implements OnInit {
     this.getAllClientes()
   }
 
+  //realizamos una peticion get que recojera todos los clientes de la bbdd, añadimos los clientes a un array clientes
   getAllClientes() {
     this.clienteService.getAllClientes().subscribe(
       prods => this.clientes = prods, // Success function
       error => console.error(error), // Error function (optional)
       //() => console.log("Clientes loaded") // Finally function (optional)
     );
-    console.log(this.clientes);
   }
 
+  //depende de la funcion mostramos un modal u otro
   funCambiar(evento) {
     if (evento.metodo == "Post") {
       this.modalPostCliente = !this.modalPostCliente;

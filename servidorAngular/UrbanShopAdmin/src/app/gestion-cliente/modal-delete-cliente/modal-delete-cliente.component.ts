@@ -18,6 +18,7 @@ export class ModalDeleteClienteComponent implements OnInit {
 
   }
 
+  //realizamos una peticion delete con el dni para eliminar el cliente, muestra el mensaje en caso de error
   deleteCliente() {
     this.clienteService.deleteCliente(this.dniCliente)
       .subscribe(
@@ -36,6 +37,7 @@ export class ModalDeleteClienteComponent implements OnInit {
       );
   }
 
+  //cerramos el modal 
   close() {
     let datos = {
       metodo: "Delete",

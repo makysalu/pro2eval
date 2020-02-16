@@ -1,3 +1,4 @@
+<!--Recorremos el array lineas pedidos y sacamos los valores de cada elemento -->
 <linea-pedido [lineaPedido]="lineaPedido" *ngFor="let lineaPedido of lineasPedidos" (cambio)=funCambiar($event)>
 </linea-pedido>
 <div class="row text-center bg-light border-bottom">
@@ -16,6 +17,7 @@
         </svg>
     </span>
 </div>
+<!--mostramos modal dependiendo de la funcion realizada-->
 <modal-delete-linea-pedido *ngIf="modalDeleteLineaPedido" (cambio)=funCambiar($event) [idPedido]="idPedido"
     [nlinea]="nlinea" (updateLineasPedidos)=updateLineasPedidos() (msgError)=funError($event)>
 </modal-delete-linea-pedido>

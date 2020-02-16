@@ -16,6 +16,7 @@ export class FormPostPedidoComponent implements OnInit {
 
   clientes: ICliente[] = []
 
+  //creamos una variable nuevo cuyo datos recojeremos en el formulario
   nuevoPedido: IPedido = {
     idPedido: 0,
     fecha: new Date(),
@@ -33,15 +34,16 @@ export class FormPostPedidoComponent implements OnInit {
     this.getAllClientes()
   }
 
+  //realizamos una peticion get para recojer todos los clientes de la bbdd
   getAllClientes() {
     this.clienteService.getAllClientes().subscribe(
       prods => this.clientes = prods, // Success function
       error => console.error(error), // Error function (optional)
       //() => console.log("Clientes loaded") // Finally function (optional)
     );
-    console.log(this.clientes);
   }
 
+  //realizamos una peticion post y le mandamos los datos de nuevo para introducilo a la bbdd, muestra modal en caso de error
   postPedido() {
     this.pedidoService.postPedido(this.nuevoPedido)
       .subscribe(
@@ -61,6 +63,7 @@ export class FormPostPedidoComponent implements OnInit {
 
   }
 
+  //cerrar modal
   close() {
     let datos = {
       metodo: "Post"

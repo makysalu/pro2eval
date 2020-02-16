@@ -14,7 +14,10 @@ export class TablaProductosComponent implements OnInit {
   ngOnInit() {
 
   }
-
+  /*creea un objeto dependiendo de la funcion
+    en todas introducimos el nombre de la funcion que queremos realizar 
+    en caso de delete y put le incluimos la id del producto
+*/
   putProducto(idProducto) {
     let datos = {
       idProducto: idProducto,

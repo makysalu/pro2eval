@@ -1,0 +1,30 @@
+.caja-color{
+    display:inline;
+    float:left;
+    margin-left:10px;
+    margin-right: 10px;
+}
+
+.swatch-wrap {
+    border:solid 1px #ccc; 
+    padding: 5px;
+}
+.swatch-holder {
+    width:88px; 
+    height:88px; 
+    background: #e1e1e1; 
+    border:solid 1px #e1e1e1;
+}
+.swatch-wrap figcaption {
+    color: #959595; 
+    font-size: 12px; 
+    font-weight: bold; 
+    line-height: 1.5em; 
+    padding: 5px 0 0; 
+}
+.resultShown .swatch-wrap figcaption {
+    color:#363636;
+}
+.swatch-wrap figcaption span {
+    text-transform: lowercase;
+}

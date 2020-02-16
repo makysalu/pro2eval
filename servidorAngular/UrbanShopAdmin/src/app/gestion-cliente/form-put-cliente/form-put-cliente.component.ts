@@ -14,6 +14,8 @@ export class FormPutClienteComponent implements OnInit {
   @Output() msgError = new EventEmitter();
 
   cliente: ICliente[] = []
+
+  //creeamos una variable datos que los recojeremos en el formulario
   datosCliente: ICliente = {
     dniCliente: this.dniCliente,
     admin: 0,
@@ -25,6 +27,7 @@ export class FormPutClienteComponent implements OnInit {
 
   constructor(private clienteService: SClientesService) { }
 
+  //realizamos una peticion get con el dni y sacamos todos los datos del cliente, añadimos los datos la variable datos
   ngOnInit() {
     //let dniCliente={"dniCliente":this.dniCliente}
     this.clienteService.getCliente(this.dniCliente).subscribe(
@@ -43,6 +46,7 @@ export class FormPutClienteComponent implements OnInit {
     );
   }
 
+  //realizamos una peticion put añadiendo la variable datos con los datos que recojemos en el formulario, muestra modal en caso de erro
   putCliente() {
     //console.log(this.datosCliente);
     this.clienteService.putCliente(this.datosCliente)
@@ -62,6 +66,7 @@ export class FormPutClienteComponent implements OnInit {
       );
   }
 
+  //cerramos el modal
   close() {
     let datos = {
       metodo: "Put",

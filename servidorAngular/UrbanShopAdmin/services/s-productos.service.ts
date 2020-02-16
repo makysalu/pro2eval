@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SProductosService {
   //private controladorURL = 'http://localhost/web/2DAW/pro2eval/servidorPHP/public/controladores/gestion_productos.php';
-  private controladorURL = 'http://localhost/daw2/pro2eval/servidorPHP/public/controladores/gestion_productos.php';
+  private controladorURL = 'http://localhost/gestion-productos/';
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +18,7 @@ export class SProductosService {
   }
 
   getProducto(idProducto): Observable<any> {
-    return this.http.get(this.controladorURL + "/?idProducto=" + idProducto);
+    return this.http.get(this.controladorURL + "/" + idProducto);
   }
 
   postProducto(producto: IProducto): Observable<any> {
@@ -48,7 +48,7 @@ export class SProductosService {
   }
 
   deleteProducto(idProducto): Observable<any> {
-    return this.http.delete(this.controladorURL + "/?idProducto=" + idProducto);
+    return this.http.delete(this.controladorURL + "/" + idProducto);
   }
 
 }

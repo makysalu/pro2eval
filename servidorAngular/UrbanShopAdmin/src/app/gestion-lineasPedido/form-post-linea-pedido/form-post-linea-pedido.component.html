@@ -5,6 +5,7 @@
             <div class="form-row">
                 <div class="col-12 mb-3">
                     <label for="validationIdProducto">Producto</label>
+                    <!-- recorremos el array productos y generamos un select con todos los productos de la bbdd-->
                     <select class="form-control" name="validationIdProducto" id="validationIdProducto"
                         [(ngModel)]="nuevoLineaPedido.idProducto" required>
                         <option *ngFor="let producto of productos" value="{{producto.idProducto}}">

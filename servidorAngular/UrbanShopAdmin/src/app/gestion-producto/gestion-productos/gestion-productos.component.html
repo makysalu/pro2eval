@@ -1,6 +1,7 @@
 <section class="container-fluid pl-5 pr-5">
   <h1 class="mb-4 text-center">Gestion Productos</h1>
   <tabla-productos [productos]="productos" (cambio)=funCambiar($event)></tabla-productos>
+  <!--depende del la funcion activamos un modal u otro-->
   <form-post-producto *ngIf="modalPostProducto" (updateProductos)=updateProductos() (cambio)=funCambiar($event)
     (msgError)=funError($event)>
   </form-post-producto>

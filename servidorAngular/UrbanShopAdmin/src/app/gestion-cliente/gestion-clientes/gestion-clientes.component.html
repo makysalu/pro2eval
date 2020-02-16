@@ -1,6 +1,7 @@
 <section class="container-fluid pl-5 pr-5">
   <h1 class="mb-4 text-center">Gestion Clientes</h1>
   <tabla-clientes [clientes]="clientes" (cambio)=funCambiar($event)></tabla-clientes>
+  <!-- mostramos un modal dependiendo de la funcion-->
   <form-post-cliente *ngIf="modalPostCliente" (updateClientes)=updateClientes() (cambio)=funCambiar($event)
     (msgError)=funError($event)>
   </form-post-cliente>

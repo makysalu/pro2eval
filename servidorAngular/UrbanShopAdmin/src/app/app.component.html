@@ -1,7 +1,8 @@
-<login *ngIf="!login" (cambio)=funLogin($event)></login>
-<cabecera *ngIf="login" [title]="title" (cambio)=funCambiar($event)></cabecera>
+<!--Si login es false muestra el modulo de loguin introduciendo las funciones para añadir el nombre de la persona y para cambiar el estado de login a true y mostrar el resto de elementos-->
+<login *ngIf="!login" (username)=insertName($event) (cambio)=funLogin($event)></login>
+<cabecera *ngIf="login" [nombre]="nombre" [title]="title" (cambio)=funCambiar($event)></cabecera>
+<!-- Si login es true muestra la opcion que selecciones mediante el condicional ngIF -->
 <gestion-clientes *ngIf="gestionClientes && login"></gestion-clientes>
 <gestion-productos *ngIf="gestionProductos && login"></gestion-productos>
 <gestion-pedidos *ngIf="gestionPedidos && login"></gestion-pedidos>
 <router-outlet></router-outlet>
-<!-- [title]="title" [gestionClientes]="gestionClientes" [gestionProductos]="gestionProductos" [gestionPedidos]="gestionPedidos" -->
